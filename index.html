@@ -125,10 +125,41 @@ th.gc,td.gc{border-inline-start:1px solid var(--line)}
 .tag.stall{background:var(--warn-soft);color:var(--warn)}
 .tag.noexc{background:var(--accent-soft);color:var(--ink)}
 .tag.miss{border:1px dashed var(--line);color:var(--muted)}
+.tag.st1{background:var(--warn-soft);color:var(--warn)}
+.tag.st2{background:color-mix(in srgb,var(--danger) 12%,transparent);color:var(--danger)}
+.tag.st3{background:var(--danger);color:#fff}
+.hset{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:12px}
+.field.col{display:flex;flex-direction:column;align-items:stretch;gap:4px}
+.hset input,.hset select{font:inherit;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+.hcats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.hcats label,.hck{display:inline-flex;align-items:center;gap:6px;font-size:14px;border:1px solid var(--line);border-radius:8px;padding:6px 10px;cursor:pointer}
+.hcats label.off{opacity:.5;cursor:not-allowed}
+.hck{border:0;padding:0;color:var(--muted)}
+.hunits{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+.hunit{border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.hunit h3{margin:0 0 8px;font-size:15px}
+.hrow{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:8px;padding:7px 0;border-top:1px solid var(--line)}
+.hrow:first-of-type{border-top:0}
+.hrow .hn{font-weight:600;font-size:14px;min-width:0}
+.hrow .hc{display:block;font-weight:400;font-size:11.5px;color:var(--muted);margin-top:2px}
+.hrow .ht{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--accent)}
+.hrow .warnf{color:var(--warn);font-size:11px;font-weight:600}
+.hboards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.hboard{border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.hboard h3{margin:0 0 6px;font-size:15px;color:var(--accent)}
+.hboard h4{margin:10px 0 2px;font-size:12.5px;color:var(--muted);font-weight:600}
+.stages{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:4px 0 14px}
+.stages .stg{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px;line-height:1.7;color:var(--muted)}
+.stages .stg b{display:block;font-size:14px;color:var(--ink);margin-bottom:2px}
+.stages .stg .n{font-family:var(--mono);font-size:20px;color:var(--ink);float:left}
+.stages .src{grid-column:1/-1;font-size:12px;color:var(--muted)}
+.tag.abs{background:var(--danger-soft);color:var(--danger)}
+.tag.late{background:var(--warn-soft);color:var(--warn)}
 .tag.weak{background:var(--danger-soft);color:var(--danger)}
 .tag.proj{background:color-mix(in srgb,var(--g4) 14%,transparent);color:var(--g4)}
 .subj{display:inline-block;font-size:12px;border-radius:6px;padding:1px 8px;margin:1px 0 1px 4px;white-space:nowrap;border:1px solid var(--line);color:var(--ink)}
 .jiss{margin-top:12px;font-size:14px}
+.hotv{color:var(--danger);font-weight:700}
 .subj.low{border-color:color-mix(in srgb,var(--danger) 35%,transparent);color:var(--danger)}
 .subj .sc{font-family:var(--mono);font-size:11px;margin-inline-start:4px;color:var(--muted)}
 .jiss ul{margin:6px 0 0;padding-inline-start:20px;columns:2;column-gap:28px;color:var(--muted)}
@@ -345,6 +376,8 @@ details.certset summary{cursor:pointer;font-family:var(--display);font-weight:50
     <button type="button" data-m="plat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="12" rx="1.8"/><path d="M8.5 20h7M12 16.5V20M7.5 12.5l3-3 2.5 2 3.5-4"/></svg>المنصة</button>
     <button type="button" data-m="proj"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2.2h7a2 2 0 0 1 2 2v7.8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/><path d="M9 13.5l2 2 4-4"/></svg>المشاريع</button>
     <button type="button" data-m="grades"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h8l3.5 3.5v13.5h-11.5z"/><path d="M14.5 3.5V7H18M9.5 17v-3M12.5 17v-5.5M15.5 17v-2"/></svg>النتائج</button>
+    <button type="button" data-m="att"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4M9 14.5l2 2 4-4"/></svg>المواظبة</button>
+    <button type="button" data-m="honor"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="5.5"/><path d="M8.5 13.5L7 21l5-2.6 5 2.6-1.5-7.5"/><path d="M12 6.5l.9 1.8 2 .3-1.4 1.4.3 2-1.8-.9-1.8.9.3-2-1.4-1.4 2-.3z"/></svg>التكريم</button>
     <button type="button" data-m="follow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9.5" cy="8" r="3.5"/><path d="M3 20c.6-3.6 3.2-5.5 6.5-5.5 1.6 0 3 .4 4.1 1.2M15.5 15.5l2 2 4-4"/></svg>متابعة الطلاب<span class="cnt" id="followCnt" hidden></span></button>
     <button type="button" data-m="comp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v4.5a5 5 0 0 1-10 0z"/><path d="M7 6H4.5a2.5 2.5 0 0 0 3 3.6M17 6h2.5a2.5 2.5 0 0 1-3 3.6M12 13.5V17M8.5 20h7M9.5 17h5"/></svg>المسابقة الشهرية</button>
   </nav>
@@ -396,12 +429,22 @@ details.certset summary{cursor:pointer;font-family:var(--display);font-weight:50
       </div>
       <p class="msg" id="mG" hidden></p>
     </div>
+    <div class="step off" id="stepA" data-for="att" hidden>
+      <div class="stephead"><span class="num">2</span><h3>تقارير الحضور والغياب (PDF)</h3></div>
+      <p id="sAtext">من برنامج الحضور: تقرير «الطلاب الأكثر غياباً» وتقرير «الطلاب الأكثر حضوراً مبكراً». ارفعهما معاً أو كلاً على حدة.</p>
+      <div class="row">
+        <label class="btn primary" for="f7" id="f7label">اختيار تقارير PDF</label>
+        <input type="file" id="f7" accept=".pdf,application/pdf" multiple disabled>
+      </div>
+      <p class="msg" id="mA" hidden></p>
+    </div>
     <div class="step" id="stepF" data-for="follow" hidden>
       <div class="stephead"><span class="num">2</span><h3>مصادر المتابعة</h3></div>
       <div class="srcline" id="srcExc"></div>
       <div class="srcline" id="srcPlat"></div>
       <div class="srcline" id="srcProj"></div>
       <div class="srcline" id="srcGrades"></div>
+      <div class="srcline" id="srcAtt"></div>
     </div>
   </section>
 
@@ -449,6 +492,59 @@ details.certset summary{cursor:pointer;font-family:var(--display);font-weight:50
     <section class="panel no-print" id="histPanel" hidden aria-labelledby="hTitle">
       <div class="phead"><h2 id="hTitle">كشوف السلوك السابقة</h2><p>كل كشف ترفعه يُحفظ هنا لتقارن الأسابيع.</p></div>
       <div class="hist" id="hist"></div>
+    </section>
+  </div>
+
+  <!-- ============ التكريم ============ -->
+  <div class="mod" id="modHonor" hidden>
+    <section class="panel" id="honorEmpty" hidden><div class="empty"><b>لا توجد بيانات للتكريم بعد</b>ارفع تقرير واحد على الأقل: كشف السلوك المتميز، أو تقرير المنصة، أو تقارير الغياب، أو النتائج، أو المشاريع.</div></section>
+    <section class="panel no-print" id="hSet" hidden aria-labelledby="hSetTitle">
+      <div class="phead"><h2 id="hSetTitle">إعدادات التكريم</h2><p>الطالب المتميز = أعلى متوسط في الأقسام المختارة. كل قسم يُحوَّل إلى درجة من 100.</p></div>
+      <div class="hset">
+        <label class="field col" for="hLabel">مناسبة التكريم <input id="hLabel" type="text"></label>
+        <label class="field col" for="hScope">مستوى التكريم <select id="hScope"><option value="class">أوائل كل فصل</option><option value="grade">أوائل كل صف</option><option value="school">أوائل المدرسة</option></select></label>
+        <label class="field col" for="hTop">العدد <select id="hTop"><option value="1">الأول فقط</option><option value="3">الثلاثة الأوائل</option><option value="5">الخمسة الأوائل</option></select></label>
+      </div>
+      <div class="hcats" id="hCats"></div>
+      <label class="hck"><input type="checkbox" id="hStrict"> استبعاد من عليه إجراء غياب (3 أيام فأكثر) أو تعثر دراسي</label>
+    </section>
+    <section class="panel" id="hAll" hidden aria-labelledby="hAllTitle">
+      <div class="phead"><h2 id="hAllTitle">الطلاب المتميزون</h2><div class="row no-print"><button class="btn small primary" type="button" id="hPrintAll">طباعة شهادات المتميزين</button></div></div>
+      <p class="note" id="hMeta"></p>
+      <div class="hunits" id="hUnits"></div>
+    </section>
+    <section class="panel" id="hCatPanel" hidden aria-labelledby="hCatTitle">
+      <div class="phead"><h2 id="hCatTitle">المتميزون في كل قسم</h2><p id="hCatSub"></p></div>
+      <div class="hboards" id="hBoards"></div>
+    </section>
+  </div>
+
+  <!-- ============ المواظبة ============ -->
+  <div class="mod" id="modAtt" hidden>
+    <section class="panel" id="attEmpty" hidden><div class="empty"><b>ارفع تقارير الحضور والغياب</b>تقرير «الطلاب الأكثر غياباً» يعطي أيام الغياب والتأخر لكل طالب، وتقرير «الحضور المبكر» يعطي متوسط وقت حضوره.</div></section>
+    <section class="panel" id="aRes" hidden aria-labelledby="aTitle">
+      <div class="phead"><h2 id="aTitle">المواظبة حسب الصف والفصل</h2><p id="aMeta"></p></div>
+      <div class="ctrl no-print">
+        <label class="field" for="lTh">حد التأخر <input type="number" id="lTh" min="1" max="99" step="1" inputmode="numeric"> أيام فأكثر</label>
+      </div>
+      <div class="stages" id="aStages"></div>
+      <div class="sum" id="aSum"></div>
+      <div class="tbox"><table class="ctable"><thead id="aThead"></thead><tbody id="aRows"></tbody><tfoot id="aFoot"></tfoot></table></div>
+      <p class="note" id="aNote"></p>
+      <div id="aIssues" hidden></div>
+    </section>
+    <section class="panel" id="aStud" hidden aria-labelledby="aSTitle">
+      <div class="phead"><h2 id="aSTitle">الطلاب</h2></div>
+      <div class="toolbar no-print">
+        <div class="search"><input id="aQ" type="search" placeholder="ابحث بالاسم أو رقم الطالب" aria-label="بحث"></div>
+        <label class="field" for="aF">عرض <select id="aF"><option value="need">عليهم إجراء غياب أو تأخر فوق الحد</option><option value="s1">غياب 3 – 4 أيام</option><option value="s2">غياب 5 – 9 أيام</option><option value="s3">غياب 10 أيام فأكثر</option><option value="late">تأخر فوق الحد</option><option value="best">الأكثر انضباطاً (الأقل غياباً وتأخراً)</option><option value="none">غير موجودين في التقارير</option><option value="all">كل الطلاب</option></select></label>
+      </div>
+      <div class="finfo" id="aInfo"></div>
+      <div class="tbox"><table class="stable"><thead id="aSThead"></thead><tbody id="aSRows"></tbody></table></div>
+    </section>
+    <section class="panel no-print" id="aHistPanel" hidden aria-labelledby="aHTitle">
+      <div class="phead"><h2 id="aHTitle">تقارير سابقة</h2><p>يُعرض أحدث تقرير من كل نوع. اضغط «عرض» للرجوع لتقرير أقدم.</p></div>
+      <div class="hist" id="aHist"></div>
     </section>
   </div>
 
@@ -1035,7 +1131,7 @@ function parsePlatform(sheets) {
 const KEY = "noor-excellence-tool-v1", VKEY = "noor-excellence-tool-view2";
 const DEF = () => ({ school: "", year: "", students: [], studentsAt: null, reports: [], current: null, goal: 20,
   plat: [], platCurrent: null, platIgnore: [], platLinks: {}, levels: [10, 25, 40], inits: [], initActive: null,
-  proj: [], projCurrent: null, grades: [], gradesCurrent: null, gradeTh: 50, phones: {}, sent: {}, counselor: "", waApp: "web", backupAt: null, dirtyAt: null });
+  proj: [], projCurrent: null, grades: [], gradesCurrent: null, gradeTh: 50, att: [], attAbs: null, attEarly: null, absTh: 10, lateTh: 5, honor: {}, phones: {}, sent: {}, counselor: "", waApp: "web", backupAt: null, dirtyAt: null });
 let state = DEF(), storageOk = true;
 let lastBody = null, storeChars = 0;
 const bodyOf = () => JSON.stringify(Object.assign({}, state, { backupAt: null, dirtyAt: null }));
@@ -1043,8 +1139,8 @@ function load() { try { const s = localStorage.getItem(KEY); if (s) { state = Ob
 const isQuota = (e) => !!e && (e.name === "QuotaExceededError" || e.name === "NS_ERROR_DOM_QUOTA_REACHED" || e.code === 22 || e.code === 1014);
 /* أقدم تقرير في السجل لا يُعرض حالياً ولا تعتمد عليه المسابقة */
 function pruneOne() {
-  const c = state.comp || {}, keep = new Set([state.current, state.platCurrent, state.projCurrent, state.gradesCurrent, c.base, c.end]);
-  const cand = state.reports.filter((r) => !keep.has(r.id)).map((r) => ["reports", r]).concat(state.plat.filter((r) => !keep.has(r.id)).map((r) => ["plat", r])).concat((state.proj || []).filter((r) => !keep.has(r.id)).map((r) => ["proj", r])).concat((state.grades || []).filter((r) => !keep.has(r.id)).map((r) => ["grades", r]))
+  const c = state.comp || {}, keep = new Set([state.current, state.platCurrent, state.projCurrent, state.gradesCurrent, state.attAbs, state.attEarly, c.base, c.end]);
+  const cand = state.reports.filter((r) => !keep.has(r.id)).map((r) => ["reports", r]).concat(state.plat.filter((r) => !keep.has(r.id)).map((r) => ["plat", r])).concat((state.proj || []).filter((r) => !keep.has(r.id)).map((r) => ["proj", r])).concat((state.grades || []).filter((r) => !keep.has(r.id)).map((r) => ["grades", r])).concat((state.att || []).filter((r) => !keep.has(r.id)).map((r) => ["att", r]))
     .sort((a, b) => String(a[1].at).localeCompare(String(b[1].at)))[0];
   if (!cand) return false;
   state[cand[0]] = state[cand[0]].filter((r) => r !== cand[1]); return true;
@@ -1067,7 +1163,7 @@ function save(clean) {
   if (pruned) { lastBody = bodyOf(); toast(`امتلأت مساحة الحفظ، فنُزّلت نسخة احتياطية كاملة ثم حُذف ${pruned === 1 ? "أقدم تقرير" : pruned === 2 ? "أقدم تقريرين" : pruned < 11 ? "أقدم " + pruned + " تقارير" : "أقدم " + pruned + " تقريراً"} من السجل.`); }
   renderStore();
 }
-let view = { sortP: "class", module: "exc", tab: null, grade: null, cls: null, q: "", pf: "all", qP: "", pfP: "all", qF: "", pfF: "need", qJ: "", pfJ: "miss", qG: "", pfG: "weak" };
+let view = { sortP: "class", module: "exc", tab: null, grade: null, cls: null, q: "", pf: "all", qP: "", pfP: "all", qF: "", pfF: "need", qJ: "", pfJ: "miss", qG: "", pfG: "weak", qA: "", pfA: "need" };
 try { const v = JSON.parse(localStorage.getItem(VKEY) || "null"); if (v) { view.module = v.module || "exc"; view.tab = v.tab || null; } } catch (e) {}
 function saveView() { try { localStorage.setItem(VKEY, JSON.stringify({ module: view.module, tab: view.tab })); } catch (e) {} }
 
@@ -1429,15 +1525,17 @@ function renderSettings() {
 }
 
 /* ================= متابعة الطلاب ================= */
-const REASONS = { inact: "غير فعّال في المنصة", stall: "لا إنجاز جديد في المنصة", noexc: "غير مشارك في السلوك المتميز", miss: "لم يظهر في المنصة بعد", proj: "مشاريع غير مسلّمة", weak: "تعثر دراسي" };
+const REASONS = { inact: "غير فعّال في المنصة", stall: "لا إنجاز جديد في المنصة", noexc: "غير مشارك في السلوك المتميز", miss: "لم يظهر في المنصة بعد", proj: "مشاريع غير مسلّمة", weak: "تعثر دراسي", abs: "غياب متكرر", late: "تأخر متكرر" };
 function followData() {
   const er = curExc(), pr = curPlat();
   const em = er ? match(er) : null, pm = pr ? platMatch(pr) : null;
   const pp = pr ? prevOf(platSorted(), pr) : null, ppm = pp ? platMatch(pp) : null;
   const jr = curProj(), jm = jr ? projMatch(jr) : null;
   const gr = curRes(), gm = gr ? resMatch(gr) : null;
+  const ac = attCur(), am = ac.ab || ac.ea ? attMaps(ac) : null;
   const reasons = (s) => {
     const out = [];
+    if (am) { const a = attOf(am, s.sid); if (a) { if (a.absent != null && a.absent >= absTh()) out.push("abs"); if (a.late != null && a.late >= lateTh()) out.push("late"); } }
     if (gm) { const g = resOf(gm.bySid.get(s.sid)); if (g && g.weak.length) out.push("weak"); }
     if (jm) { const j = jm.bySid.get(s.sid); if (j && j.m.length) out.push("proj"); }
     if (pm) {
@@ -1451,19 +1549,19 @@ function followData() {
     if (em && !em.got.has(s.sid)) out.push("noexc");
     return out;
   };
-  return { er, pr, em, pm, ppm, jr, jm, gr, gm, reasons };
+  return { er, pr, em, pm, ppm, jr, jm, gr, gm, ac, am, reasons };
 }
 function renderFollow() {
   const F = followData();
-  const has = !!(F.er || F.pr || F.jr || F.gr);
+  const has = !!(F.er || F.pr || F.jr || F.gr || F.am);
   $("followEmpty").hidden = has; $("fRes").hidden = $("fStud").hidden = !has;
   if (!has) return;
   const R = new Map(state.students.map((s) => [s.sid, F.reasons(s)]));
   const classes = buildClasses((r, s) => { const x = R.get(s.sid); if (x.length) inc(r, "need"); if (x.length >= 2) inc(r, "multi"); x.forEach((k) => inc(r, k)); });
-  const derive = (r) => ({ n: r.n, need: r.need || 0, np: pct(r.need || 0, r.n), multi: r.multi || 0, inact: r.inact || 0, stall: r.stall || 0, noexc: r.noexc || 0, miss: r.miss || 0, proj: r.proj || 0, weak: r.weak || 0 });
+  const derive = (r) => ({ n: r.n, need: r.need || 0, np: pct(r.need || 0, r.n), multi: r.multi || 0, inact: r.inact || 0, stall: r.stall || 0, noexc: r.noexc || 0, miss: r.miss || 0, proj: r.proj || 0, weak: r.weak || 0, abs: r.abs || 0, late: r.late || 0 });
   const tot = derive(sumRaw(classes.filter((c) => !view.tab || c.grade === view.tab)));
   $("fTitle").textContent = view.tab ? "من يحتاج متابعة · " + shortGrade(view.tab) : "من يحتاج متابعة حسب الصف والفصل";
-  $("fMeta").textContent = [F.er ? "السلوك: " + periodText(F.er) : "", F.pr ? "المنصة: " + gDate(F.pr.at) : "", F.jr ? "المشاريع: " + projLabel(F.jr) : "", F.gr ? "النتائج: " + resLabel(F.gr) : ""].filter(Boolean).join(" · ");
+  $("fMeta").textContent = [F.er ? "السلوك: " + periodText(F.er) : "", F.pr ? "المنصة: " + gDate(F.pr.at) : "", F.jr ? "المشاريع: " + projLabel(F.jr) : "", F.gr ? "النتائج: " + resLabel(F.gr) : "", F.am ? "المواظبة: " + attRange(F.ac.ab || F.ac.ea) : ""].filter(Boolean).join(" · ");
   $("fSum").innerHTML = `
     <div class="red"><b>${tot.need}</b><span>يحتاجون متابعة · ${fmt1(tot.np)}%</span></div>
     <div><b>${tot.multi}</b><span>اجتمع فيهم سببان أو أكثر</span></div>
@@ -1472,14 +1570,16 @@ function renderFollow() {
     ${F.em ? `<div><b>${tot.noexc}</b><span>${REASONS.noexc}</span></div>` : ""}
     ${F.jm ? `<div><b>${tot.proj}</b><span>${REASONS.proj}</span></div>` : ""}
     ${F.gm ? `<div><b>${tot.weak}</b><span>${REASONS.weak}</span></div>` : ""}
+    ${F.am ? `<div><b>${tot.abs}</b><span>${REASONS.abs}</span></div>` : ""}
+    ${F.am && F.ac.ab ? `<div><b>${tot.late}</b><span>${REASONS.late}</span></div>` : ""}
     <div><b>${tot.n}</b><span>عدد الطلاب</span></div>`;
   groupedTable({ head: "fThead", body: "fRows", foot: "fFoot", scroll: "fStud" }, classes, {
-    head: `<th class="n">الطلاب</th><th class="n">يحتاجون متابعة</th><th>نسبتهم</th><th class="n">سببان فأكثر</th>${F.pm ? `<th class="n gc">${REASONS.inact}</th>` : ""}${F.ppm ? `<th class="n">${REASONS.stall}</th>` : ""}${F.em ? `<th class="n gc">${REASONS.noexc}</th>` : ""}${F.pm ? `<th class="n gc">لم يظهر في المنصة</th>` : ""}${F.jm ? `<th class="n gc">${REASONS.proj}</th>` : ""}${F.gm ? `<th class="n gc">${REASONS.weak}</th>` : ""}`,
-    cols: 4 + (F.pm ? 2 : 0) + (F.ppm ? 1 : 0) + (F.em ? 1 : 0) + (F.jm ? 1 : 0) + (F.gm ? 1 : 0), derive, sortKey: (d) => d.np,
-    cells: (d) => `<td class="n">${d.n}</td><td class="n hot">${d.need}</td><td>${bar(d.np, "red")}</td><td class="n">${d.multi}</td>${F.pm ? `<td class="n gc">${d.inact}</td>` : ""}${F.ppm ? `<td class="n">${d.stall}</td>` : ""}${F.em ? `<td class="n gc">${d.noexc}</td>` : ""}${F.pm ? `<td class="n gc">${d.miss}</td>` : ""}${F.jm ? `<td class="n gc">${d.proj}</td>` : ""}${F.gm ? `<td class="n gc">${d.weak}</td>` : ""}`
+    head: `<th class="n">الطلاب</th><th class="n">يحتاجون متابعة</th><th>نسبتهم</th><th class="n">سببان فأكثر</th>${F.pm ? `<th class="n gc">${REASONS.inact}</th>` : ""}${F.ppm ? `<th class="n">${REASONS.stall}</th>` : ""}${F.em ? `<th class="n gc">${REASONS.noexc}</th>` : ""}${F.pm ? `<th class="n gc">لم يظهر في المنصة</th>` : ""}${F.jm ? `<th class="n gc">${REASONS.proj}</th>` : ""}${F.gm ? `<th class="n gc">${REASONS.weak}</th>` : ""}${F.am ? `<th class="n gc">${REASONS.abs}</th><th class="n gc">${REASONS.late}</th>` : ""}`,
+    cols: 4 + (F.pm ? 2 : 0) + (F.ppm ? 1 : 0) + (F.em ? 1 : 0) + (F.jm ? 1 : 0) + (F.gm ? 1 : 0) + (F.am ? 2 : 0), derive, sortKey: (d) => d.np,
+    cells: (d) => `<td class="n">${d.n}</td><td class="n hot">${d.need}</td><td>${bar(d.np, "red")}</td><td class="n">${d.multi}</td>${F.pm ? `<td class="n gc">${d.inact}</td>` : ""}${F.ppm ? `<td class="n">${d.stall}</td>` : ""}${F.em ? `<td class="n gc">${d.noexc}</td>` : ""}${F.pm ? `<td class="n gc">${d.miss}</td>` : ""}${F.jm ? `<td class="n gc">${d.proj}</td>` : ""}${F.gm ? `<td class="n gc">${d.weak}</td>` : ""}${F.am ? `<td class="n gc">${d.abs}</td><td class="n gc">${d.late}</td>` : ""}`
   });
   const opts = [["need", "يحتاجون متابعة (أي سبب)"], ["multi", "سببان أو أكثر"]];
-  if (F.pm) opts.push(["inact", REASONS.inact]); if (F.ppm) opts.push(["stall", REASONS.stall]); if (F.em) opts.push(["noexc", REASONS.noexc]); if (F.pm) opts.push(["miss", REASONS.miss]); if (F.jm) opts.push(["proj", REASONS.proj]); if (F.gm) opts.push(["weak", REASONS.weak]);
+  if (F.pm) opts.push(["inact", REASONS.inact]); if (F.ppm) opts.push(["stall", REASONS.stall]); if (F.em) opts.push(["noexc", REASONS.noexc]); if (F.pm) opts.push(["miss", REASONS.miss]); if (F.jm) opts.push(["proj", REASONS.proj]); if (F.gm) opts.push(["weak", REASONS.weak]); if (F.am) { opts.push(["abs", REASONS.abs]); if (F.ac.ab) opts.push(["late", REASONS.late]); }
   opts.push(["all", "كل الطلاب"]);
   if (!opts.some((o) => o[0] === view.pfF)) view.pfF = "need";
   $("fF").innerHTML = opts.map((o) => `<option value="${o[0]}">${o[1]}</option>`).join(""); $("fF").value = view.pfF;
@@ -1488,9 +1588,9 @@ function renderFollow() {
   const scopeN = state.students.filter(inTab).length;
   const list = state.students.filter((s) => inTab(s) && (!view.grade || (s.grade === view.grade && s.cls === view.cls)) && fit(s) && (!view.qF || norm(s.name).includes(nq) || (qd && s.sid.includes(qd))))
     .sort((a, b) => order.indexOf(a.grade) - order.indexOf(b.grade) || (+a.cls - +b.cls) || (R.get(b.sid).length - R.get(a.sid).length) || a.name.localeCompare(b.name, "ar"));
-  $("fSThead").innerHTML = `<tr><th class="n">م</th><th>اسم الطالب</th><th>الفصل</th>${F.em ? `<th class="n">السلوك المتميز</th>` : ""}${F.pm ? `<th>الإنجاز في المنصة</th>` : ""}${F.jm ? `<th class="n">المشاريع</th>` : ""}${F.gm ? `<th class="n">النتيجة</th>` : ""}<th>أسباب المتابعة</th><th class="no-print">ولي الأمر</th></tr>`;
+  $("fSThead").innerHTML = `<tr><th class="n">م</th><th>اسم الطالب</th><th>الفصل</th>${F.em ? `<th class="n">السلوك المتميز</th>` : ""}${F.pm ? `<th>الإنجاز في المنصة</th>` : ""}${F.jm ? `<th class="n">المشاريع</th>` : ""}${F.gm ? `<th class="n">النتيجة</th>` : ""}${F.am ? `<th class="n">الغياب</th>` : ""}<th>أسباب المتابعة</th><th class="no-print">ولي الأمر</th></tr>`;
   followList = list.map((s) => s.sid);
-  const lastAt = [F.er && F.er.at, F.pr && F.pr.at, F.jr && F.jr.at, F.gr && F.gr.at].filter(Boolean).sort().pop() || "";
+  const lastAt = [F.er && F.er.at, F.pr && F.pr.at, F.jr && F.jr.at, F.gr && F.gr.at, F.ac && F.ac.ab && F.ac.ab.at, F.ac && F.ac.ea && F.ac.ea.at].filter(Boolean).sort().pop() || "";
   const sb = $("fSRows"); sb.textContent = ""; const frag = document.createDocumentFragment();
   list.forEach((s, i) => {
     const tr = document.createElement("tr"), x = F.pm ? F.pm.bySid.get(s.sid) : null, g = F.em ? F.em.got.get(s.sid) : null;
@@ -1499,12 +1599,13 @@ function renderFollow() {
       (F.pm ? `<td>${x ? `<span class="frac">${x.p}%</span> ${lvChip(lvIdx(x.p))}` : `<span class="np">—</span>`}</td>` : "") +
       (F.jm ? `<td class="n">${projCell(F.jm.bySid.get(s.sid))}</td>` : "") +
       (F.gm ? `<td class="n">${resCell(resOf(F.gm.bySid.get(s.sid)))}</td>` : "") +
-      `<td>${R.get(s.sid).map((k) => `<span class="tag ${k}">${REASONS[k]}</span>`).join("") || `<span class="np">لا شيء</span>`}</td>` +
+      (F.am ? `<td class="n">${attCell(attOf(F.am, s.sid))}</td>` : "") +
+      `<td>${R.get(s.sid).map((k) => k === "abs" && F.am ? `<span class="tag abs">${REASONS[k]}</span>${stTag(absStage((attOf(F.am, s.sid) || {}).absent))}` : `<span class="tag ${k}">${REASONS[k]}</span>`).join("") || `<span class="np">لا شيء</span>`}</td>` +
       `<td class="no-print">${sendBtn(s, lastAt)}</td>`;
     tr.children[1].textContent = s.name; frag.append(tr);
   });
   sb.append(frag);
-  if (!list.length) sb.innerHTML = `<tr><td colspan="9"><div class="empty"><b>لا يوجد طلاب بهذه التصفية</b>غيّر البحث أو اختر «كل الطلاب».</div></td></tr>`;
+  if (!list.length) sb.innerHTML = `<tr><td colspan="10"><div class="empty"><b>لا يوجد طلاب بهذه التصفية</b>غيّر البحث أو اختر «كل الطلاب».</div></td></tr>`;
   const parts = [];
   if (view.grade) parts.push(shortGrade(view.grade) + " / " + view.cls);
   if (view.pfF !== "all") parts.push(opts.find((o) => o[0] === view.pfF)[1]);
@@ -1695,9 +1796,9 @@ const SEAL = `<svg viewBox="0 0 100 100" aria-hidden="true"><g fill="#b08a3e">${
 function certHTML(w) {
   const c = C(), s = w.r.s, school = c.school || state.school || "المدرسة";
   const where = w.kind === "honor" ? `على مستوى <b>الصف ${esc(w.g.g)}</b>` : `على <b>فصل ${esc(shortGrade(s.grade))} ${esc(s.cls)}</b>`;
-  const rateTxt = (Math.round(w.r.rate * 10) / 10) % 1 === 0 ? String(Math.round(w.r.rate)) : fmt1(w.r.rate);
+  const rateTxt = w.body ? "" : (Math.round(w.r.rate * 10) / 10) % 1 === 0 ? String(Math.round(w.r.rate)) : fmt1(w.r.rate);
   const period = c.label || "";
-  const sg = (c.signers || []).filter((x) => x.t || x.n);
+  const sg = (w.signers || c.signers || []).filter((x) => x.t || x.n);
   return `<div class="cert" style="--ct:'${c.fTitle}';--cb:'${c.fBody}'">
     <div class="pat" style="background-image:${PAT}"></div>
     <div class="frame"></div>
@@ -1710,10 +1811,10 @@ function certHTML(w) {
         <div class="l">${state.year ? "العام الدراسي<br>" + esc(state.year) : ""}</div>
       </div>
       <div class="title">شهادة تميّز</div>
-      <div class="title-sub">الإنجاز في المنصة التعليمية</div>
+      <div class="title-sub">${esc(w.sub || "الإنجاز في المنصة التعليمية")}</div>
       <div class="lead">يسرّ إدارة ${esc(school)} أن تمنح الطالب</div>
       <div class="name">${esc(s.name)}</div>
-      <div class="body">هذه الشهادة لتحقيقه <b>المركز ${ordinal(w.r.rank)}</b> ${where}<br>في الإنجاز على المنصة${period ? " خلال " + esc(period) : ""} بنسبة إنجاز بلغت <span class="pct">${rateTxt}%</span></div>
+      <div class="body">${w.body || `هذه الشهادة لتحقيقه <b>المركز ${ordinal(w.r.rank)}</b> ${where}<br>في الإنجاز على المنصة${period ? " خلال " + esc(period) : ""} بنسبة إنجاز بلغت <span class="pct">${rateTxt}%</span>`}</div>
       <div class="wish">سائلين الله له دوام التوفيق والتميّز</div>
       <div class="date">حُررت في ${esc(hijriToday())}</div>
       <div class="sigs">${sg.map((x) => `<div class="sig"><span class="t">${esc(x.t)}</span><span class="line"></span><span class="n">${esc(x.n)}</span></div>`).join("")}</div>
@@ -1773,7 +1874,7 @@ function renderHistory(boxId, panelId, list, curId, metaFn, onView, onDelete) {
   list.forEach((r) => {
     const d = document.createElement("div"); d.className = "hitem" + (r.id === curId ? " cur" : "");
     d.innerHTML = `<span class="when"></span><span class="meta"></span>`;
-    d.querySelector(".when").textContent = r.entries ? periodText(r) : r.subjects ? projLabel(r) : r.classes ? resLabel(r) : "تقرير " + gDate(r.at);
+    d.querySelector(".when").textContent = r.entries ? periodText(r) : r.subjects ? projLabel(r) : r.classes ? resLabel(r) : r.kind ? attLabel(r) : "تقرير " + gDate(r.at);
     d.querySelector(".meta").textContent = metaFn(r) + " · رُفع " + gDate(r.at);
     const row = document.createElement("span"); row.className = "row";
     if (r.id !== curId) { const v = document.createElement("button"); v.type = "button"; v.className = "btn small"; v.textContent = "عرض"; v.onclick = () => { onView(r.id); save(); render(); window.scrollTo({ top: 0, behavior: "smooth" }); }; row.append(v); }
@@ -1799,7 +1900,7 @@ function render() {
   }
   $("delStudents").hidden = !hasS;
   // step 2 cards
-  $("step2").hidden = M !== "exc"; $("stepP").hidden = !(M === "plat" || M === "comp"); $("stepF").hidden = M !== "follow"; $("stepJ").hidden = M !== "proj"; $("stepG").hidden = M !== "grades";
+  $("step2").hidden = M !== "exc"; $("stepP").hidden = !(M === "plat" || M === "comp"); $("stepF").hidden = M !== "follow"; $("stepJ").hidden = M !== "proj"; $("stepG").hidden = M !== "grades"; $("stepA").hidden = M !== "att";
   const er = curExc(), pr = curPlat();
   $("step2").classList.toggle("off", !hasS); $("f2").disabled = !hasS; $("step2").classList.toggle("done", !!er);
   if (er) { $("s2text").innerHTML = `<span class="state">الكشف المعروض: ${esc(periodText(er))} · <b>${er.records}</b> سجلاً</span>`; $("f2label").textContent = "رفع كشف أحدث"; }
@@ -1817,7 +1918,13 @@ function render() {
   if (gr) { $("sGtext").innerHTML = `<span class="state">المعروض: ${esc(resLabel(gr))} · <b>${gr.rows.length}</b> طالباً من <b>${gr.classes.length}</b> فصول</span>`; $("f6label").textContent = "إضافة فصول أو تحديثها"; }
   else { $("sGtext").textContent = "ملف «EP_PeriodNotificationReport» من نور. ارفع ملفات الفصول كلها دفعة واحدة: حدّدها معاً في نافذة الاختيار، أو اسحبها كلها إلى هنا."; $("f6label").textContent = "اختيار ملفات الفصول"; }
   $("srcGrades").innerHTML = gr ? `<span class="ok">✓</span> النتائج: ${esc(resLabel(gr))}` : `<span class="no">!</span> لم تُرفع نتائج الفترة <button type="button" class="btn small" data-go="grades">رفعها</button>`;
-  $("stepF").classList.toggle("done", !!(er || pr || jr || gr));
+  const ar = attCur();
+  $("stepA").classList.toggle("off", !hasS); $("f7").disabled = !hasS; $("stepA").classList.toggle("done", !!(ar.ab || ar.ea));
+  if (ar.ab || ar.ea) { $("sAtext").innerHTML = `<span class="state">${[ar.ab && "الغياب: " + esc(attRange(ar.ab)), ar.ea && "الحضور المبكر: " + esc(attRange(ar.ea))].filter(Boolean).join(" · ")}</span>`; $("f7label").textContent = "رفع تقارير أحدث"; }
+  else { $("sAtext").textContent = "من برنامج الحضور: تقرير «الطلاب الأكثر غياباً» وتقرير «الطلاب الأكثر حضوراً مبكراً». ارفعهما معاً أو كلاً على حدة."; $("f7label").textContent = "اختيار تقارير PDF"; }
+  $("srcAtt").innerHTML = ar.ab || ar.ea ? `<span class="ok">✓</span> المواظبة: ${esc(attRange(ar.ab || ar.ea))}` : `<span class="no">!</span> لم تُرفع تقارير الغياب <button type="button" class="btn small" data-go="att">رفعها</button>`;
+  const hasA = !!(ar.ab || ar.ea);
+  $("stepF").classList.toggle("done", !!(er || pr || jr || gr || hasA));
   $("srcExc").innerHTML = er ? `<span class="ok">✓</span> كشف السلوك المتميز: ${esc(periodText(er))}` : `<span class="no">!</span> لم يُرفع كشف السلوك المتميز <button type="button" class="btn small" data-go="exc">رفعه</button>`;
   $("srcPlat").innerHTML = pr ? `<span class="ok">✓</span> تقرير المنصة: ${esc(gDate(pr.at))}` : `<span class="no">!</span> لم يُرفع تقرير المنصة <button type="button" class="btn small" data-go="plat">رفعه</button>`;
   document.querySelectorAll("[data-go]").forEach((b) => b.onclick = () => { view.module = b.dataset.go; saveView(); render(); });
@@ -1833,13 +1940,13 @@ function render() {
     tabs.append(b);
   });
   $("welcome").hidden = hasS;
-  $("modExc").hidden = !hasS || M !== "exc"; $("modPlat").hidden = !hasS || M !== "plat"; $("modFollow").hidden = !hasS || M !== "follow"; $("modComp").hidden = !hasS || M !== "comp"; $("modProj").hidden = !hasS || M !== "proj"; $("modGrades").hidden = !hasS || M !== "grades";
+  $("modExc").hidden = !hasS || M !== "exc"; $("modPlat").hidden = !hasS || M !== "plat"; $("modFollow").hidden = !hasS || M !== "follow"; $("modComp").hidden = !hasS || M !== "comp"; $("modProj").hidden = !hasS || M !== "proj"; $("modGrades").hidden = !hasS || M !== "grades"; $("modAtt").hidden = !hasS || M !== "att"; $("modHonor").hidden = !hasS || M !== "honor";
   $("printhead").textContent = "";
   // follow-up count badge
-  if (hasS && (er || pr || jr || gr)) { const F = followData(); const n = state.students.filter((s) => F.reasons(s).length).length; $("followCnt").textContent = n; $("followCnt").hidden = !n; } else $("followCnt").hidden = true;
+  if (hasS && (er || pr || jr || gr || hasA)) { const F = followData(); const n = state.students.filter((s) => F.reasons(s).length).length; $("followCnt").textContent = n; $("followCnt").hidden = !n; } else $("followCnt").hidden = true;
   if (!hasS) { $("topActions").hidden = true; return; }
-  if (M === "exc") renderExc(); else if (M === "plat") renderPlat(); else if (M === "comp") renderComp(); else if (M === "proj") renderProj(); else if (M === "grades") renderGrades(); else renderFollow();
-  $("topActions").hidden = !(M === "exc" ? er : M === "plat" ? pr : M === "comp" ? state.plat.length : M === "proj" ? jr : M === "grades" ? gr : (er || pr || jr || gr));
+  if (M === "exc") renderExc(); else if (M === "plat") renderPlat(); else if (M === "comp") renderComp(); else if (M === "proj") renderProj(); else if (M === "grades") renderGrades(); else if (M === "att") renderAtt(); else if (M === "honor") renderHonor(); else renderFollow();
+  $("topActions").hidden = !(M === "exc" ? er : M === "plat" ? pr : M === "comp" ? state.plat.length : M === "proj" ? jr : M === "grades" ? gr : M === "att" ? hasA : M === "honor" ? false : (er || pr || jr || gr || hasA));
 }
 
 /* ================= Uploads ================= */
@@ -1848,7 +1955,7 @@ async function readSheets(file, msgId) {
   catch (e) { msg(msgId, "err", "تعذّرت قراءة الملف. تأكد أنه ملف Excel كما صدّرته (xls أو xlsx)، وليس PDF أو صورة."); return null; }
 }
 function sniff(sheets) { return parseStudents(sheets) ? "students" : parseExcellence(sheets) ? "exc" : parsePlatform(sheets) ? "plat" : parseResults(sheets) ? "grades" : parseProjects(sheets) ? "proj" : null; }
-const WRONG = { students: "هذا الملف قائمة طلاب نور؛ ارفعه في الخطوة الأولى.", exc: "هذا الملف كشف السلوك المتميز؛ ارفعه من قسم «السلوك المتميز».", plat: "هذا الملف تقرير المنصة؛ ارفعه من قسم «المنصة».", proj: "هذا ملف متابعة المشاريع؛ ارفعه من قسم «المشاريع».", grades: "هذا إشعار درجات الفترة؛ ارفعه من قسم «النتائج»." };
+const WRONG = { students: "هذا الملف قائمة طلاب نور؛ ارفعه في الخطوة الأولى.", exc: "هذا الملف كشف السلوك المتميز؛ ارفعه من قسم «السلوك المتميز».", plat: "هذا الملف تقرير المنصة؛ ارفعه من قسم «المنصة».", proj: "هذا ملف متابعة المشاريع؛ ارفعه من قسم «المشاريع».", grades: "هذا إشعار درجات الفترة؛ ارفعه من قسم «النتائج».", att: "هذا تقرير حضور وغياب؛ ارفعه من قسم «المواظبة»." };
 function schoolMeta(sheets) {
   const school = schoolName(sheets);
   let year = "";
@@ -1912,6 +2019,17 @@ wire("f1", "step1", uploadStudents); wire("f2", "step2", uploadExc); wire("f4", 
   card.addEventListener("dragleave", () => card.classList.remove("drag"));
   card.addEventListener("drop", (e) => { card.classList.remove("drag"); if (inp.disabled) return; e.preventDefault(); const fs = Array.from(e.dataTransfer.files); if (fs.length) uploadGrades(fs); });
 })();
+(() => {
+  const inp = $("f7"), card = $("stepA");
+  inp.addEventListener("change", () => { const fs = Array.from(inp.files); if (fs.length) uploadAtt(fs); inp.value = ""; });
+  card.addEventListener("dragover", (e) => { if (inp.disabled) return; e.preventDefault(); card.classList.add("drag"); });
+  card.addEventListener("dragleave", () => card.classList.remove("drag"));
+  card.addEventListener("drop", (e) => { card.classList.remove("drag"); if (inp.disabled) return; e.preventDefault(); const fs = Array.from(e.dataTransfer.files); if (fs.length) uploadAtt(fs); });
+})();
+$("aQ").addEventListener("input", (e) => { view.qA = e.target.value; render(); });
+$("aF").addEventListener("change", (e) => { view.pfA = e.target.value; render(); });
+$("lTh").addEventListener("change", (e) => { const v = Math.round(+e.target.value); if (v >= 1 && v <= 99) { state.lateTh = v; save(); } render(); });
+$("aSRows").addEventListener("click", (e) => { const b = e.target.closest("[data-send]"); if (b) openSend(b.dataset.send); });
 $("gQ").addEventListener("input", (e) => { view.qG = e.target.value; render(); });
 $("gF").addEventListener("change", (e) => { view.pfG = e.target.value; render(); });
 $("gTh").addEventListener("change", (e) => { const v = Math.round(+e.target.value); if (v >= 1 && v <= 99) { state.gradeTh = v; save(); } render(); });
@@ -1951,6 +2069,266 @@ $("printBtn").onclick = () => window.print();
 
 
 
+
+
+
+/* ================= التكريم الشهري ================= */
+const HCAT = [
+  { k: "beh", t: "السلوك المتميز", short: "سلوك", cert: "السلوك المتميز" },
+  { k: "att", t: "المواظبة والانضباط", short: "مواظبة", cert: "المواظبة والانضباط" },
+  { k: "plat", t: "الإنجاز في المنصة", short: "منصة", cert: "الإنجاز في المنصة التعليمية" },
+  { k: "res", t: "التحصيل الدراسي", short: "دراسي", cert: "التحصيل الدراسي" },
+  { k: "proj", t: "المشاريع والبحوث", short: "مشاريع", cert: "المشاريع والبحوث" }];
+const hijriMonth = () => { try { return new Intl.DateTimeFormat("ar-SA-u-ca-islamic-umalqura-nu-latn", { month: "long", year: "numeric" }).format(new Date()); } catch (e) { return ""; } };
+const HS = () => { const h = state.honor || (state.honor = {}); if (h.label == null) h.label = "شهر " + hijriMonth(); if (!h.scope) h.scope = "class"; if (!h.top) h.top = 5; if (!h.cats) h.cats = {}; return h; };
+let honorCache = null;
+function honorData() {
+  const F = followData(), H = HS();
+  const graded = F.gm && F.gr.rows.some((r) => Object.values(r.sc).some(([v]) => typeof v === "number"));
+  const avail = { beh: !!F.em, att: !!F.am, plat: !!F.pm, res: !!graded, proj: !!F.jm };
+  const tm = (t) => t ? (+t.split(":")[0] * 60 + +t.split(":")[1]) : 0;
+  const sc = {
+    beh: (s) => { const g = F.em.got.get(s.sid); return g ? Math.min(100, 100 * g.score / goal()) : 0; },
+    att: (s) => { const a = attOf(F.am, s.sid); if (!a) return 0; const v = a.days ? 100 * (a.days - a.absent - 0.5 * (a.late || 0)) / a.days : 100 - 5 * a.absent; return Math.max(0, v) - tm(a.time) / 1e5; },
+    plat: (s) => { const x = F.pm.bySid.get(s.sid); return x ? Math.min(100, x.p) : 0; },
+    res: (s) => { const g = resOf(F.gm.bySid.get(s.sid)); return g && g.pct != null ? g.pct : 0; },
+    proj: (s) => { const x = F.jm.bySid.get(s.sid); return x ? 100 * x.d.length / ((x.d.length + x.m.length) || 1) : 0; }
+  };
+  const cats = HCAT.filter((c) => avail[c.k] && H.cats[c.k] !== false);
+  const rows = state.students.map((s) => {
+    const v = {}; cats.forEach((c) => { v[c.k] = sc[c.k](s); });
+    const r = F.reasons(s), flag = r.includes("abs") || r.includes("weak");
+    return { s, v, total: cats.length ? cats.reduce((a, c) => a + v[c.k], 0) / cats.length : 0, flag, reasons: r };
+  });
+  const order = gradeOrder();
+  const unitKey = (s, sc2) => sc2 === "class" ? s.grade + "|" + s.cls : sc2 === "grade" ? s.grade : "all";
+  const unitName = (k, sc2) => sc2 === "class" ? shortGrade(k.split("|")[0]) + " / " + k.split("|")[1] : sc2 === "grade" ? k : "المدرسة";
+  const group = (list, sc2, key, top) => {
+    const m = new Map(); list.forEach((r) => { const k = unitKey(r.s, sc2); (m.get(k) || m.set(k, []).get(k)).push(r); });
+    return Array.from(m.entries()).sort((a, b) => sc2 === "school" ? 0 : order.indexOf(a[0].split("|")[0]) - order.indexOf(b[0].split("|")[0]) || (+(a[0].split("|")[1] || 0) - +(b[0].split("|")[1] || 0)))
+      .map(([k, l]) => ({ k, name: unitName(k, sc2), sc: sc2, win: l.slice().sort((a, b) => key(b) - key(a) || a.s.name.localeCompare(b.s.name, "ar")).slice(0, top).map((r, i) => Object.assign({ rank: i + 1 }, r)) }));
+  };
+  const pool = H.strict ? rows.filter((r) => !r.flag) : rows;
+  const units = cats.length ? group(pool, H.scope, (r) => r.total, +H.top) : [];
+  const bScope = H.scope === "school" ? "school" : "grade";
+  const boards = cats.map((c) => ({ c, units: group(pool, bScope, (r) => r.v[c.k], +H.top) }));
+  honorCache = { H, cats, avail, units, boards, rows };
+  return honorCache;
+}
+const hWhere = (s, sc2) => sc2 === "class" ? `على <b>فصل ${esc(shortGrade(s.grade))} ${esc(s.cls)}</b>` : sc2 === "grade" ? `على مستوى <b>الصف ${esc(s.grade)}</b>` : `على مستوى <b>المدرسة</b>`;
+function honorCert(r, sc2, cat) {
+  const D = honorCache || honorData(), lab = D.H.label || "";
+  const what = cat ? cat.cert : "التميّز الشامل (" + D.cats.map((c) => c.short).join(" · ") + ")";
+  const lead = (C().signers || []).filter((x) => /مدير|قائد/.test(x.t || ""));
+  return { signers: [{ t: "الموجه الطلابي", n: state.counselor || "" }].concat(lead.length ? lead : [{ t: "قائد المدرسة", n: "" }]), r: { s: r.s, rank: r.rank }, g: { g: r.s.grade }, kind: "x", sub: cat ? cat.cert : "الطالب المتميز", period: lab,
+    body: `هذه الشهادة لحصوله على <b>المركز ${ordinal(r.rank)}</b> ${hWhere(r.s, sc2)}<br>في ${esc(what)}${lab ? " خلال " + esc(lab) : ""}` };
+}
+function renderHonor() {
+  const D = honorData(), H = D.H, any = Object.values(D.avail).some(Boolean);
+  $("honorEmpty").hidden = any; ["hSet", "hAll", "hCatPanel"].forEach((id) => $(id).hidden = !any);
+  if (!any) return;
+  $("hLabel").value = H.label; $("hScope").value = H.scope; $("hTop").value = String(H.top); $("hStrict").checked = !!H.strict;
+  $("hCats").innerHTML = HCAT.map((c) => `<label class="${D.avail[c.k] ? "" : "off"}" title="${D.avail[c.k] ? "" : "لم يُرفع تقرير هذا القسم"}"><input type="checkbox" data-hc="${c.k}" ${D.avail[c.k] ? "" : "disabled"} ${D.avail[c.k] && H.cats[c.k] !== false ? "checked" : ""}> ${c.t}</label>`).join("");
+  const scN = { class: "أوائل كل فصل", grade: "أوائل كل صف", school: "أوائل المدرسة" }[H.scope];
+  $("hAllTitle").textContent = "الطلاب المتميزون · " + (H.label || "");
+  $("hMeta").textContent = D.cats.length ? `${scN}، بمتوسط ${D.cats.length} ${D.cats.length > 2 ? "أقسام" : "قسم"}: ${D.cats.map((c) => c.t).join("، ")}.` + (H.strict ? " مع استبعاد من عليه إجراء غياب أو تعثر دراسي." : " العلامة ⚑ تعني أن على الطالب إجراء غياب أو تعثراً دراسياً؛ راجع قبل التكريم.") : "اختر قسماً واحداً على الأقل.";
+  const rowH = (r, sc2, cat) => `<div class="hrow">${medal(r.rank)}<span class="hn">${esc(r.s.name)}${!H.strict && r.flag ? ` <span class="warnf" title="${esc(r.reasons.map((k) => REASONS[k]).join("، "))}">⚑</span>` : ""}<span class="hc">${sc2 !== "class" ? esc(shortGrade(r.s.grade)) + " / " + esc(r.s.cls) + " · " : ""}${cat ? "" : D.cats.map((c) => c.short + " " + Math.round(r.v[c.k])).join(" · ")}</span></span><span class="ht">${fmt1(cat ? Math.max(0, r.v[cat.k]) : r.total)}</span><button type="button" class="certbtn no-print" data-hcert="${esc(r.s.sid)}" data-hk="${cat ? cat.k : ""}">شهادة</button></div>`;
+  const tabOk = (u) => !view.tab || u.k === "all" || u.k.split("|")[0] === view.tab;
+  $("hUnits").innerHTML = D.units.filter(tabOk).map((u) => `<div class="hunit"><h3>${esc(u.name)}</h3>${u.win.map((r) => rowH(r, H.scope)).join("") || `<p class="note">لا يوجد طلاب.</p>`}</div>`).join("") || `<p class="note">لا يوجد طلاب في هذا النطاق.</p>`;
+  $("hCatSub").textContent = `${H.scope === "school" ? "أوائل المدرسة" : "أوائل كل صف"} في كل قسم على حدة.`;
+  $("hBoards").innerHTML = D.boards.map((b) => `<div class="hboard"><h3>${esc(b.c.t)}</h3>${b.units.filter(tabOk).map((u) => `${b.units.filter(tabOk).length > 1 ? `<h4>${esc(u.name)}</h4>` : ""}${u.win.map((r) => rowH(r, H.scope === "school" ? "school" : "grade", b.c)).join("")}`).join("")}</div>`).join("");
+  $("printhead").textContent = (state.school ? state.school + " · " : "") + "تكريم الطلاب المتميزين · " + (H.label || "");
+}
+$("hLabel").addEventListener("change", (e) => { HS().label = S(e.target.value); save(); render(); });
+$("hScope").addEventListener("change", (e) => { HS().scope = e.target.value; save(); render(); });
+$("hTop").addEventListener("change", (e) => { HS().top = +e.target.value; save(); render(); });
+$("hStrict").addEventListener("change", (e) => { HS().strict = e.target.checked; save(); render(); });
+$("hCats").addEventListener("change", (e) => { const k = e.target.dataset.hc; if (k) { HS().cats[k] = e.target.checked; save(); render(); } });
+function findHonor(sid, k) {
+  const D = honorCache; if (!D) return null;
+  if (!k) { for (const u of D.units) { const r = u.win.find((x) => x.s.sid === sid); if (r) return honorCert(r, D.H.scope); } return null; }
+  const b = D.boards.find((x) => x.c.k === k); if (!b) return null;
+  for (const u of b.units) { const r = u.win.find((x) => x.s.sid === sid); if (r) return honorCert(r, D.H.scope === "school" ? "school" : "grade", b.c); }
+  return null;
+}
+$("modHonor").addEventListener("click", (e) => { const b = e.target.closest("[data-hcert]"); if (!b) return; const w = findHonor(b.dataset.hcert, b.dataset.hk); if (w) showCert(w); });
+$("hPrintAll").onclick = () => { const D = honorCache; if (!D) return; printCerts(D.units.flatMap((u) => u.win.map((r) => honorCert(r, D.H.scope)))); };
+function honorOf(sid) {
+  try { const D = honorData(); for (const u of D.units) { const r = u.win.find((x) => x.s.sid === sid); if (r) return { rank: r.rank, text: `المركز ${ordinal(r.rank)} في التميّز الشامل ${D.H.scope === "class" ? "على مستوى فصله" : D.H.scope === "grade" ? "على مستوى صفه" : "على مستوى المدرسة"}`, label: D.H.label }; } } catch (e) {}
+  return null;
+}
+
+/* ================= المواظبة (تقارير PDF من برنامج الحضور) ================= */
+const PDFJS = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/";
+let pdfjsReady = null;
+function loadPdfJs() {
+  if (window.pdfjsLib) return Promise.resolve(true);
+  if (pdfjsReady) return pdfjsReady;
+  const add = (src) => new Promise((res, rej) => { const el = document.createElement("script"); el.src = src; el.onload = res; el.onerror = rej; document.head.append(el); });
+  pdfjsReady = add(PDFJS + "pdf.min.js").then(() => add(PDFJS + "pdf.worker.min.js")).then(() => { window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS + "pdf.worker.min.js"; return true; }).catch(() => { pdfjsReady = null; return false; });
+  return pdfjsReady;
+}
+/* إجراءات الغياب دون عذر وفق قواعد السلوك والمواظبة */
+const ABS_ST = [null,
+  { d: 3, short: "3 أيام", act: "تحويله للموجه الطلابي لدراسة حالته وتقديم الخدمات التربوية، وعند الاستمرار يُستدعى ولي الأمر ويؤخذ التعهد الخطي بالخطة" },
+  { d: 5, short: "5 أيام", act: "استدعاء ولي الأمر لمناقشة الأسباب، وإحالة الطالب إلى لجنة التوجيه الطلابي ومراجعة خطته العلاجية" },
+  { d: 10, short: "10 أيام", act: "مخاطبة الجهات ذات الاختصاص وفق نظامي حماية الطفل والحماية من الإيذاء، مع إشعار إدارة التعليم" }];
+const absStage = (n) => n == null ? 0 : n >= 10 ? 3 : n >= 5 ? 2 : n >= 3 ? 1 : 0;
+const stTag = (st) => st ? `<span class="tag st${st}" title="${esc(ABS_ST[st].act)}">${ABS_ST[st].short}</span>` : "";
+const dayW = (n) => n === 1 ? "يوماً واحداً" : n === 2 ? "يومين" : n >= 3 && n <= 10 ? n + " أيام" : n + " يوماً";
+async function parseAttPdf(file) {
+  const doc = await window.pdfjsLib.getDocument({ data: new Uint8Array(await file.arrayBuffer()), isEvalSupported: false }).promise;
+  const pages = [];
+  for (let p = 1; p <= doc.numPages; p++) {
+    const tc = await (await doc.getPage(p)).getTextContent();
+    pages.push(tc.items.filter((i) => i.str && i.str.trim()).map((i) => ({ s: i.str.normalize("NFKC").replace(/[ѧ\u0640]/g, ""), x: i.transform[4], y: i.transform[5], w: i.width || 0 })).map((i) => Object.assign(i, { cx: i.x + i.w / 2 })));
+  }
+  const flat = pages.flat(), tight = flat.map((i) => i.s).join("").replace(/\s+/g, ""), spaced = flat.map((i) => i.s).join(" ");
+  const kind = /المقيدون/.test(tight) ? "stats" : /معدلوقت|وقتالحضور|مبكر/.test(tight) ? "early" : /الأكثر/.test(tight) && /غياب/.test(tight) ? "abs" : null;
+  if (!kind) return null;
+  const dkey = (d) => d.split("/").reverse().join("");
+  const dates = Array.from(new Set(spaced.match(/\d{2}\/\d{2}\/\d{4}/g) || [])).sort((a, b) => dkey(a).localeCompare(dkey(b)));
+  if (kind === "stats") return { kind, from: dates[0] || "", to: dates[1] || "", rows: [] };
+  const rows = new Map(); let prevC = null;
+  pages.forEach((its) => {
+    const hd0 = its.find((i) => /السجل|الهوية/.test(i.s));
+    if (!hd0 && !prevC) return;
+    const hd = hd0 || { y: Infinity };
+    const band = its.filter((i) => Math.abs(i.y - hd.y) <= 14 && !/^\d+$/.test(i.s.trim()));
+    const cols = [];
+    band.sort((a, b) => b.y - a.y).forEach((i) => { const c = cols.find((k) => Math.abs(k.cx - i.cx) <= 14); if (c) c.t += " " + i.s.trim(); else cols.push({ cx: i.cx, x0: i.x, t: i.s.trim() }); });
+    const col = (re, not) => cols.find((c) => re.test(c.t) && !(not && not.test(c.t)));
+    const C = !hd0 ? prevC : { id: col(/السجل|الهوية/), cls: col(/^الفصل$/), grade: col(/^الصف$/), present: col(/الحضور/, /وقت|معدل/), absent: col(/الغياب/, /بعذر/), absExc: col(/الغياب\s*بعذر/), late: col(/^التأخر$/), lateExc: col(/التأخر\s*بعذر/), time: col(/وقت/) };
+    if (!C || !C.id) return; prevC = C;
+    const nameL = C.grade ? C.grade.cx + 34 : C.id.x0 - 200, nameR = C.id.x0 - 3;
+    its.filter((i) => /^\d{5,10}$/.test(i.s.trim()) && Math.abs(i.cx - C.id.cx) <= 40 && i.y < hd.y - 6).forEach((a) => {
+      const at = (c, re) => { if (!c) return null; const it = its.find((i) => Math.abs(i.cx - c.cx) <= 16 && Math.abs(i.y - a.y) <= 6 && re.test(i.s.trim())); return it ? it.s.trim() : null; };
+      const num = (c) => { const v = at(c, /^\d{1,3}$/); return v == null ? (c ? 0 : null) : +v; };
+      const parts = its.filter((i) => i.cx > nameL && i.x + i.w < nameR + 2 && Math.abs(i.y - a.y) <= 12 && !/^\d+$/.test(i.s.trim())).sort((p, q) => (q.y - p.y) || (q.x - p.x));
+      const lines = []; parts.forEach((i) => { const L = lines.find((l) => Math.abs(l.y - i.y) <= 3); if (L) L.t += i.s; else lines.push({ y: i.y, t: i.s }); });
+      const r = { id: cleanId(a.s), n: lines.map((l) => l.t.trim()).join(" ").replace(/\s+/g, " "), cls: at(C.cls, /^\d{1,2}$/) || "" };
+      if (kind === "abs") Object.assign(r, { present: num(C.present), absent: num(C.absent), absExc: num(C.absExc), late: num(C.late), lateExc: num(C.lateExc) });
+      else { const t = at(C.time, /^\d{1,2}:\d{2}$/); Object.assign(r, { time: t, absent: num(C.absent) }); }
+      rows.set(r.id, r);
+    });
+  });
+  if (!rows.size) return null;
+  const list = Array.from(rows.values());
+  const days = kind === "abs" ? Math.max(...list.map((r) => (r.present || 0) + (r.absent || 0) + (r.absExc || 0) + (r.late || 0) + (r.lateExc || 0))) : null;
+  return { kind, from: dates[0] || "", to: dates[1] || "", days, rows: list };
+}
+const attRange = (r) => r ? (r.from && r.to ? `${r.from} – ${r.to}` : gDate(r.at)) : "";
+const attLabel = (r) => (r.kind === "abs" ? "الأكثر غياباً" : "الحضور المبكر") + " · " + attRange(r);
+const attCur = () => { const L = state.att || []; return { ab: L.find((r) => r.id === state.attAbs) || null, ea: L.find((r) => r.id === state.attEarly) || null }; };
+const absTh = () => 3, lateTh = () => state.lateTh || 5;
+function attMatchOne(rep) {
+  const ids = new Set(state.students.map((s) => s.sid)), by = new Map(), rest = [];
+  rep.rows.forEach((r) => { if (r.id && ids.has(r.id)) by.set(r.id, r); else rest.push(r); });
+  const pm = rest.length ? platMatch({ rows: rest.filter((r) => r.n) }) : { bySid: new Map(), unmatched: [], amb: [] };
+  pm.bySid.forEach((r, sid) => { if (!by.has(sid)) by.set(sid, r); });
+  return { bySid: by, bad: pm.unmatched.map((u) => u.row).concat(pm.amb.map((a) => a.row)) };
+}
+function attMaps(ac) { const a = ac.ab ? attMatchOne(ac.ab) : null, e = ac.ea ? attMatchOne(ac.ea) : null; return { ac, a, e }; }
+function attOf(am, sid) {
+  const a = am.a ? am.a.bySid.get(sid) : null, e = am.e ? am.e.bySid.get(sid) : null;
+  if (!a && !e) return null;
+  const tot = a ? (a.present || 0) + (a.absent || 0) + (a.absExc || 0) + (a.late || 0) + (a.lateExc || 0) : null;
+  return { absent: a ? a.absent : e.absent, absExc: a ? a.absExc || 0 : 0, late: a ? (a.late || 0) + (a.lateExc || 0) : null, days: tot, pct: a && tot ? 100 * ((a.present || 0) + (a.late || 0) + (a.lateExc || 0)) / tot : null, time: e ? e.time : null, src: a ? "a" : "e" };
+}
+const attCell = (a) => !a ? `<span class="np">—</span>` : `<span class="frac">${a.absent}</span>`;
+const attCsv = (am, s) => { const a = am ? attOf(am, s.sid) : null; return a ? [a.absent, a.late == null ? "" : a.late, a.time ? a.time + " ص" : ""] : ["", "", ""]; };
+const attClasses = (am) => buildClasses((r, s) => { const a = attOf(am, s.sid); if (!a) { inc(r, "miss"); return; } inc(r, "m"); if (a.pct != null) { inc(r, "pn"); inc(r, "psum", a.pct); } const st = absStage(a.absent); if (st) inc(r, "st" + st); if (a.absent >= absTh()) inc(r, "ab"); if (a.late != null && a.late >= lateTh()) inc(r, "lt"); inc(r, "dsum", a.absent); });
+const attDerive = (r) => ({ n: r.n, m: r.m || 0, miss: r.miss || 0, pn: r.pn || 0, pr: r.pn ? r.psum / r.pn : 0, ab: r.ab || 0, lt: r.lt || 0, s1: r.st1 || 0, s2: r.st2 || 0, s3: r.st3 || 0, avgAbs: r.m ? (r.dsum || 0) / r.m : 0 });
+function renderAtt() {
+  const ac = attCur(), has = !!(ac.ab || ac.ea);
+  $("attEmpty").hidden = has; ["aRes", "aStud"].forEach((id) => $(id).hidden = !has);
+  renderHistory("aHist", "aHistPanel", state.att || [], null, (r) => `${r.rows.length} طالباً` + (r.id === state.attAbs || r.id === state.attEarly ? " · المعروض الآن" : ""),
+    (id) => { const r = state.att.find((x) => x.id === id); if (r.kind === "abs") state.attAbs = id; else state.attEarly = id; },
+    (id) => { const r = state.att.find((x) => x.id === id); state.att = state.att.filter((x) => x.id !== id); const last = (k) => { const l = state.att.filter((x) => x.kind === k); return l.length ? l[l.length - 1].id : null; }; if (state.attAbs === id) state.attAbs = last("abs"); if (state.attEarly === id) state.attEarly = last("early"); void r; });
+  if (!has) return;
+  $("lTh").value = lateTh();
+  const am = attMaps(ac), classes = attClasses(am), order = gradeOrder();
+  const tot = attDerive(sumRaw(classes.filter((c) => !view.tab || c.grade === view.tab)));
+  $("aTitle").textContent = view.tab ? "المواظبة · " + shortGrade(view.tab) : "المواظبة حسب الصف والفصل";
+  $("aMeta").textContent = [ac.ab && "الغياب والتأخر: " + attRange(ac.ab) + (ac.ab.days ? ` (${ac.ab.days} يوماً دراسياً)` : ""), ac.ea && "وقت الحضور: " + attRange(ac.ea)].filter(Boolean).join(" · ");
+  $("aSum").innerHTML = `
+    ${ac.ab ? `<div><b>${tot.pn ? fmt1(tot.pr) + "%" : "—"}</b><span>متوسط نسبة الحضور</span></div>` : ""}
+    <div class="red"><b>${tot.ab}</b><span>عليهم إجراء غياب (3 أيام فأكثر)</span></div>
+    ${ac.ab ? `<div><b>${tot.lt}</b><span>تأخروا ${lateTh()} أيام فأكثر</span></div>` : ""}
+    <div><b>${fmt1(tot.avgAbs)}</b><span>متوسط أيام الغياب للطالب</span></div>
+    ${tot.miss ? `<div><b>${tot.miss}</b><span>غير موجودين في التقارير</span></div>` : ""}`;
+  $("aStages").innerHTML = [1, 2, 3].map((k) => `<div class="stg"><span class="n">${tot["s" + k]}</span><b>${k === 1 ? "3 – 4 أيام" : k === 2 ? "5 – 9 أيام" : "10 أيام فأكثر"}</b>${esc(ABS_ST[k].act)}.</div>`).join("") +
+    `<p class="src">الإجراءات وفق قواعد السلوك والمواظبة للغياب دون عذر. والغياب 3 أيام متصلة فأكثر يستوجب مخاطبة الجهات المختصة دون انتظار 10 أيام، وهذا لا يظهر في التقرير فراجعه في سجل الطالب. والغياب بعذر له إجراءات مختلفة.</p>`;
+  groupedTable({ head: "aThead", body: "aRows", foot: "aFoot", scroll: "aStud" }, classes, {
+    head: `<th class="n">الطلاب</th>${ac.ab ? `<th>متوسط نسبة الحضور</th>` : ""}<th class="n">متوسط أيام الغياب</th><th class="n gc">3 – 4 أيام</th><th class="n gc">5 – 9</th><th class="n gc">10 فأكثر</th>${ac.ab ? `<th class="n">تأخر فوق الحد</th>` : ""}`,
+    cols: 5 + (ac.ab ? 2 : 0), derive: attDerive, sortKey: (d) => ac.ab ? d.pr : -d.avgAbs, rank: true,
+    cells: (d, gd) => `<td class="n">${d.n}${d.miss ? `<span class="np"> · ${d.miss} ليسوا في التقرير</span>` : ""}</td>${ac.ab ? `<td>${d.pn ? bar(d.pr, gd && d.pr < gd.pr ? "low" : "") : `<span class="np">—</span>`}</td>` : ""}<td class="n">${fmt1(d.avgAbs)}</td><td class="n gc">${d.s1}</td><td class="n gc hot">${d.s2}</td><td class="n gc hot">${d.s3}</td>${ac.ab ? `<td class="n">${d.lt}</td>` : ""}`
+  });
+  $("aNote").textContent = "الغياب والتأخر من تقرير «الأكثر غياباً»" + (ac.ea ? "، ومتوسط وقت الحضور من تقرير «الحضور المبكر»" : "") + ". المطابقة برقم السجل المدني ثم بالاسم." + (!ac.ab && ac.ea ? " أيام الغياب هنا من تقرير الحضور المبكر لأن تقرير الغياب لم يُرفع." : "");
+  const bad = [].concat(am.a ? am.a.bad : [], am.e ? am.e.bad : []).filter((r, i, A) => A.findIndex((q) => q.id === r.id) === i), iss = $("aIssues");
+  iss.hidden = !bad.length;
+  if (bad.length) {
+    iss.className = "msg warn jiss"; iss.textContent = "";
+    const h = document.createElement("b"); h.textContent = `${bad.length} ${bad.length > 2 && bad.length < 11 ? "طلاب" : "طالباً"} في التقارير لم يُطابقوا قائمة نور (قد يكونون منقولين أو برقم مختلف):`; iss.append(h);
+    const ul = document.createElement("ul"); bad.slice(0, 40).forEach((r) => { const li = document.createElement("li"); li.textContent = (r.n || "بدون اسم") + " · " + r.id; ul.append(li); }); iss.append(ul);
+  }
+  // الطلاب
+  const scope = state.students.filter((s) => inTab(s) && (!view.grade || (s.grade === view.grade && s.cls === view.cls)));
+  const nq = norm(view.qA), qd = view.qA.replace(/\D/g, "").replace(/^0+/, ""), f = view.pfA;
+  const A = new Map(scope.map((s) => [s.sid, attOf(am, s.sid)]));
+  const isAbs = (a) => !!a && a.absent >= absTh(), isLate = (a) => !!a && a.late != null && a.late >= lateTh();
+  const fit = (s) => { const a = A.get(s.sid); return f === "all" ? true : f === "none" ? !a : f === "best" ? !!a : /^s\d$/.test(f) ? !!a && absStage(a.absent) === +f[1] : f === "late" ? isLate(a) : isAbs(a) || isLate(a); };
+  const disc = (a) => a ? a.absent * 3 + (a.late || 0) + (a.time ? (+a.time.split(":")[0] * 60 + +a.time.split(":")[1]) / 1000 : 0) : 1e9;
+  const list = scope.filter((s) => fit(s) && (!view.qA || norm(s.name).includes(nq) || (qd && s.sid.includes(qd))))
+    .sort(f === "best" ? (a, b) => disc(A.get(a.sid)) - disc(A.get(b.sid)) || a.name.localeCompare(b.name, "ar")
+      : (a, b) => order.indexOf(a.grade) - order.indexOf(b.grade) || (+a.cls - +b.cls) || (((A.get(b.sid) || {}).absent || 0) - ((A.get(a.sid) || {}).absent || 0)) || a.name.localeCompare(b.name, "ar"));
+  followList = list.map((s) => s.sid);
+  const F = followData(), lastAt = [F.er && F.er.at, F.pr && F.pr.at, F.jr && F.jr.at, F.gr && F.gr.at, ac.ab && ac.ab.at, ac.ea && ac.ea.at].filter(Boolean).sort().pop() || "";
+  $("aSThead").innerHTML = `<tr><th class="n">م</th><th>اسم الطالب</th><th>الفصل</th>${ac.ab ? `<th class="n">نسبة الحضور</th>` : ""}<th class="n">أيام الغياب</th>${ac.ab ? `<th class="n">أيام التأخر</th>` : ""}${ac.ea ? `<th class="n">متوسط وقت الحضور</th>` : ""}<th class="no-print">ولي الأمر</th></tr>`;
+  const sb = $("aSRows"); sb.textContent = ""; const frag = document.createDocumentFragment();
+  list.forEach((s, i) => {
+    const a = A.get(s.sid), tr = document.createElement("tr");
+    tr.innerHTML = `<td class="n">${i + 1}</td><td class="name"></td><td>${chip(s)}</td>` +
+      (ac.ab ? `<td class="n">${a && a.pct != null ? `<span class="frac">${fmt1(a.pct)}%</span>` : `<span class="np">—</span>`}</td>` : "") +
+      `<td class="n">${a ? `<span class="frac${isAbs(a) ? " hotv" : ""}">${a.absent}</span> ${stTag(absStage(a.absent))}${a.absExc ? `<span class="np"> (+${a.absExc} بعذر)</span>` : ""}` : `<span class="np">—</span>`}</td>` +
+      (ac.ab ? `<td class="n">${a && a.late != null ? `<span class="frac">${a.late}</span>` : `<span class="np">—</span>`}</td>` : "") +
+      (ac.ea ? `<td class="n">${a && a.time ? `<span class="frac">${a.time}</span> ص` : `<span class="np">—</span>`}</td>` : "") +
+      `<td class="no-print">${sendBtn(s, lastAt)}</td>`;
+    tr.children[1].textContent = s.name; frag.append(tr);
+  });
+  sb.append(frag);
+  if (!list.length) sb.innerHTML = `<tr><td colspan="8"><div class="empty"><b>لا يوجد طلاب بهذه التصفية</b>غيّر البحث أو اختر «كل الطلاب».</div></td></tr>`;
+  $("aF").value = f;
+  const parts = []; if (view.grade) parts.push(shortGrade(view.grade) + " / " + view.cls); if (f !== "all") parts.push($("aF").selectedOptions[0].textContent); if (view.qA) parts.push("بحث: " + view.qA);
+  $("aSTitle").textContent = view.grade ? "طلاب " + shortGrade(view.grade) + " / " + view.cls : view.tab ? "طلاب " + shortGrade(view.tab) : "الطلاب";
+  filterInfo("aInfo", list.length, state.students.filter(inTab).length, parts, () => { view.grade = view.cls = null; view.qA = ""; $("aQ").value = ""; view.pfA = "all"; render(); });
+  $("printhead").textContent = (state.school ? state.school + " · " : "") + "المواظبة" + (view.tab ? " · " + view.tab : "") + " · " + $("aMeta").textContent;
+}
+async function uploadAtt(files) {
+  msg("mA", "", "");
+  const pdfs = files.filter((f) => /\.pdf$/i.test(f.name) || f.type === "application/pdf");
+  if (!pdfs.length) { msg("mA", "err", "اختر تقارير بصيغة PDF من برنامج الحضور."); return; }
+  msg("mA", "", "جارٍ قراءة التقارير…");
+  if (!(await loadPdfJs())) { msg("mA", "err", "قراءة ملفات PDF تحتاج اتصالاً بالإنترنت لتحميل أداة القراءة. اتصل بالإنترنت ثم أعد المحاولة."); return; }
+  state.att = state.att || []; const done = [], bad = [], stats = [];
+  for (const f of pdfs) {
+    let r = null; try { r = await parseAttPdf(f); } catch (e) { r = null; }
+    if (!r) { bad.push(f.name); continue; }
+    if (r.kind === "stats") { stats.push(f.name); continue; }
+    r.id = "a" + Date.now() + Math.random().toString(36).slice(2, 6); r.at = new Date().toISOString(); r.file = f.name;
+    const same = state.att.find((x) => x.kind === r.kind && x.from === r.from && x.to === r.to);
+    if (same) state.att = state.att.filter((x) => x !== same);
+    state.att.push(r); if (r.kind === "abs") state.attAbs = r.id; else state.attEarly = r.id;
+    done.push((r.kind === "abs" ? "الأكثر غياباً" : "الحضور المبكر") + ` (${r.rows.length} طالباً، ${attRange(r)})` + (same ? " — استبدل نسخة سابقة" : ""));
+  }
+  view.grade = view.cls = null; view.qA = ""; $("aQ").value = ""; view.pfA = "need";
+  if (done.length) save(); render();
+  const parts = [];
+  if (done.length) parts.push("قُرئ: " + done.join("، ") + ".");
+  if (stats.length) parts.push(`«${stats.join("، ")}» تقرير إحصائي للفصول لا يحوي أسماء الطلاب، فلا يُضاف لملفاتهم.`);
+  if (bad.length) parts.push(`تعذّرت قراءة: ${bad.join("، ")}. تأكد أنه تقرير «الأكثر غياباً» أو «الحضور المبكر».`);
+  msg("mA", !done.length ? "err" : stats.length || bad.length ? "warn" : "ok", parts.join(" "));
+}
 
 /* ================= نتائج الفترة (إشعار الفترة من نور) ================= */
 const fmtP = (p) => String(Math.round(p * 10) / 10);
@@ -2067,7 +2445,7 @@ function renderGrades() {
   const list = scope.filter((s) => fit(s) && (!view.qG || norm(s.name).includes(nq) || (qd && s.sid.includes(qd))))
     .sort((a, b) => order.indexOf(a.grade) - order.indexOf(b.grade) || (+a.cls - +b.cls) || (((G.get(b.sid) || {}).weak || []).length - ((G.get(a.sid) || {}).weak || []).length) || a.name.localeCompare(b.name, "ar"));
   followList = list.map((s) => s.sid);
-  const F = followData(), lastAt = [F.er && F.er.at, F.pr && F.pr.at, F.jr && F.jr.at, F.gr && F.gr.at].filter(Boolean).sort().pop() || "";
+  const F = followData(), lastAt = [F.er && F.er.at, F.pr && F.pr.at, F.jr && F.jr.at, F.gr && F.gr.at, F.ac && F.ac.ab && F.ac.ab.at, F.ac && F.ac.ea && F.ac.ea.at].filter(Boolean).sort().pop() || "";
   $("gSThead").innerHTML = `<tr><th class="n">م</th><th>اسم الطالب</th><th>الفصل</th><th class="n">النسبة العامة</th><th>مواد دون الحد</th><th class="no-print">ولي الأمر</th></tr>`;
   const sb = $("gSRows"); sb.textContent = ""; const frag = document.createDocumentFragment();
   list.forEach((s, i) => {
@@ -2213,7 +2591,7 @@ function renderProj() {
   const list = scope.filter((s) => fit(s) && (!view.qJ || norm(s.name).includes(nq) || (qd && s.sid.includes(qd))))
     .sort((a, b) => order.indexOf(a.grade) - order.indexOf(b.grade) || (+a.cls - +b.cls) || ((jm.bySid.get(b.sid) || { m: [] }).m.length - (jm.bySid.get(a.sid) || { m: [] }).m.length) || a.name.localeCompare(b.name, "ar"));
   followList = list.map((s) => s.sid);
-  const F = followData(), lastAt = [F.er && F.er.at, F.pr && F.pr.at, F.jr && F.jr.at, F.gr && F.gr.at].filter(Boolean).sort().pop() || "";
+  const F = followData(), lastAt = [F.er && F.er.at, F.pr && F.pr.at, F.jr && F.jr.at, F.gr && F.gr.at, F.ac && F.ac.ab && F.ac.ab.at, F.ac && F.ac.ea && F.ac.ea.at].filter(Boolean).sort().pop() || "";
   $("jSThead").innerHTML = `<tr><th class="n">م</th><th>اسم الطالب</th><th>الفصل</th><th class="n">سلّم</th><th>المشاريع غير المسلّمة</th><th class="no-print">ولي الأمر</th></tr>`;
   const sb = $("jSRows"); sb.textContent = ""; const frag = document.createDocumentFragment();
   list.forEach((s, i) => {
@@ -2249,7 +2627,7 @@ async function uploadProj(file) {
 
 /* ================= إرسال لولي الأمر عبر واتساب ================= */
 let followList = [], sendStu = null, sendInfo = null, sendReady = null;
-const TIP = { proj: "", inact: "إكمال مهام المنصة", stall: "إكمال مهام المنصة", miss: "الدخول إلى المنصة وإكمال مهامها", noexc: "المبادرة في السلوك المتميز" };
+const TIP = { abs: "الانتظام في الحضور اليومي", late: "الحضور المبكر للمدرسة", proj: "", inact: "إكمال مهام المنصة", stall: "إكمال مهام المنصة", miss: "الدخول إلى المنصة وإكمال مهامها", noexc: "المبادرة في السلوك المتميز" };
 const digits9 = (v) => { let d = String(v || "").replace(/\D/g, ""); if (d.startsWith("00")) d = d.slice(2); if (d.startsWith("966")) d = d.slice(3); return d.replace(/^0+/, ""); };
 const waNum = (v) => { const d = digits9(v); return /^5\d{8}$/.test(d) ? "966" + d : ""; };
 const showPhone = (v) => { const d = digits9(v); return d ? "0" + d : ""; };
@@ -2278,25 +2656,30 @@ function reportInfo(s) {
   const proj = jx ? { done: jx.d.length, total: jx.d.length + jx.m.length, missing: jx.m.map(fullSubj) } : null;
   const gx = F.gm ? resOf(F.gm.bySid.get(s.sid)) : null;
   const res = gx && gx.pct != null ? { pct: gx.pct, weak: gx.weak.map((w) => w.k), period: F.gr.period || "الفترة" } : null;
+  const ax = F.am ? attOf(F.am, s.sid) : null;
+  const att = ax ? Object.assign({}, ax, { th: absTh(), lth: lateTh() }) : null;
+  const hon = honorOf(s.sid);
   const positive = !reasons.length;
   const tips = Array.from(new Set(reasons.map((k) => k === "proj" && proj ? "تسليم مشاريع " + joinAr(proj.missing) : k === "weak" && res ? "مذاكرة " + joinAr(res.weak) : TIP[k]).filter(Boolean)));
   const school = state.school || C().school || "";
   const period = F.er ? "الفترة: " + periodText(F.er) : F.pr ? "بحسب تقرير المنصة بتاريخ " + gDate(F.pr.at) : F.jr ? "المشاريع والبحوث: " + projLabel(F.jr) : F.gr ? resLabel(F.gr) : "";
   const note = positive
     ? "يسعدنا أن نطمئنكم على ابنكم، فقد أظهر خلال هذه الفترة اجتهاداً والتزاماً يستحقان الإشادة. شكراً لمتابعتكم واهتمامكم، ونتطلع لاستمراره على هذا المستوى المشرّف."
-    : `ابنكم قادر على التقدم بإذن الله، ونأمل تشجيعه على ${tips.join(" و")}. يسعدنا تواصلكم معنا في أي وقت لنتعاون معاً في دعمه.`;
+    : `ابنكم قادر على التقدم بإذن الله، ونأمل تشجيعه على ${tips.join(" و")}. يسعدنا تواصلكم معنا في أي وقت لنتعاون معاً في دعمه.` + (F.am && absStage((attOf(F.am, s.sid) || {}).absent) >= 2 ? " ونحيطكم بأن استمرار الغياب دون عذر تترتب عليه إجراءات نظامية وفق قواعد السلوك والمواظبة." : "");
   const sign = "الموجه الطلابي" + (state.counselor ? "\n" + state.counselor : "") + (school ? "\n" + school : "");
   const L = [];
+  if (att) L.push(`🕒 *الحضور:* ${att.absent ? "غاب " + dayW(att.absent) + (att.days ? " من أصل " + att.days + " يوماً دراسياً" : "") : "لم يغب أي يوم" + (att.days ? " من أصل " + att.days + " يوماً دراسياً" : "")}` + (att.late ? `، وتأخر ${dayW(att.late)}` : ""));
   if (res) L.push(`📝 *نتيجة ${res.period}:* ${fmtP(res.pct)}%` + (res.weak.length ? `\n      يحتاج دعماً في: ${res.weak.join("، ")}` : ""));
   if (exc) L.push(`⭐ *السلوك المتميز:* ${exc.ok ? "مُدرج في كشف السلوك المتميز" : "لم يُدرج بعد في هذه الفترة"}`);
   if (plat) L.push(`📊 *الإنجاز في المنصة:* ${plat.total ? `${plat.solved} من ${plat.total} (${plat.p}%)` : plat.p + "%"}`);
   if (proj) L.push(`📁 *المشاريع والبحوث:* سلّم ${proj.done} من ${proj.total}` + (proj.missing.length ? `\n      المتبقي: ${proj.missing.join("، ")}` : " ✓"));
   if (comp) L.push(`🏆 *المسابقة الشهرية:* ${comp.text}`);
+  if (hon) L.push(`🏅 *تكريم ${hon.label || "الشهر"}:* ${hon.text}`);
   const head = `السلام عليكم ورحمة الله وبركاته\nولي أمر الطالب *${s.name}* المحترم\nالصف: ${s.grade} / فصل ${s.cls}\n\n`;
   const msgText = head + (positive ? "يسعدنا أن نطمئنكم على ابنكم خلال هذه الفترة:" : "نشارككم ملخص متابعة ابنكم خلال هذه الفترة:") + "\n\n" + L.join("\n") + "\n\n" +
     (positive ? "شكراً لمتابعتكم واهتمامكم، ونتطلع لاستمراره على هذا المستوى المشرّف." : note) + "\n\n" + sign;
   const intro = `السلام عليكم ورحمة الله وبركاته\nولي أمر الطالب *${s.name}* المحترم\nمرفق لكم تقرير متابعة ابنكم لهذه الفترة.\n\n` + sign;
-  return { name: s.name, grade: s.grade, cls: s.cls, school, period, exc, plat, proj, res, comp, positive, note, msgText, intro, counselor: state.counselor || "", date: hijriToday() };
+  return { name: s.name, grade: s.grade, cls: s.cls, school, period, exc, plat, proj, res, att, comp: hon ? { text: hon.text, rank: hon.rank, label: "تكريم " + (hon.label || "الشهر") } : comp, positive, note, msgText, intro, counselor: state.counselor || "", date: hijriToday() };
 }
 
 /* ---- رسم التقرير على لوحة (صورة A4) ---- */
@@ -2316,7 +2699,7 @@ async function drawReport(info) {
   const W = 1240, H = 1754, M = 96, R = W - M, cv = document.createElement("canvas"); cv.width = W; cv.height = H;
   const x = cv.getContext("2d"); x.direction = "rtl"; x.textBaseline = "alphabetic";
   const GREEN = "#1f6b52", GOLD = "#b08a3e", INK = "#18231f", MUTED = "#5d6b66", LINE = "#d9e0dd", SOFT = "#eef4f1", AMBER = "#a4661a", AMBERS = "#f8efe1";
-  const iso = (t) => String(t).replace(/\d[\d.,\/\-٫]*%?/g, (m) => "\u2066" + m + "\u2069");
+  const iso = (t) => String(t).replace(/\d[\d.,:\/\-٫]*%?/g, (m) => "\u2066" + m + "\u2069");
   const T = (t, px, y, font, color, align) => { x.font = font; x.fillStyle = color; x.textAlign = align || "right"; x.fillText(iso(t), px, y); };
   const fit = (t, weight, size, min, fam, maxW) => { let f = size; x.font = `${weight} ${f}px ${fam}`; while (x.measureText(t).width > maxW && f > min) { f -= 2; x.font = `${weight} ${f}px ${fam}`; } return `${weight} ${f}px ${fam}`; };
   x.fillStyle = "#fff"; x.fillRect(0, 0, W, H);
@@ -2342,8 +2725,8 @@ async function drawReport(info) {
   // المؤشرات
   y = 668; T("ملخص المتابعة", R, y, `700 32px ${RF.d}`, INK); y += 30;
   x.font = `400 28px ${RF.b}`; const lines = wrapLines(x, info.note, W - 2 * M - 80), bh = 92 + lines.length * 50;
-  const nRows = [info.exc, info.plat, info.res && info.res.pct != null, info.proj, info.comp].filter(Boolean).length || 1;
-  const rowH = Math.max(88, Math.min(122, Math.floor((1505 - bh - 10 - y) / nRows) - 12)), k = rowH / 122;
+  const nRows = [info.att, info.exc, info.plat, info.res && info.res.pct != null, info.proj, info.comp].filter(Boolean).length || 1;
+  const rowH = Math.max(76, Math.min(122, Math.floor((1505 - bh - 10 - y) / nRows) - 12)), k = rowH / 122;
   const Y = (ty, v) => ty + v * k;
   const row = (label, value, sub, ok, drawLeft) => {
     x.fillStyle = "#fff"; x.strokeStyle = LINE; x.lineWidth = 2; box(x, M, y, W - 2 * M, rowH, 14); x.fill(); x.stroke();
@@ -2359,6 +2742,11 @@ async function drawReport(info) {
     x.fillStyle = "#e7ecea"; box(x, M + 40, Y(ty, 86), 240, 12, 6); x.fill();
     x.fillStyle = c; box(x, M + 40, Y(ty, 86), Math.max(12, 240 * Math.min(100, p) / 100), 12, 6); x.fill();
   };
+  if (info.att) {
+    const A = info.att, ok = A.absent < A.th && !(A.late != null && A.late >= A.lth);
+    const sub = [A.absExc ? "منها " + dayW(A.absExc) + " بعذر" : "", A.late ? "تأخر " + dayW(A.late) : "", A.time ? "متوسط وقت الحضور " + A.time + " ص" : ""].filter(Boolean).join(" · ") || (A.days ? "من أصل " + A.days + " يوماً دراسياً" : "");
+    row("الحضور والمواظبة", A.absent ? "غاب " + dayW(A.absent) + (A.days ? " من " + A.days : "") : "لم يغب أي يوم", sub, ok, A.pct != null ? (ty) => pctLeft(ty, A.pct, ok) : null);
+  }
   if (info.exc) row("السلوك المتميز", info.exc.ok ? "مُدرج في كشف السلوك المتميز" : "لم يُدرج بعد في هذه الفترة", "", info.exc.ok, info.exc.ok ? (ty) => {
     x.font = `500 22px ${RF.b}`; const w = x.measureText("درجة").width;
     T("درجة", M + 40, Y(ty, 76), `500 22px ${RF.b}`, MUTED, "left");
@@ -2380,7 +2768,7 @@ async function drawReport(info) {
       for (let i = 0; i < n; i++) { x.fillStyle = i < J.done ? c : "#e7ecea"; box(x, M + 40 + i * (cw + gap), Y(ty, 80), cw, 12, 4); x.fill(); }
     });
   }
-  if (info.comp) row("المسابقة الشهرية", info.comp.text, "", true, (ty) => {
+  if (info.comp) row(info.comp.label || "المسابقة الشهرية", info.comp.text, "", true, (ty) => {
     const r = Math.min(40, rowH / 2 - 10), cx = M + 100, cy = ty + rowH / 2; x.fillStyle = GOLD; x.beginPath(); x.arc(cx, cy, r, 0, Math.PI * 2); x.fill();
     x.strokeStyle = "#fff"; x.lineWidth = 3; x.beginPath(); x.arc(cx, cy, r - 7, 0, Math.PI * 2); x.stroke();
     T(String(info.comp.rank), cx, cy + r * .35, `700 ${Math.round(r * .9)}px ${RF.d}`, "#fff", "center");
@@ -2570,6 +2958,13 @@ $("csvBtn").onclick = () => {
       L.push("");
     });
     download("competition-" + tag + ".csv", "\ufeff" + L.join("\r\n"), "text/csv;charset=utf-8");
+  } else if (view.module === "att") {
+    const ac = attCur(); if (!ac.ab && !ac.ea) return; const am = attMaps(ac);
+    L.push(line([state.school, "تقرير المواظبة" + (view.tab ? " - " + view.tab : ""), [ac.ab && "الغياب " + attRange(ac.ab), ac.ea && "الحضور المبكر " + attRange(ac.ea)].filter(Boolean).join(" / "), "إجراءات الغياب وفق قواعد السلوك والمواظبة، وحد التأخر " + lateTh()]), "", line(["الصف", "الفصل", "الطلاب", "في التقارير", "متوسط نسبة الحضور %", "غياب 3-4 أيام", "غياب 5-9 أيام", "غياب 10 فأكثر", "تأخر فوق الحد"]));
+    L = L.concat(classRows(attClasses(am), attDerive, (d) => d.pr, (d) => [d.n, d.m, d.pn ? fmt1(d.pr) : "", d.s1, d.s2, d.s3, d.lt]));
+    L.push(line(["م", "رقم الطالب", "اسم الطالب", "الصف", "الفصل", "نسبة الحضور %", "أيام الغياب", "أيام التأخر", "متوسط وقت الحضور", "الإجراء المطلوب"]));
+    scope.forEach((s, i) => { const a = attOf(am, s.sid), st = a ? absStage(a.absent) : 0; L.push(line([i + 1, s.sid, s.name, s.grade, s.cls, a && a.pct != null ? fmt1(a.pct) : "", ...attCsv(am, s), st ? ABS_ST[st].act : ""])); });
+    download("attendance-" + tag + ".csv", "\ufeff" + L.join("\r\n"), "text/csv;charset=utf-8");
   } else if (view.module === "grades") {
     const rep = curRes(); if (!rep) return; const gm = resMatch(rep);
     L.push(line([state.school, "نتائج " + resLabel(rep) + (view.tab ? " - " + view.tab : ""), "حد التعثر " + resTh() + "%"]), "", line(["الصف", "الفصل", "الطلاب", "رُصدت نتيجتهم", "متوسط النسبة %", "يحتاجون دعماً", "نسبتهم %"]));
@@ -2589,13 +2984,13 @@ $("csvBtn").onclick = () => {
     scope.forEach((s, i) => L.push(line([i + 1, s.sid, s.name, s.grade, s.cls, ...projCsv(jm, s)])));
     download("projects-" + tag + ".csv", "\ufeff" + L.join("\r\n"), "text/csv;charset=utf-8");
   } else {
-    const F = followData(); if (!F.er && !F.pr && !F.jr && !F.gr) return;
-    L.push(line([state.school, "متابعة الطلاب" + (view.tab ? " - " + view.tab : ""), $("fMeta").textContent]), "", line(["م", "رقم الطالب", "اسم الطالب", "الصف", "الفصل", "السلوك المتميز", "الإنجاز في المنصة %", "المستوى", "المشاريع المسلّمة", "المشاريع غير المسلّمة", "النسبة العامة %", "مواد دون الحد", "أسباب المتابعة"]));
+    const F = followData(); if (!F.er && !F.pr && !F.jr && !F.gr && !F.am) return;
+    L.push(line([state.school, "متابعة الطلاب" + (view.tab ? " - " + view.tab : ""), $("fMeta").textContent]), "", line(["م", "رقم الطالب", "اسم الطالب", "الصف", "الفصل", "السلوك المتميز", "الإنجاز في المنصة %", "المستوى", "المشاريع المسلّمة", "المشاريع غير المسلّمة", "النسبة العامة %", "مواد دون الحد", "أيام الغياب", "أيام التأخر", "متوسط وقت الحضور", "أسباب المتابعة"]));
     let i = 0;
     scope.forEach((s) => {
       const r = F.reasons(s); if (view.pfF !== "all" && !r.length) return;
       const g = F.em ? F.em.got.get(s.sid) : null, x = F.pm ? F.pm.bySid.get(s.sid) : null;
-      L.push(line([++i, s.sid, s.name, s.grade, s.cls, F.em ? (g ? g.score + " درجة" : "غير مشارك") : "", x ? x.p : "", x ? LV[lvIdx(x.p)].name : "", ...projCsv(F.jm, s), ...resCsv(F.gm, s), r.map((k) => REASONS[k]).join(" + ")]));
+      L.push(line([++i, s.sid, s.name, s.grade, s.cls, F.em ? (g ? g.score + " درجة" : "غير مشارك") : "", x ? x.p : "", x ? LV[lvIdx(x.p)].name : "", ...projCsv(F.jm, s), ...resCsv(F.gm, s), ...attCsv(F.am, s), r.map((k) => REASONS[k]).join(" + ")]));
     });
     download("follow-up-" + tag + ".csv", "﻿" + L.join("\r\n"), "text/csv;charset=utf-8");
   }
