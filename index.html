@@ -219,6 +219,12 @@ th.gc,td.gc{border-inline-start:1px solid var(--line)}
 .sdprev[aria-busy="true"] img{opacity:.35}
 .sdnav{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
 .sdnav .row{display:flex;gap:8px}
+.sdsteps{border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:14px}
+.sdsteps ol{margin:6px 0;padding-inline-start:22px;line-height:1.9}
+.sdsteps li.ok{color:var(--accent);font-weight:600}
+.sdsteps li.bad{color:var(--warn);font-weight:600}
+.sdsteps kbd{font-family:var(--mono);font-size:12px;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 5px;background:var(--surface)}
+.sdsteps .row{display:flex;flex-wrap:wrap;gap:6px}
 .sdhint a{color:var(--accent);font-weight:600}
 @media (max-width:780px){.sdgrid{grid-template-columns:1fr}.sdprev{order:-1}.sdprev img{max-width:300px}}
 .issues{display:flex;flex-direction:column;gap:8px}
@@ -755,6 +761,13 @@ details.certset summary{cursor:pointer;font-family:var(--display);font-weight:50
           <button class="btn primary" type="button" id="sdMsg">إرسال الرسالة</button>
           <button class="btn" type="button" id="sdImg">إرسال التقرير صورةً</button>
           <button class="btn" type="button" id="sdPdf">إرسال التقرير PDF</button>
+          <button class="btn" type="button" id="sdShare" hidden>مشاركة التقرير مباشرة</button>
+        </div>
+        <div class="sdsteps" id="sdSteps" hidden role="status">
+          <b id="sdStepsT"></b>
+          <ol id="sdStepsL"></ol>
+          <p class="note" id="sdStepsN"></p>
+          <div class="row"><button class="btn small" type="button" id="sdCopy">نسخ الصورة مرة أخرى</button><button class="btn small" type="button" id="sdDl">تنزيل الملف</button><a class="btn small" id="sdOpen" target="waChat" rel="noopener">فتح المحادثة</a></div>
         </div>
         <p class="msg ok sdhint" id="sdHint" hidden></p>
         <div class="sdset">
@@ -2154,7 +2167,7 @@ function findHonor(sid, k) {
 $("modHonor").addEventListener("click", (e) => { const b = e.target.closest("[data-hcert]"); if (!b) return; const w = findHonor(b.dataset.hcert, b.dataset.hk); if (w) showCert(w); });
 $("hPrintAll").onclick = () => { const D = honorCache; if (!D) return; printCerts(D.units.flatMap((u) => u.win.map((r) => honorCert(r, D.H.scope)))); };
 function honorOf(sid) {
-  try { const D = honorData(); for (const u of D.units) { const r = u.win.find((x) => x.s.sid === sid); if (r) return { rank: r.rank, text: `المركز ${ordinal(r.rank)} في التميّز الشامل ${D.H.scope === "class" ? "على مستوى فصله" : D.H.scope === "grade" ? "على مستوى صفه" : "على مستوى المدرسة"}`, label: D.H.label }; } } catch (e) {}
+  try { const D = honorData(); for (const u of D.units) { const r = u.win.find((x) => x.s.sid === sid && !x.flag); if (r) return { rank: r.rank, text: `المركز ${ordinal(r.rank)} في التميّز الشامل ${D.H.scope === "class" ? "على مستوى فصله" : D.H.scope === "grade" ? "على مستوى صفه" : "على مستوى المدرسة"}`, label: D.H.label }; } } catch (e) {}
   return null;
 }
 
@@ -2175,6 +2188,7 @@ const ABS_ST = [null,
   { d: 10, short: "10 أيام", act: "مخاطبة الجهات ذات الاختصاص وفق نظامي حماية الطفل والحماية من الإيذاء، مع إشعار إدارة التعليم" }];
 const absStage = (n) => n == null ? 0 : n >= 10 ? 3 : n >= 5 ? 2 : n >= 3 ? 1 : 0;
 const stTag = (st) => st ? `<span class="tag st${st}" title="${esc(ABS_ST[st].act)}">${ABS_ST[st].short}</span>` : "";
+const degW = (n) => n === 1 ? "درجة واحدة" : n === 2 ? "درجتان" : n >= 3 && n <= 10 ? n + " درجات" : n + " درجة";
 const dayW = (n) => n === 1 ? "يوماً واحداً" : n === 2 ? "يومين" : n >= 3 && n <= 10 ? n + " أيام" : n + " يوماً";
 async function parseAttPdf(file) {
   const doc = await window.pdfjsLib.getDocument({ data: new Uint8Array(await file.arrayBuffer()), isEvalSupported: false }).promise;
@@ -2654,13 +2668,14 @@ function reportInfo(s) {
   const comp = F.pm ? compFor(s.sid) : null;
   const jx = F.jm ? F.jm.bySid.get(s.sid) : null;
   const proj = jx ? { done: jx.d.length, total: jx.d.length + jx.m.length, missing: jx.m.map(fullSubj) } : null;
-  const gx = F.gm ? resOf(F.gm.bySid.get(s.sid)) : null;
+  const grow = F.gm ? F.gm.bySid.get(s.sid) : null, gx = grow ? resOf(grow) : null;
+  const beh = grow && (typeof grow.pos === "number" || typeof grow.att === "number") ? { pos: typeof grow.pos === "number" ? grow.pos : null, exc: typeof grow.exc === "number" ? grow.exc : 0, att: typeof grow.att === "number" ? grow.att : null, period: F.gr.period || "" } : null;
   const res = gx && gx.pct != null ? { pct: gx.pct, weak: gx.weak.map((w) => w.k), period: F.gr.period || "الفترة" } : null;
   const ax = F.am ? attOf(F.am, s.sid) : null;
   const att = ax ? Object.assign({}, ax, { th: absTh(), lth: lateTh() }) : null;
   const hon = honorOf(s.sid);
   const positive = !reasons.length;
-  const tips = Array.from(new Set(reasons.map((k) => k === "proj" && proj ? "تسليم مشاريع " + joinAr(proj.missing) : k === "weak" && res ? "مذاكرة " + joinAr(res.weak) : TIP[k]).filter(Boolean)));
+  const tips = Array.from(new Set(reasons.map((k) => k === "proj" && proj ? "تسليم مشاريع " + joinAr(proj.missing) : k === "weak" && res ? "رفع مستواه في " + joinAr(res.weak) : TIP[k]).filter(Boolean)));
   const school = state.school || C().school || "";
   const period = F.er ? "الفترة: " + periodText(F.er) : F.pr ? "بحسب تقرير المنصة بتاريخ " + gDate(F.pr.at) : F.jr ? "المشاريع والبحوث: " + projLabel(F.jr) : F.gr ? resLabel(F.gr) : "";
   const note = positive
@@ -2670,7 +2685,8 @@ function reportInfo(s) {
   const L = [];
   if (att) L.push(`🕒 *الحضور:* ${att.absent ? "غاب " + dayW(att.absent) + (att.days ? " من أصل " + att.days + " يوماً دراسياً" : "") : "لم يغب أي يوم" + (att.days ? " من أصل " + att.days + " يوماً دراسياً" : "")}` + (att.late ? `، وتأخر ${dayW(att.late)}` : ""));
   if (res) L.push(`📝 *نتيجة ${res.period}:* ${fmtP(res.pct)}%` + (res.weak.length ? `\n      يحتاج دعماً في: ${res.weak.join("، ")}` : ""));
-  if (exc) L.push(`⭐ *السلوك المتميز:* ${exc.ok ? "مُدرج في كشف السلوك المتميز" : "لم يُدرج بعد في هذه الفترة"}`);
+  if (beh) L.push(`🎖️ *درجة السلوك:* ${beh.pos != null ? beh.pos : "—"}` + (beh.exc ? ` (+${degW(beh.exc)} للسلوك المتميز)` : "") + (beh.att != null ? `\n      درجة المواظبة: ${beh.att}` : ""));
+  if (exc) L.push(`⭐ *السلوك المتميز:* ${exc.ok ? "مُدرج في كشف السلوك المتميز" + (exc.score ? ` (${degW(exc.score)})` : "") : "لم يُدرج بعد في هذه الفترة"}`);
   if (plat) L.push(`📊 *الإنجاز في المنصة:* ${plat.total ? `${plat.solved} من ${plat.total} (${plat.p}%)` : plat.p + "%"}`);
   if (proj) L.push(`📁 *المشاريع والبحوث:* سلّم ${proj.done} من ${proj.total}` + (proj.missing.length ? `\n      المتبقي: ${proj.missing.join("، ")}` : " ✓"));
   if (comp) L.push(`🏆 *المسابقة الشهرية:* ${comp.text}`);
@@ -2679,7 +2695,7 @@ function reportInfo(s) {
   const msgText = head + (positive ? "يسعدنا أن نطمئنكم على ابنكم خلال هذه الفترة:" : "نشارككم ملخص متابعة ابنكم خلال هذه الفترة:") + "\n\n" + L.join("\n") + "\n\n" +
     (positive ? "شكراً لمتابعتكم واهتمامكم، ونتطلع لاستمراره على هذا المستوى المشرّف." : note) + "\n\n" + sign;
   const intro = `السلام عليكم ورحمة الله وبركاته\nولي أمر الطالب *${s.name}* المحترم\nمرفق لكم تقرير متابعة ابنكم لهذه الفترة.\n\n` + sign;
-  return { name: s.name, grade: s.grade, cls: s.cls, school, period, exc, plat, proj, res, att, comp: hon ? { text: hon.text, rank: hon.rank, label: "تكريم " + (hon.label || "الشهر") } : comp, positive, note, msgText, intro, counselor: state.counselor || "", date: hijriToday() };
+  return { name: s.name, grade: s.grade, cls: s.cls, school, period, exc, beh, plat, proj, res, att, comp: hon ? { text: hon.text, rank: hon.rank, label: "تكريم " + (hon.label || "الشهر") } : comp, positive, note, msgText, intro, counselor: state.counselor || "", date: hijriToday() };
 }
 
 /* ---- رسم التقرير على لوحة (صورة A4) ---- */
@@ -2725,7 +2741,7 @@ async function drawReport(info) {
   // المؤشرات
   y = 668; T("ملخص المتابعة", R, y, `700 32px ${RF.d}`, INK); y += 30;
   x.font = `400 28px ${RF.b}`; const lines = wrapLines(x, info.note, W - 2 * M - 80), bh = 92 + lines.length * 50;
-  const nRows = [info.att, info.exc, info.plat, info.res && info.res.pct != null, info.proj, info.comp].filter(Boolean).length || 1;
+  const nRows = [info.att, info.exc || info.beh, info.plat, info.res && info.res.pct != null, info.proj, info.comp].filter(Boolean).length || 1;
   const rowH = Math.max(76, Math.min(122, Math.floor((1505 - bh - 10 - y) / nRows) - 12)), k = rowH / 122;
   const Y = (ty, v) => ty + v * k;
   const row = (label, value, sub, ok, drawLeft) => {
@@ -2747,7 +2763,9 @@ async function drawReport(info) {
     const sub = [A.absExc ? "منها " + dayW(A.absExc) + " بعذر" : "", A.late ? "تأخر " + dayW(A.late) : "", A.time ? "متوسط وقت الحضور " + A.time + " ص" : ""].filter(Boolean).join(" · ") || (A.days ? "من أصل " + A.days + " يوماً دراسياً" : "");
     row("الحضور والمواظبة", A.absent ? "غاب " + dayW(A.absent) + (A.days ? " من " + A.days : "") : "لم يغب أي يوم", sub, ok, A.pct != null ? (ty) => pctLeft(ty, A.pct, ok) : null);
   }
-  if (info.exc) row("السلوك المتميز", info.exc.ok ? "مُدرج في كشف السلوك المتميز" : "لم يُدرج بعد في هذه الفترة", "", info.exc.ok, info.exc.ok ? (ty) => {
+  const behSub = info.beh ? [info.beh.pos != null ? "درجة السلوك " + info.beh.pos + (info.beh.exc ? " (+" + info.beh.exc + " متميز)" : "") : "", info.beh.att != null ? "درجة المواظبة " + info.beh.att : ""].filter(Boolean).join(" · ") : "";
+  if (!info.exc && info.beh) row("السلوك والمواظبة", info.beh.pos != null ? "درجة السلوك " + info.beh.pos + (info.beh.exc ? " + " + info.beh.exc + " للسلوك المتميز" : "") : "درجة المواظبة " + info.beh.att, info.beh.pos != null && info.beh.att != null ? "درجة المواظبة " + info.beh.att : "", true, null);
+  if (info.exc) row("السلوك المتميز", info.exc.ok ? "مُدرج في كشف السلوك المتميز" : "لم يُدرج بعد في هذه الفترة", behSub, info.exc.ok, info.exc.ok ? (ty) => {
     x.font = `500 22px ${RF.b}`; const w = x.measureText("درجة").width;
     T("درجة", M + 40, Y(ty, 76), `500 22px ${RF.b}`, MUTED, "left");
     T(String(info.exc.score), M + 52 + w, Y(ty, 78), `700 ${Math.round(54 * Math.max(k, .8))}px ${RF.d}`, GREEN, "left");
@@ -2844,7 +2862,7 @@ function openSend(sid) {
   const s = state.students.find((x) => x.sid === sid); if (!s) return;
   sendStu = s; $("sdHint").hidden = true;
   $("sdTitle").textContent = s.name;
-  refreshSend(false);
+  refreshSend(false); prepFiles();
   $("sdSub").innerHTML = `${esc(s.grade)} / فصل ${esc(s.cls)}<span class="sdbadge ${sendInfo.positive ? "ok" : "enc"}">${sendInfo.positive ? "قالب الإشادة" : "قالب التشجيع"}</span>`;
   $("sdPhone").value = showPhone(phoneOf(s)); phoneNote();
   $("sdCoun").value = state.counselor || ""; $("sdApp").value = state.waApp || "web";
@@ -2866,7 +2884,7 @@ $("sdPhone").addEventListener("change", () => {
   if (!d && orig) $("sdPhone").value = showPhone(orig);
   save(); phoneNote(); render();
 });
-$("sdCoun").addEventListener("change", () => { state.counselor = S($("sdCoun").value); save(); refreshSend(false); });
+$("sdCoun").addEventListener("change", () => { state.counselor = S($("sdCoun").value); save(); refreshSend(false); prepFiles(); });
 $("sdApp").addEventListener("change", () => { state.waApp = $("sdApp").value; save(); });
 $("sdMsg").onclick = () => {
   const r = openChat($("sdText").value);
@@ -2875,26 +2893,58 @@ $("sdMsg").onclick = () => {
   markSent();
 };
 const fileBase = () => "تقرير متابعة - " + sendStu.name;
+let sendPngBlob = null, sendPdfBlob = null, stepMode = "";
+const pngOf = () => sendReady.then((cv) => toBlob(cv, "image/png"));
+const pdfOf = async () => { const cv = await sendReady, jpg = new Uint8Array(await (await toBlob(cv, "image/jpeg", 0.92)).arrayBuffer()); return jpegPdf(jpg, cv.width, cv.height); };
+function prepFiles() {
+  sendPngBlob = sendPdfBlob = null; const tok = sendStu;
+  pngOf().then((b) => { if (sendStu === tok) sendPngBlob = b; });
+  pdfOf().then((b) => { if (sendStu === tok) sendPdfBlob = b; });
+  let canFiles = false;
+  try { canFiles = !!(navigator.canShare && navigator.canShare({ files: [new File(["x"], "t.png", { type: "image/png" })] })); } catch (e) {}
+  $("sdShare").hidden = !canFiles; $("sdSteps").hidden = true;
+}
+function showSteps(mode, ok) {
+  stepMode = mode; const url = waUrl(sendInfo.intro), L = $("sdStepsL");
+  $("sdSteps").hidden = false; $("sdHint").hidden = true;
+  $("sdStepsT").textContent = mode === "pdf" ? "أرفق ملف PDF في المحادثة" : "أرفق صورة التقرير في المحادثة";
+  const items = mode === "pdf"
+    ? [["ok", "✓ نُزّل ملف التقرير PDF في مجلد التنزيلات."], ["", url ? "انتقل إلى نافذة واتساب وانتظر حتى تظهر محادثة ولي الأمر." : "افتح محادثة ولي الأمر في واتساب (لا يوجد رقم مسجّل)."], ["", "اسحب الملف من شريط التنزيلات إلى المحادثة، أو اضغط 📎 ← مستند واختره، ثم اضغط إرسال."]]
+    : [[ok ? "ok" : "bad", ok ? "✓ نُسخت صورة التقرير إلى الحافظة." : "تعذّر النسخ في هذا المتصفح، فنُزّلت الصورة في مجلد التنزيلات."], ["", url ? "انتقل إلى نافذة واتساب وانتظر حتى تظهر محادثة ولي الأمر." : "افتح محادثة ولي الأمر في واتساب (لا يوجد رقم مسجّل)."],
+       ["", ok ? "اضغط داخل مربع الكتابة ثم <kbd>Ctrl</kbd> + <kbd>V</kbd>، فتظهر الصورة للمعاينة، ثم اضغط إرسال." : "اسحب الصورة من شريط التنزيلات إلى المحادثة، ثم اضغط إرسال."]];
+  L.innerHTML = items.map(([c, t]) => `<li class="${c}">${t}</li>`).join("");
+  $("sdStepsN").textContent = "واتساب لا يسمح بإرفاق ملف تلقائياً من رابط، لذلك يلزم اللصق أو السحب يدوياً. والرسالة المكتوبة في المحادثة تُرسل بعد الصورة أو تُحذف.";
+  $("sdCopy").hidden = mode === "pdf"; $("sdDl").textContent = mode === "pdf" ? "تنزيل الملف مرة أخرى" : "تنزيل الصورة";
+  const o = $("sdOpen"); o.hidden = !url; if (url) o.href = url;
+}
+function copyPng() {
+  const p = sendPngBlob ? Promise.resolve(sendPngBlob) : pngOf();
+  try { return navigator.clipboard && window.ClipboardItem ? navigator.clipboard.write([new ClipboardItem({ "image/png": p })]).then(() => true, () => false) : Promise.resolve(false); }
+  catch (e) { return Promise.resolve(false); }
+}
 $("sdImg").onclick = () => {
   if (!sendReady) return;
-  const pngP = sendReady.then((cv) => toBlob(cv, "image/png")); let copyP;
-  try { copyP = navigator.clipboard && window.ClipboardItem ? navigator.clipboard.write([new ClipboardItem({ "image/png": pngP })]).then(() => true, () => false) : Promise.resolve(false); }
-  catch (e) { copyP = Promise.resolve(false); }
-  copyP.then(async (copied) => {
-    if (!copied) download(fileBase() + ".png", await pngP, "image/png");
+  copyPng().then(async (copied) => {
+    if (!copied) download(fileBase() + ".png", sendPngBlob || await pngOf(), "image/png");
     const r = openChat(sendInfo.intro);
-    const how = copied ? "نُسخ التقرير. في محادثة واتساب اضغط Ctrl+V ثم إرسال." : "نُزّل التقرير صورةً في مجلد التنزيلات. اسحبه إلى محادثة واتساب.";
-    if (r === "nophone") sdHint(how.replace(/في محادثة واتساب|إلى محادثة واتساب/, "إلى المحادثة") + " (لا يوجد رقم، فافتح المحادثة بنفسك)");
-    else { sdHint(how + (r === "ok" ? "" : " منع المتصفح فتح النافذة:"), r === "ok" ? "" : r); markSent(); }
+    showSteps("img", copied);
+    if (r !== "nophone") markSent();
   });
 };
+$("sdCopy").onclick = () => copyPng().then((ok) => toast(ok ? "نُسخت الصورة. الصقها في المحادثة بـ Ctrl+V" : "تعذّر النسخ؛ استخدم «تنزيل الصورة»."));
+$("sdDl").onclick = async () => { if (stepMode === "pdf") download(fileBase() + ".pdf", sendPdfBlob || await pdfOf(), "application/pdf"); else download(fileBase() + ".png", sendPngBlob || await pngOf(), "image/png"); };
 $("sdPdf").onclick = async () => {
   if (!sendReady) return;
-  const cv = await sendReady, jpg = new Uint8Array(await (await toBlob(cv, "image/jpeg", 0.92)).arrayBuffer());
-  download(fileBase() + ".pdf", jpegPdf(jpg, cv.width, cv.height), "application/pdf");
-  const r = openChat(sendInfo.intro), how = "نُزّل ملف PDF في مجلد التنزيلات. اسحبه إلى محادثة واتساب ثم أرسله.";
-  if (r === "nophone") sdHint(how + " (لا يوجد رقم، فافتح المحادثة بنفسك)");
-  else { sdHint(how + (r === "ok" ? "" : " منع المتصفح فتح النافذة:"), r === "ok" ? "" : r); markSent(); }
+  download(fileBase() + ".pdf", sendPdfBlob || await pdfOf(), "application/pdf");
+  const r = openChat(sendInfo.intro);
+  showSteps("pdf", true);
+  if (r !== "nophone") markSent();
+};
+$("sdShare").onclick = async () => {
+  if (!sendReady) return;
+  const blob = sendPngBlob || await pngOf(), file = new File([blob], fileBase() + ".png", { type: "image/png" });
+  try { await navigator.share({ files: [file], title: "تقرير متابعة " + sendStu.name }); markSent(); sdHint("تمت المشاركة. تأكد من اختيار محادثة ولي الأمر الصحيحة."); }
+  catch (e) { if (e && e.name !== "AbortError") sdHint("تعذّرت المشاركة المباشرة في هذا الجهاز؛ استخدم «إرسال التقرير صورةً»."); }
 };
 
 /* ================= Export ================= */
