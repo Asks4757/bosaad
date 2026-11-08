@@ -128,6 +128,26 @@ th.gc,td.gc{border-inline-start:1px solid var(--line)}
 .tag.st1{background:var(--warn-soft);color:var(--warn)}
 .tag.st2{background:color-mix(in srgb,var(--danger) 12%,transparent);color:var(--danger)}
 .tag.st3{background:var(--danger);color:#fff}
+.mgrid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px}
+.mform{display:flex;flex-direction:column;gap:12px}
+.mrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mform input,.mform select,.mform textarea,.mprev textarea{font:inherit;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.mform textarea,.mprev textarea{resize:vertical;line-height:1.75}
+.mprev{display:flex;flex-direction:column;gap:8px}
+.mstud{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:4px 10px;max-height:300px;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.mstud label{display:flex;align-items:center;gap:6px;font-size:13.5px;padding:3px 0;cursor:pointer}
+.mstud .all{grid-column:1/-1;font-weight:600;border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:2px}
+.mstud .np2{font-size:11px;color:var(--warn)}
+.mtype{display:inline-flex;gap:8px}
+.mtype button{font:inherit;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:9px 18px;cursor:pointer}
+.mtype button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.mtype button[data-mt="excel"][aria-pressed="true"]{background:#b08a3e;border-color:#b08a3e}
+.tmbar{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:14px}
+.qst{font-size:12.5px;font-weight:600}.qst.ok{color:var(--accent)}.qst.wait{color:var(--muted)}
+.qwarn{font-size:12px;color:var(--warn)}
+.mph{font-family:var(--mono);direction:ltr;text-align:right;width:130px;font-size:13px;border:1px solid var(--line);border-radius:6px;padding:4px 6px;background:var(--bg);color:var(--ink)}
+body.tmode .steps,body.tmode #modnav,body.tmode #gradebar,body.tmode footer,body.tmode #bkNote,body.tmode #topActions,body.tmode #mLog .no-print,body.tmode #tmOn{display:none!important}
+@media (max-width:820px){.mgrid,.mrow{grid-template-columns:1fr}}
 .hset{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:12px}
 .field.col{display:flex;flex-direction:column;align-items:stretch;gap:4px}
 .hset input,.hset select{font:inherit;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 10px}
@@ -152,7 +172,10 @@ th.gc,td.gc{border-inline-start:1px solid var(--line)}
 .stages .stg{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px;line-height:1.7;color:var(--muted)}
 .stages .stg b{display:block;font-size:14px;color:var(--ink);margin-bottom:2px}
 .stages .stg .n{font-family:var(--mono);font-size:20px;color:var(--ink);float:left}
+.stages .stg.cons{border-color:color-mix(in srgb,var(--danger) 45%,transparent)}
+.wdp{font-size:11.5px;color:var(--muted);white-space:nowrap}
 .stages .src{grid-column:1/-1;font-size:12px;color:var(--muted)}
+.tag.tch{background:color-mix(in srgb,var(--g2) 14%,transparent);color:var(--g2)}
 .tag.abs{background:var(--danger-soft);color:var(--danger)}
 .tag.late{background:var(--warn-soft);color:var(--warn)}
 .tag.weak{background:var(--danger-soft);color:var(--danger)}
@@ -160,6 +183,8 @@ th.gc,td.gc{border-inline-start:1px solid var(--line)}
 .subj{display:inline-block;font-size:12px;border-radius:6px;padding:1px 8px;margin:1px 0 1px 4px;white-space:nowrap;border:1px solid var(--line);color:var(--ink)}
 .jiss{margin-top:12px;font-size:14px}
 .hotv{color:var(--danger);font-weight:700}
+#gSubRows tr.grow td{background:var(--bg);padding-top:10px}
+.subj.miss{border-style:dashed;color:var(--muted)}
 .subj.low{border-color:color-mix(in srgb,var(--danger) 35%,transparent);color:var(--danger)}
 .subj .sc{font-family:var(--mono);font-size:11px;margin-inline-start:4px;color:var(--muted)}
 .jiss ul{margin:6px 0 0;padding-inline-start:20px;columns:2;column-gap:28px;color:var(--muted)}
@@ -310,6 +335,25 @@ details.certset summary{cursor:pointer;font-family:var(--display);font-weight:50
 .certscale{transform-origin:top center;flex:none}
 /* ---- certificate (fixed print look, independent of theme) ---- */
 #certs{display:none}
+#msgRep{display:none}
+.mrep{font-family:"IBM Plex Sans Arabic",Tahoma,sans-serif;color:#18231f;direction:rtl;font-size:10.5pt}
+.mrep .rh{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2.5px solid #1f6b52;padding-bottom:8px;margin-bottom:10px}
+.mrep .rh .r{line-height:1.7;font-size:10pt;color:#5d6b66}.mrep .rh .r b{color:#18231f;font-size:11pt}
+.mrep .rh img{max-height:64px}
+.mrep h1{font-family:"Readex Pro","IBM Plex Sans Arabic",sans-serif;font-size:17pt;margin:6px 0 2px;color:#1f6b52}
+.mrep .sub{color:#5d6b66;margin:0 0 10px}
+.mrep .kp{display:flex;gap:8px;margin:8px 0 12px}
+.mrep .kp div{flex:1;border:1px solid #d9e0dd;border-radius:6px;padding:6px 8px;text-align:center}
+.mrep .kp b{display:block;font-size:15pt;color:#1f6b52}
+.mrep h2{font-size:12pt;margin:12px 0 6px;color:#18231f}
+.mrep table{width:100%;border-collapse:collapse;font-size:9.5pt;table-layout:fixed}
+.mrep td,.mrep th{white-space:normal!important;overflow-wrap:anywhere}
+.mrep th{background:#eef4f1;color:#1f6b52;font-weight:700;border:1px solid #c9d6d0;padding:5px 6px;text-align:right}
+.mrep td{border:1px solid #d9e0dd;padding:4px 6px;vertical-align:top}
+.mrep tr{break-inside:avoid}
+.mrep .ex{color:#8a6a1f;font-weight:600}.mrep .fo{color:#1f6b52;font-weight:600}
+.mrep .sg{display:flex;justify-content:space-between;margin-top:28px;padding:0 30px}
+.mrep .sg div{text-align:center;min-width:180px}.mrep .sg span{display:block;border-top:1px dotted #5d6b66;margin-top:34px;padding-top:4px;color:#5d6b66}
 .cert{--cg:#14533f;--cgold:#b08a3e;--cink:#1f2a26;width:297mm;height:210mm;position:relative;background:#fff;color:var(--cink);overflow:hidden;font-family:var(--cb),"Amiri","Traditional Arabic","Times New Roman",serif;box-sizing:border-box;direction:rtl;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .cert *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .cert .pat{position:absolute;inset:0;opacity:.06;background-size:22mm 22mm}
@@ -354,10 +398,15 @@ details.certset summary{cursor:pointer;font-family:var(--display);font-weight:50
 .cert .seal.g0 .disc{background:radial-gradient(circle at 35% 30%,#e6f1ec,#7fb49d 60%,#14533f);color:#fff}
 .cert .seal svg{position:absolute;inset:0}
 @page cert{size:A4 landscape;margin:0}
+@page mrep{size:A4 portrait;margin:12mm}
+.mrep{page:mrep}
 @media print{
   body[data-print="certs"]{padding:0;background:#fff}
   body[data-print="certs"] .wrap,body[data-print="certs"] .overlay,body[data-print="certs"] .toast{display:none!important}
   body[data-print="certs"] #certs{display:block}
+  body[data-print="msgrep"]{padding:0;background:#fff}
+  body[data-print="msgrep"] .wrap,body[data-print="msgrep"] .overlay,body[data-print="msgrep"] .toast{display:none!important}
+  body[data-print="msgrep"] #msgRep{display:block}
   .cert{page:cert;break-after:page}
   .cert:last-child{break-after:auto}
 }
@@ -384,6 +433,7 @@ details.certset summary{cursor:pointer;font-family:var(--display);font-weight:50
     <button type="button" data-m="grades"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h8l3.5 3.5v13.5h-11.5z"/><path d="M14.5 3.5V7H18M9.5 17v-3M12.5 17v-5.5M15.5 17v-2"/></svg>النتائج</button>
     <button type="button" data-m="att"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4M9 14.5l2 2 4-4"/></svg>المواظبة</button>
     <button type="button" data-m="honor"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="5.5"/><path d="M8.5 13.5L7 21l5-2.6 5 2.6-1.5-7.5"/><path d="M12 6.5l.9 1.8 2 .3-1.4 1.4.3 2-1.8-.9-1.8.9.3-2-1.4-1.4 2-.3z"/></svg>التكريم</button>
+    <button type="button" data-m="msg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5h16v10H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></svg>رسائل المعلمين</button>
     <button type="button" data-m="follow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9.5" cy="8" r="3.5"/><path d="M3 20c.6-3.6 3.2-5.5 6.5-5.5 1.6 0 3 .4 4.1 1.2M15.5 15.5l2 2 4-4"/></svg>متابعة الطلاب<span class="cnt" id="followCnt" hidden></span></button>
     <button type="button" data-m="comp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v4.5a5 5 0 0 1-10 0z"/><path d="M7 6H4.5a2.5 2.5 0 0 0 3 3.6M17 6h2.5a2.5 2.5 0 0 1-3 3.6M12 13.5V17M8.5 20h7M9.5 17h5"/></svg>المسابقة الشهرية</button>
   </nav>
@@ -436,11 +486,11 @@ details.certset summary{cursor:pointer;font-family:var(--display);font-weight:50
       <p class="msg" id="mG" hidden></p>
     </div>
     <div class="step off" id="stepA" data-for="att" hidden>
-      <div class="stephead"><span class="num">2</span><h3>تقارير الحضور والغياب (PDF)</h3></div>
-      <p id="sAtext">من برنامج الحضور: تقرير «الطلاب الأكثر غياباً» وتقرير «الطلاب الأكثر حضوراً مبكراً». ارفعهما معاً أو كلاً على حدة.</p>
+      <div class="stephead"><span class="num">2</span><h3>كشف الغياب والتأخر</h3></div>
+      <p id="sAtext">ملف Excel «الغياب والتأخر» من برنامج البصمة الجديد (يحوي تواريخ الغياب). وتقبل الأداة أيضاً تقارير PDF القديمة: «الأكثر غياباً» و«الحضور المبكر».</p>
       <div class="row">
-        <label class="btn primary" for="f7" id="f7label">اختيار تقارير PDF</label>
-        <input type="file" id="f7" accept=".pdf,application/pdf" multiple disabled>
+        <label class="btn primary" for="f7" id="f7label">اختيار كشف الغياب</label>
+        <input type="file" id="f7" accept=".xlsx,.xls,.pdf,application/pdf" multiple disabled>
       </div>
       <p class="msg" id="mA" hidden></p>
     </div>
@@ -501,6 +551,54 @@ details.certset summary{cursor:pointer;font-family:var(--display);font-weight:50
     </section>
   </div>
 
+  <!-- ============ رسائل المعلمين ============ -->
+  <div class="mod" id="modMsg" hidden>
+    <div class="tmbar" id="tmBar" hidden><span>وضع المعلم: تظهر هذه الصفحة فقط.</span><button class="btn small" type="button" id="tmExit">خروج (رمز الإدارة)</button></div>
+    <section class="panel" id="mCompose" aria-labelledby="mTitle">
+      <div class="phead"><h2 id="mTitle">رسالة من المعلم لولي الأمر</h2><div class="row no-print"><button class="btn small" type="button" id="tmOn">تشغيل وضع المعلم</button></div></div>
+      <div class="mgrid">
+        <div class="mform">
+          <div class="mrow">
+            <label class="field col" for="mTeacher">اسم المعلم <input id="mTeacher" list="mTeacherL" type="text" autocomplete="off" placeholder="اكتب اسمك أو اختره"></label>
+            <label class="field col" for="mSubj">المادة <input id="mSubj" list="mSubjL" type="text" autocomplete="off" placeholder="مثل: القرآن الكريم"></label>
+          </div>
+          <datalist id="mTeacherL"></datalist><datalist id="mSubjL"></datalist>
+          <label class="field col" for="mClass">الفصل <select id="mClass"></select></label>
+          <div class="mstud" id="mStud"></div>
+          <div class="mtype" role="radiogroup" aria-label="نوع الرسالة">
+            <button type="button" data-mt="follow" aria-pressed="true">📌 متابعة</button>
+            <button type="button" data-mt="excel" aria-pressed="false">🌟 تفوق</button>
+          </div>
+          <label class="field col" for="mTopic"><span id="mTopicL">الموضوع</span> <textarea id="mTopic" rows="2" placeholder="مثل: تسميع سورة الملك من الآية 1 إلى الآية 15"></textarea></label>
+          <label class="field col" for="mAct">المطلوب من ولي الأمر (اختياري) <input id="mAct" list="mActL" type="text" autocomplete="off"></label>
+          <datalist id="mActL"></datalist>
+        </div>
+        <div class="mprev">
+          <label class="field col" for="mText">نص الرسالة (يمكن تعديله) <textarea id="mText" rows="14"></textarea></label>
+          <p class="note">[اسم الطالب] و[الصف] يُستبدلان تلقائياً لكل طالب، فلا تحذفهما.</p>
+          <button class="btn primary" type="button" id="mPrep">إعداد الرسائل</button>
+        </div>
+      </div>
+      <p class="msg" id="mMsg" hidden></p>
+    </section>
+    <section class="panel" id="mQueue" hidden aria-labelledby="mQTitle">
+      <div class="phead"><h2 id="mQTitle">الإرسال</h2><div class="row"><button class="btn primary" type="button" id="mNext">إرسال التالي</button><button class="btn small" type="button" id="mDone">إنهاء</button></div></div>
+      <p class="note">كل ضغطة تفتح محادثة ولي الأمر في واتساب والرسالة مكتوبة فيها؛ اضغط إرسال في واتساب ثم عد هنا للطالب التالي.</p>
+      <div class="tbox"><table class="stable"><thead><tr><th class="n">م</th><th>الطالب</th><th>جوال ولي الأمر</th><th>ملاحظة</th><th>الحالة</th><th></th></tr></thead><tbody id="mQRows"></tbody></table></div>
+    </section>
+    <section class="panel" id="mLog" aria-labelledby="mLTitle">
+      <div class="phead"><h2 id="mLTitle">سجل رسائل المعلمين</h2><div class="row no-print"><button class="btn small" type="button" id="mXlsx">تقرير التواصل Excel</button><button class="btn small" type="button" id="mPdfR">تقرير التواصل PDF</button></div></div>
+      <div class="toolbar no-print">
+        <label class="field" for="mLT">المعلم <select id="mLT"></select></label>
+        <label class="field" for="mLF">من <input type="date" id="mLF"></label>
+        <label class="field" for="mLTo">إلى <input type="date" id="mLTo"></label>
+        <label class="field" for="mLK">النوع <select id="mLK"><option value="">الكل</option><option value="follow">متابعة</option><option value="excel">تفوق</option></select></label>
+      </div>
+      <div class="sum" id="mLSum"></div>
+      <div class="tbox"><table class="stable"><thead><tr><th>التاريخ</th><th>المعلم</th><th>المادة</th><th>الطالب</th><th>الفصل</th><th>النوع</th><th>الموضوع</th></tr></thead><tbody id="mLRows"></tbody></table></div>
+    </section>
+  </div>
+
   <!-- ============ التكريم ============ -->
   <div class="mod" id="modHonor" hidden>
     <section class="panel" id="honorEmpty" hidden><div class="empty"><b>لا توجد بيانات للتكريم بعد</b>ارفع تقرير واحد على الأقل: كشف السلوك المتميز، أو تقرير المنصة، أو تقارير الغياب، أو النتائج، أو المشاريع.</div></section>
@@ -543,7 +641,7 @@ details.certset summary{cursor:pointer;font-family:var(--display);font-weight:50
       <div class="phead"><h2 id="aSTitle">الطلاب</h2></div>
       <div class="toolbar no-print">
         <div class="search"><input id="aQ" type="search" placeholder="ابحث بالاسم أو رقم الطالب" aria-label="بحث"></div>
-        <label class="field" for="aF">عرض <select id="aF"><option value="need">عليهم إجراء غياب أو تأخر فوق الحد</option><option value="s1">غياب 3 – 4 أيام</option><option value="s2">غياب 5 – 9 أيام</option><option value="s3">غياب 10 أيام فأكثر</option><option value="late">تأخر فوق الحد</option><option value="best">الأكثر انضباطاً (الأقل غياباً وتأخراً)</option><option value="none">غير موجودين في التقارير</option><option value="all">كل الطلاب</option></select></label>
+        <label class="field" for="aF">عرض <select id="aF"><option value="need">عليهم إجراء غياب أو تأخر فوق الحد</option><option value="s1">غياب 3 – 4 أيام</option><option value="s2">غياب 5 – 9 أيام</option><option value="s3">غياب 10 أيام فأكثر</option><option value="cons">غياب 3 أيام متصلة فأكثر</option><option value="wd">نمط غياب في يوم محدد</option><option value="late">تأخر فوق الحد</option><option value="best">الأكثر انضباطاً (الأقل غياباً وتأخراً)</option><option value="none">غير موجودين في التقارير</option><option value="all">كل الطلاب</option></select></label>
       </div>
       <div class="finfo" id="aInfo"></div>
       <div class="tbox"><table class="stable"><thead id="aSThead"></thead><tbody id="aSRows"></tbody></table></div>
@@ -576,7 +674,7 @@ details.certset summary{cursor:pointer;font-family:var(--display);font-weight:50
       <div class="phead"><h2 id="gSTitle">الطلاب</h2></div>
       <div class="toolbar no-print">
         <div class="search"><input id="gQ" type="search" placeholder="ابحث بالاسم أو رقم الطالب" aria-label="بحث"></div>
-        <label class="field" for="gF">عرض <select id="gF"><option value="weak">يحتاجون دعماً (مادة أو أكثر)</option><option value="ok">لا توجد مادة دون الحد</option><option value="none">لم تُرفع أو لم تُرصد نتيجتهم</option><option value="all">كل الطلاب</option></select></label>
+        <label class="field" for="gF">عرض <select id="gF"><option value="weak">يحتاجون دعماً (مادة أو أكثر)</option><option value="ok">لا توجد مادة دون الحد</option><option value="none">لم تُرفع أو لم تُرصد نتيجتهم</option><option value="mg">لهم درجات لم تُرصد</option><option value="b1">تقدير ممتاز (90% فأكثر)</option><option value="all">كل الطلاب</option></select></label>
       </div>
       <div class="finfo" id="gInfo"></div>
       <div class="tbox"><table class="stable"><thead id="gSThead"></thead><tbody id="gSRows"></tbody></table></div>
@@ -792,6 +890,7 @@ details.certset summary{cursor:pointer;font-family:var(--display);font-weight:50
 </div>
 <div class="toast" id="toast" hidden></div>
 <div id="certs" aria-hidden="true"></div>
+<div id="msgRep" aria-hidden="true"></div>
 <div class="overlay" id="certView" hidden role="dialog" aria-modal="true" aria-label="معاينة الشهادة"><div class="ovbar"><button class="btn primary" type="button" id="certPrint">طباعة الشهادة</button><button class="btn" type="button" id="certClose">إغلاق</button></div><div class="ovbody"><div class="certscale" id="certScale"></div></div></div>
 
 <script>
@@ -1144,7 +1243,7 @@ function parsePlatform(sheets) {
 const KEY = "noor-excellence-tool-v1", VKEY = "noor-excellence-tool-view2";
 const DEF = () => ({ school: "", year: "", students: [], studentsAt: null, reports: [], current: null, goal: 20,
   plat: [], platCurrent: null, platIgnore: [], platLinks: {}, levels: [10, 25, 40], inits: [], initActive: null,
-  proj: [], projCurrent: null, grades: [], gradesCurrent: null, gradeTh: 50, att: [], attAbs: null, attEarly: null, absTh: 10, lateTh: 5, honor: {}, phones: {}, sent: {}, counselor: "", waApp: "web", backupAt: null, dirtyAt: null });
+  proj: [], projCurrent: null, grades: [], gradesCurrent: null, gradeTh: 50, att: [], attAbs: null, attEarly: null, absTh: 10, lateTh: 5, honor: {}, teachers: [], msgs: [], tmode: false, tpin: "", phones: {}, sent: {}, counselor: "", waApp: "web", backupAt: null, dirtyAt: null });
 let state = DEF(), storageOk = true;
 let lastBody = null, storeChars = 0;
 const bodyOf = () => JSON.stringify(Object.assign({}, state, { backupAt: null, dirtyAt: null }));
@@ -1538,7 +1637,7 @@ function renderSettings() {
 }
 
 /* ================= متابعة الطلاب ================= */
-const REASONS = { inact: "غير فعّال في المنصة", stall: "لا إنجاز جديد في المنصة", noexc: "غير مشارك في السلوك المتميز", miss: "لم يظهر في المنصة بعد", proj: "مشاريع غير مسلّمة", weak: "تعثر دراسي", abs: "غياب متكرر", late: "تأخر متكرر" };
+const REASONS = { inact: "غير فعّال في المنصة", stall: "لا إنجاز جديد في المنصة", noexc: "غير مشارك في السلوك المتميز", miss: "لم يظهر في المنصة بعد", proj: "مشاريع غير مسلّمة", weak: "تعثر دراسي", tch: "متابعة من معلمَين فأكثر", abs: "غياب متكرر", late: "تأخر متكرر" };
 function followData() {
   const er = curExc(), pr = curPlat();
   const em = er ? match(er) : null, pm = pr ? platMatch(pr) : null;
@@ -1548,8 +1647,9 @@ function followData() {
   const ac = attCur(), am = ac.ab || ac.ea ? attMaps(ac) : null;
   const reasons = (s) => {
     const out = [];
-    if (am) { const a = attOf(am, s.sid); if (a) { if (a.absent != null && a.absent >= absTh()) out.push("abs"); if (a.late != null && a.late >= lateTh()) out.push("late"); } }
+    if (am) { const a = attOf(am, s.sid); if (a) { if (a.absent != null && (a.absent >= absTh() || (a.streak || 0) >= 3)) out.push("abs"); if (a.late != null && a.late >= lateTh()) out.push("late"); } }
     if (gm) { const g = resOf(gm.bySid.get(s.sid)); if (g && g.weak.length) out.push("weak"); }
+    if (tchSubs(s.sid).size >= 2) out.push("tch");
     if (jm) { const j = jm.bySid.get(s.sid); if (j && j.m.length) out.push("proj"); }
     if (pm) {
       const x = pm.bySid.get(s.sid);
@@ -1592,7 +1692,7 @@ function renderFollow() {
     cells: (d) => `<td class="n">${d.n}</td><td class="n hot">${d.need}</td><td>${bar(d.np, "red")}</td><td class="n">${d.multi}</td>${F.pm ? `<td class="n gc">${d.inact}</td>` : ""}${F.ppm ? `<td class="n">${d.stall}</td>` : ""}${F.em ? `<td class="n gc">${d.noexc}</td>` : ""}${F.pm ? `<td class="n gc">${d.miss}</td>` : ""}${F.jm ? `<td class="n gc">${d.proj}</td>` : ""}${F.gm ? `<td class="n gc">${d.weak}</td>` : ""}${F.am ? `<td class="n gc">${d.abs}</td><td class="n gc">${d.late}</td>` : ""}`
   });
   const opts = [["need", "يحتاجون متابعة (أي سبب)"], ["multi", "سببان أو أكثر"]];
-  if (F.pm) opts.push(["inact", REASONS.inact]); if (F.ppm) opts.push(["stall", REASONS.stall]); if (F.em) opts.push(["noexc", REASONS.noexc]); if (F.pm) opts.push(["miss", REASONS.miss]); if (F.jm) opts.push(["proj", REASONS.proj]); if (F.gm) opts.push(["weak", REASONS.weak]); if (F.am) { opts.push(["abs", REASONS.abs]); if (F.ac.ab) opts.push(["late", REASONS.late]); }
+  if (F.pm) opts.push(["inact", REASONS.inact]); if (F.ppm) opts.push(["stall", REASONS.stall]); if (F.em) opts.push(["noexc", REASONS.noexc]); if (F.pm) opts.push(["miss", REASONS.miss]); if (F.jm) opts.push(["proj", REASONS.proj]); if (F.gm) opts.push(["weak", REASONS.weak]); if (F.am) { opts.push(["abs", REASONS.abs]); if (F.ac.ab) opts.push(["late", REASONS.late]); } if ((state.msgs || []).length) opts.push(["tch", REASONS.tch]);
   opts.push(["all", "كل الطلاب"]);
   if (!opts.some((o) => o[0] === view.pfF)) view.pfF = "need";
   $("fF").innerHTML = opts.map((o) => `<option value="${o[0]}">${o[1]}</option>`).join(""); $("fF").value = view.pfF;
@@ -1613,7 +1713,7 @@ function renderFollow() {
       (F.jm ? `<td class="n">${projCell(F.jm.bySid.get(s.sid))}</td>` : "") +
       (F.gm ? `<td class="n">${resCell(resOf(F.gm.bySid.get(s.sid)))}</td>` : "") +
       (F.am ? `<td class="n">${attCell(attOf(F.am, s.sid))}</td>` : "") +
-      `<td>${R.get(s.sid).map((k) => k === "abs" && F.am ? `<span class="tag abs">${REASONS[k]}</span>${stTag(absStage((attOf(F.am, s.sid) || {}).absent))}` : `<span class="tag ${k}">${REASONS[k]}</span>`).join("") || `<span class="np">لا شيء</span>`}</td>` +
+      `<td>${R.get(s.sid).map((k) => k === "abs" && F.am ? `<span class="tag abs">${REASONS[k]}</span>${stTag(absStage((attOf(F.am, s.sid) || {}).absent))}${consTag((attOf(F.am, s.sid) || {}).streak || 0)}` : `<span class="tag ${k}">${REASONS[k]}</span>`).join("") || `<span class="np">لا شيء</span>`}</td>` +
       `<td class="no-print">${sendBtn(s, lastAt)}</td>`;
     tr.children[1].textContent = s.name; frag.append(tr);
   });
@@ -1897,6 +1997,7 @@ function renderHistory(boxId, panelId, list, curId, metaFn, onView, onDelete) {
   });
 }
 function render() {
+  if (state.tmode) view.module = "msg";
   const hasS = state.students.length > 0, M = view.module;
   renderBackup();
   $("school").textContent = state.school ? state.school + (state.year ? " · " + state.year : "") : "ارفع قائمة الطلاب من نور مرة واحدة، ثم كشوف الأسبوع.";
@@ -1934,7 +2035,7 @@ function render() {
   const ar = attCur();
   $("stepA").classList.toggle("off", !hasS); $("f7").disabled = !hasS; $("stepA").classList.toggle("done", !!(ar.ab || ar.ea));
   if (ar.ab || ar.ea) { $("sAtext").innerHTML = `<span class="state">${[ar.ab && "الغياب: " + esc(attRange(ar.ab)), ar.ea && "الحضور المبكر: " + esc(attRange(ar.ea))].filter(Boolean).join(" · ")}</span>`; $("f7label").textContent = "رفع تقارير أحدث"; }
-  else { $("sAtext").textContent = "من برنامج الحضور: تقرير «الطلاب الأكثر غياباً» وتقرير «الطلاب الأكثر حضوراً مبكراً». ارفعهما معاً أو كلاً على حدة."; $("f7label").textContent = "اختيار تقارير PDF"; }
+  else { $("sAtext").textContent = "ملف Excel «الغياب والتأخر» من برنامج البصمة الجديد (يحوي تواريخ الغياب). وتقبل الأداة أيضاً تقارير PDF القديمة: «الأكثر غياباً» و«الحضور المبكر»."; $("f7label").textContent = "اختيار تقارير PDF"; }
   $("srcAtt").innerHTML = ar.ab || ar.ea ? `<span class="ok">✓</span> المواظبة: ${esc(attRange(ar.ab || ar.ea))}` : `<span class="no">!</span> لم تُرفع تقارير الغياب <button type="button" class="btn small" data-go="att">رفعها</button>`;
   const hasA = !!(ar.ab || ar.ea);
   $("stepF").classList.toggle("done", !!(er || pr || jr || gr || hasA));
@@ -1953,13 +2054,13 @@ function render() {
     tabs.append(b);
   });
   $("welcome").hidden = hasS;
-  $("modExc").hidden = !hasS || M !== "exc"; $("modPlat").hidden = !hasS || M !== "plat"; $("modFollow").hidden = !hasS || M !== "follow"; $("modComp").hidden = !hasS || M !== "comp"; $("modProj").hidden = !hasS || M !== "proj"; $("modGrades").hidden = !hasS || M !== "grades"; $("modAtt").hidden = !hasS || M !== "att"; $("modHonor").hidden = !hasS || M !== "honor";
+  $("modExc").hidden = !hasS || M !== "exc"; $("modPlat").hidden = !hasS || M !== "plat"; $("modFollow").hidden = !hasS || M !== "follow"; $("modComp").hidden = !hasS || M !== "comp"; $("modProj").hidden = !hasS || M !== "proj"; $("modGrades").hidden = !hasS || M !== "grades"; $("modAtt").hidden = !hasS || M !== "att"; $("modHonor").hidden = !hasS || M !== "honor"; $("modMsg").hidden = !hasS || M !== "msg"; document.body.classList.toggle("tmode", !!state.tmode);
   $("printhead").textContent = "";
   // follow-up count badge
   if (hasS && (er || pr || jr || gr || hasA)) { const F = followData(); const n = state.students.filter((s) => F.reasons(s).length).length; $("followCnt").textContent = n; $("followCnt").hidden = !n; } else $("followCnt").hidden = true;
   if (!hasS) { $("topActions").hidden = true; return; }
-  if (M === "exc") renderExc(); else if (M === "plat") renderPlat(); else if (M === "comp") renderComp(); else if (M === "proj") renderProj(); else if (M === "grades") renderGrades(); else if (M === "att") renderAtt(); else if (M === "honor") renderHonor(); else renderFollow();
-  $("topActions").hidden = !(M === "exc" ? er : M === "plat" ? pr : M === "comp" ? state.plat.length : M === "proj" ? jr : M === "grades" ? gr : M === "att" ? hasA : M === "honor" ? false : (er || pr || jr || gr || hasA));
+  if (M === "exc") renderExc(); else if (M === "plat") renderPlat(); else if (M === "comp") renderComp(); else if (M === "proj") renderProj(); else if (M === "grades") renderGrades(); else if (M === "att") renderAtt(); else if (M === "honor") renderHonor(); else if (M === "msg") renderMsg(); else renderFollow();
+  $("topActions").hidden = !(M === "exc" ? er : M === "plat" ? pr : M === "comp" ? state.plat.length : M === "proj" ? jr : M === "grades" ? gr : M === "att" ? hasA : M === "honor" || M === "msg" ? false : (er || pr || jr || gr || hasA));
 }
 
 /* ================= Uploads ================= */
@@ -2085,6 +2186,185 @@ $("printBtn").onclick = () => window.print();
 
 
 
+
+/* ================= رسائل المعلمين ================= */
+const MSG_DAYS = 30;
+const recentMsgs = (sid) => { const since = new Date(Date.now() - MSG_DAYS * 864e5).toISOString(); return (state.msgs || []).filter((m) => m.sid === sid && m.at >= since); };
+const tchSubs = (sid) => new Set(recentMsgs(sid).filter((m) => m.k !== "excel").map((m) => m.subj));
+const SUBJ_DEF = ["القرآن الكريم", "الدراسات الإسلامية", "لغتي", "الرياضيات", "العلوم", "الدراسات الاجتماعية", "اللغة الإنجليزية", "المهارات الرقمية", "التفكير الناقد", "المهارات الحياتية والأسرية", "التربية الفنية", "التربية البدنية والدفاع عن النفس"];
+const ACT_DEF = { follow: ["متابعة حفظه ومراجعته في المنزل", "مراجعة الدرس معه وحل التمارين", "الاطلاع على واجباته في المنصة", "حضوره حصة التقوية", "التواصل مع المعلم لمناقشة مستواه"], excel: ["تشجيعه على الاستمرار", "مكافأته وتحفيزه", "إشراكه في المسابقات والأنشطة"] };
+let mt = { type: "follow", cls: "", sel: new Set(), queue: [], tplDirty: false };
+const tName = () => S($("mTeacher").value), tSubj = () => S($("mSubj").value);
+function msgTemplate() {
+  const school = state.school || C().school || "", t = tName(), sb = tSubj(), topic = S($("mTopic").value), act = S($("mAct").value);
+  const who = `معلم مادة *${sb || "…"}*` + (t ? ` الأستاذ *${t}*` : "");
+  const head = `السلام عليكم ورحمة الله وبركاته\nولي أمر الطالب *[اسم الطالب]* المحترم\nالصف: [الصف]\n\n`;
+  const body = mt.type === "excel"
+    ? `يسعد ${who} أن يشيد بتميّز ابنكم في:\n🌟 ${topic || "…"}\n\n` + (act ? `ونأمل منكم: ${act}.\n\n` : "") + "نشكر لكم متابعتكم واهتمامكم، ونتطلع لاستمرار تميّزه."
+    : `يفيدكم ${who} بأن ابنكم يحتاج إلى متابعة في:\n📌 ${topic || "…"}\n\n` + (act ? `المأمول منكم: ${act}.\n\n` : "") + "شاكرين لكم تعاونكم وحرصكم على ابنكم.";
+  return head + body + (school ? "\n\n" + school : "");
+}
+const fillMsg = (tpl, s) => tpl.replace(/\[اسم الطالب\]/g, s.name).replace(/\[الصف\]/g, `${s.grade} / فصل ${s.cls}`);
+function refreshTpl(force) { if (force || !mt.tplDirty) { $("mText").value = msgTemplate(); mt.tplDirty = false; } }
+function renderMsg() {
+  const tm = !!state.tmode; document.body.classList.toggle("tmode", tm); $("tmBar").hidden = !tm;
+  // lists
+  const subs = Array.from(new Set(SUBJ_DEF.concat((state.teachers || []).map((t) => t.subj).filter(Boolean))));
+  $("mSubjL").innerHTML = subs.map((x) => `<option value="${esc(x)}"></option>`).join("");
+  $("mTeacherL").innerHTML = (state.teachers || []).map((t) => `<option value="${esc(t.n)}">${esc(t.subj || "")}</option>`).join("");
+  $("mActL").innerHTML = ACT_DEF[mt.type].map((x) => `<option value="${esc(x)}"></option>`).join("");
+  const order = gradeOrder(), cls = Array.from(new Set(state.students.map((s) => s.grade + "|" + s.cls))).sort((a, b) => order.indexOf(a.split("|")[0]) - order.indexOf(b.split("|")[0]) || (+a.split("|")[1] - +b.split("|")[1]));
+  if (!mt.cls || !cls.includes(mt.cls)) mt.cls = cls[0] || "";
+  $("mClass").innerHTML = cls.map((k) => `<option value="${esc(k)}">${esc(shortGrade(k.split("|")[0]))} / ${esc(k.split("|")[1])}</option>`).join(""); $("mClass").value = mt.cls;
+  const list = state.students.filter((s) => s.grade + "|" + s.cls === mt.cls).sort((a, b) => a.name.localeCompare(b.name, "ar"));
+  $("mStud").innerHTML = `<label class="all"><input type="checkbox" data-all="1" ${list.length && list.every((s) => mt.sel.has(s.sid)) ? "checked" : ""}> تحديد كل الفصل (${list.length})</label>` +
+    list.map((s) => `<label><input type="checkbox" data-sid="${esc(s.sid)}" ${mt.sel.has(s.sid) ? "checked" : ""}> <span>${esc(s.name)}${waNum(phoneOf(s)) ? "" : ` <span class="np2">بلا جوال</span>`}</span></label>`).join("");
+  document.querySelectorAll("#modMsg [data-mt]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.mt === mt.type ? "true" : "false"));
+  $("mTopicL").textContent = mt.type === "excel" ? "مجال التفوق" : "موضوع المتابعة";
+  $("mTopic").placeholder = mt.type === "excel" ? "مثل: إتقان تلاوة سورة الملك وحفظها كاملة" : "مثل: تسميع سورة الملك من الآية 1 إلى الآية 15";
+  $("mPrep").textContent = `إعداد الرسائل (${mt.sel.size})`;
+  refreshTpl(false);
+  renderQueue(); renderMsgLog();
+}
+function renderQueue() {
+  const Q = mt.queue; $("mQueue").hidden = !Q.length; if (!Q.length) return;
+  const done = Q.filter((q) => q.st === "sent").length;
+  $("mQTitle").textContent = `الإرسال · ${done} من ${Q.length}`;
+  $("mNext").disabled = !Q.some((q) => q.st !== "sent" && waNum(q.phone));
+  $("mQRows").innerHTML = Q.map((q, i) => `<tr><td class="n">${i + 1}</td><td class="name">${esc(q.s.name)}</td>
+    <td><input class="mph" data-qp="${i}" value="${esc(showPhone(q.phone))}" placeholder="05xxxxxxxx" inputmode="tel"></td>
+    <td>${q.warn ? `<span class="qwarn">${esc(q.warn)}</span>` : ""}</td>
+    <td><span class="qst ${q.st === "sent" ? "ok" : "wait"}">${q.st === "sent" ? "✓ فُتحت المحادثة" : waNum(q.phone) ? "جاهزة" : "أدخل الجوال"}</span></td>
+    <td><button class="btn small" type="button" data-qs="${i}" ${waNum(q.phone) ? "" : "disabled"}>${q.st === "sent" ? "فتح مرة أخرى" : "إرسال"}</button></td></tr>`).join("");
+}
+function renderMsgLog() {
+  const L = state.msgs || [], tf = $("mLT").value, kf = $("mLK").value;
+  const ts = Array.from(new Set(L.map((m) => m.t))).sort((a, b) => a.localeCompare(b, "ar"));
+  $("mLT").innerHTML = `<option value="">كل المعلمين</option>` + ts.map((t) => `<option value="${esc(t)}">${esc(t)}</option>`).join(""); $("mLT").value = ts.includes(tf) ? tf : "";
+  const tv = $("mLT").value, rows = msgFiltered().slice().reverse();
+  const nf = rows.filter((m) => m.k === "follow").length, ne = rows.length - nf;
+  $("mLSum").innerHTML = `<div><b>${rows.length}</b><span>رسالة</span></div><div><b>${nf}</b><span>متابعة</span></div><div><b>${ne}</b><span>تفوق</span></div><div><b>${new Set(rows.map((m) => m.sid)).size}</b><span>طالباً</span></div>`;
+  const st = new Map(state.students.map((s) => [s.sid, s]));
+  $("mLRows").innerHTML = rows.slice(0, 300).map((m) => { const s = st.get(m.sid); return `<tr><td>${esc(gDate(m.at))}</td><td>${esc(m.t)}</td><td>${esc(m.subj)}</td><td class="name">${esc(s ? s.name : m.name || "")}</td><td>${s ? chip(s) : ""}</td><td><span class="tag ${m.k === "excel" ? "noexc" : "late"}">${m.k === "excel" ? "تفوق" : "متابعة"}</span></td><td>${esc(m.topic)}</td></tr>`; }).join("")
+    || `<tr><td colspan="7"><div class="empty"><b>لا توجد رسائل بعد</b>كل رسالة تُرسل من هنا تُسجَّل تلقائياً.</div></td></tr>`;
+}
+function sendQ(i) {
+  const q = mt.queue[i], n = waNum(q.phone); if (!q || !n) return;
+  const url = `phone=${n}&text=${encodeURIComponent(q.text)}`;
+  if (state.waApp === "app") location.href = "whatsapp://send?" + url; else if (!window.open("https://web.whatsapp.com/send?" + url, "waChat")) { toast("منع المتصفح فتح النافذة؛ اسمح بالنوافذ المنبثقة لهذه الصفحة."); return; }
+  if (q.st !== "sent") { q.st = "sent"; state.msgs = state.msgs || []; state.msgs.push({ at: new Date().toISOString(), t: q.t, subj: q.subj, sid: q.s.sid, name: q.s.name, k: q.k, topic: q.topic }); save(); }
+  renderQueue(); renderMsgLog();
+}
+$("mClass").addEventListener("change", (e) => { mt.cls = e.target.value; mt.sel.clear(); renderMsg(); });
+$("mStud").addEventListener("change", (e) => {
+  const c = e.target; if (c.dataset.all) { state.students.filter((s) => s.grade + "|" + s.cls === mt.cls).forEach((s) => c.checked ? mt.sel.add(s.sid) : mt.sel.delete(s.sid)); renderMsg(); return; }
+  if (c.dataset.sid) { c.checked ? mt.sel.add(c.dataset.sid) : mt.sel.delete(c.dataset.sid); $("mPrep").textContent = `إعداد الرسائل (${mt.sel.size})`; }
+});
+document.querySelectorAll("#modMsg [data-mt]").forEach((b) => b.addEventListener("click", () => { mt.type = b.dataset.mt; $("mAct").value = ""; renderMsg(); }));
+$("mTeacher").addEventListener("change", () => { const t = (state.teachers || []).find((x) => x.n === tName()); if (t && t.subj && !tSubj()) $("mSubj").value = t.subj; refreshTpl(false); });
+["mSubj", "mTopic", "mAct"].forEach((id) => $(id).addEventListener("input", () => refreshTpl(false)));
+$("mTeacher").addEventListener("input", () => refreshTpl(false));
+$("mText").addEventListener("input", () => { mt.tplDirty = true; });
+$("mPrep").onclick = () => {
+  const t = tName(), sb = tSubj(), topic = S($("mTopic").value), tpl = $("mText").value, el = $("mMsg");
+  const err = !t ? "اكتب اسم المعلم." : !sb ? "اكتب المادة." : !mt.sel.size ? "حدّد طالباً واحداً على الأقل." : !topic ? "اكتب الموضوع." : !/\[اسم الطالب\]/.test(tpl) ? "نص الرسالة يجب أن يحوي [اسم الطالب]." : "";
+  if (err) { el.className = "msg err"; el.textContent = err; el.hidden = false; return; }
+  el.hidden = true;
+  state.teachers = state.teachers || []; const ex = state.teachers.find((x) => x.n === t); if (ex) ex.subj = sb; else state.teachers.push({ n: t, subj: sb }); save();
+  const since = Date.now() - 14 * 864e5;
+  mt.queue = state.students.filter((s) => mt.sel.has(s.sid)).sort((a, b) => a.name.localeCompare(b.name, "ar")).map((s) => {
+    const prev = (state.msgs || []).filter((m) => m.sid === s.sid && m.k === "follow" && m.subj === sb && new Date(m.at) > since);
+    return { s, phone: phoneOf(s), text: fillMsg(tpl, s), t, subj: sb, k: mt.type, topic, st: "", warn: mt.type === "follow" && prev.length ? (() => { const d = Math.floor((Date.now() - new Date(prev[prev.length - 1].at)) / 864e5); return `أُرسلت له متابعة في ${sb} ${d < 1 ? "اليوم" : "قبل " + dayW(d)}`; })() : "" };
+  });
+  renderQueue(); $("mQueue").scrollIntoView({ behavior: "smooth", block: "start" });
+};
+$("mNext").onclick = () => { const i = mt.queue.findIndex((q) => q.st !== "sent" && waNum(q.phone)); if (i >= 0) sendQ(i); };
+$("mQRows").addEventListener("click", (e) => { const b = e.target.closest("[data-qs]"); if (b) sendQ(+b.dataset.qs); });
+$("mQRows").addEventListener("change", (e) => {
+  const inp = e.target.closest("[data-qp]"); if (!inp) return; const q = mt.queue[+inp.dataset.qp], d = digits9(inp.value);
+  q.phone = d; state.phones = state.phones || {}; if (d && d !== digits9(q.s.phone)) state.phones[q.s.sid] = d; save(); renderQueue();
+});
+$("mDone").onclick = () => { mt.queue = []; mt.sel.clear(); $("mTopic").value = ""; $("mAct").value = ""; refreshTpl(true); renderMsg(); };
+["mLT", "mLK", "mLF", "mLTo"].forEach((id) => $(id).addEventListener("change", renderMsgLog));
+function msgFiltered() {
+  const tv = $("mLT").value, kf = $("mLK").value, f = $("mLF").value, t = $("mLTo").value;
+  return (state.msgs || []).filter((m) => (!tv || m.t === tv) && (!kf || m.k === kf) && (!f || m.at.slice(0, 10) >= f) && (!t || m.at.slice(0, 10) <= t));
+}
+function msgReportData() {
+  const rows = msgFiltered(), st = new Map(state.students.map((s) => [s.sid, s]));
+  const det = rows.map((m) => { const s = st.get(m.sid) || {}; return { d: gDate(m.at), t: m.t, sb: m.subj, n: s.name || m.name || "", c: s.grade ? shortGrade(s.grade) + " / " + s.cls : "", k: m.k === "excel" ? "تفوق" : "متابعة", tp: m.topic }; });
+  const by = new Map(); rows.forEach((m) => { const o = by.get(m.t) || by.set(m.t, { t: m.t, sb: new Set(), n: 0, f: 0, e: 0, st: new Set() }).get(m.t); o.sb.add(m.subj); o.n++; m.k === "excel" ? o.e++ : o.f++; o.st.add(m.sid); });
+  const sum = Array.from(by.values()).sort((a, b) => b.n - a.n).map((o) => ({ t: o.t, sb: Array.from(o.sb).join("، "), n: o.n, f: o.f, e: o.e, st: o.st.size }));
+  const f = $("mLF").value, t = $("mLTo").value, tv = $("mLT").value, kf = $("mLK").value;
+  const period = f || t ? `من ${f ? gDate(f + "T00:00:00") : "البداية"} إلى ${t ? gDate(t + "T00:00:00") : "اليوم"}` : "كل الفترات";
+  return { det, sum, period, teacher: tv, kind: kf, total: rows.length, nf: rows.filter((m) => m.k !== "excel").length, ne: rows.filter((m) => m.k === "excel").length, ns: new Set(rows.map((m) => m.sid)).size };
+}
+/* ---- كاتب xlsx مبسّط (zip بلا ضغط) ---- */
+const CRC = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+const crc32 = (b) => { let c = 0xffffffff; for (let i = 0; i < b.length; i++) c = CRC[(c ^ b[i]) & 255] ^ (c >>> 8); return (c ^ 0xffffffff) >>> 0; };
+function zipStore(files) {
+  const enc = new TextEncoder(), parts = [], cen = []; let off = 0;
+  files.forEach(([name, text]) => {
+    const nb = enc.encode(name), db = enc.encode(text), crc = crc32(db), h = new DataView(new ArrayBuffer(30));
+    h.setUint32(0, 0x04034b50, true); h.setUint16(4, 20, true); h.setUint16(6, 0x0800, true); h.setUint16(8, 0, true); h.setUint32(14, crc, true); h.setUint32(18, db.length, true); h.setUint32(22, db.length, true); h.setUint16(26, nb.length, true);
+    parts.push(new Uint8Array(h.buffer), nb, db);
+    const c = new DataView(new ArrayBuffer(46)); c.setUint32(0, 0x02014b50, true); c.setUint16(4, 20, true); c.setUint16(6, 20, true); c.setUint16(8, 0x0800, true); c.setUint32(16, crc, true); c.setUint32(20, db.length, true); c.setUint32(24, db.length, true); c.setUint16(28, nb.length, true); c.setUint32(42, off, true);
+    cen.push(new Uint8Array(c.buffer), nb); off += 30 + nb.length + db.length;
+  });
+  const cs = cen.reduce((a, b) => a + b.length, 0), e = new DataView(new ArrayBuffer(22));
+  e.setUint32(0, 0x06054b50, true); e.setUint16(8, files.length, true); e.setUint16(10, files.length, true); e.setUint32(12, cs, true); e.setUint32(16, off, true);
+  return new Blob(parts.concat(cen, [new Uint8Array(e.buffer)]), { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+}
+function xlsx(sheets) {
+  const x = (v) => String(v == null ? "" : v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, "");
+  const col = (i) => { let s = ""; i++; while (i) { const m = (i - 1) % 26; s = String.fromCharCode(65 + m) + s; i = Math.floor((i - 1) / 26); } return s; };
+  const sheetXml = (sh) => `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView rightToLeft="1" workbookViewId="0"/></sheetViews><cols>${sh.widths.map((w, i) => `<col min="${i + 1}" max="${i + 1}" width="${w}" customWidth="1"/>`).join("")}</cols><sheetData>${sh.rows.map((r, ri) => `<row r="${ri + 1}">${r.cells.map((v, ci) => typeof v === "number" ? `<c r="${col(ci)}${ri + 1}" s="${r.s || 0}"><v>${v}</v></c>` : `<c r="${col(ci)}${ri + 1}" t="inlineStr" s="${r.s || 0}"><is><t xml:space="preserve">${x(v)}</t></is></c>`).join("")}</row>`).join("")}</sheetData>${sh.merge ? `<mergeCells count="${sh.merge.length}">${sh.merge.map((m) => `<mergeCell ref="${m}"/>`).join("")}</mergeCells>` : ""}</worksheet>`;
+  const styles = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="3"><font><sz val="11"/><name val="Arial"/></font><font><b/><sz val="11"/><color rgb="FF1F6B52"/><name val="Arial"/></font><font><b/><sz val="14"/><color rgb="FF1F6B52"/><name val="Arial"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFEEF4F1"/></patternFill></fill></fills><borders count="2"><border/><border><left style="thin"><color rgb="FFC9D6D0"/></left><right style="thin"><color rgb="FFC9D6D0"/></right><top style="thin"><color rgb="FFC9D6D0"/></top><bottom style="thin"><color rgb="FFC9D6D0"/></bottom></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="4"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1"><alignment horizontal="right" vertical="center" wrapText="1"/></xf><xf numFmtId="0" fontId="2" fillId="0" borderId="0" xfId="0" applyFont="1"/><xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyBorder="1"><alignment horizontal="right" vertical="top" wrapText="1"/></xf></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`;
+  const files = [["[Content_Types].xml", `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>${sheets.map((_, i) => `<Override PartName="/xl/worksheets/sheet${i + 1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join("")}</Types>`],
+    ["_rels/.rels", `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`],
+    ["xl/workbook.xml", `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><bookViews><workbookView/></bookViews><sheets>${sheets.map((sh, i) => `<sheet name="${x(sh.name)}" sheetId="${i + 1}" r:id="rId${i + 1}"/>`).join("")}</sheets></workbook>`],
+    ["xl/_rels/workbook.xml.rels", `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${sheets.map((_, i) => `<Relationship Id="rId${i + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i + 1}.xml"/>`).join("")}<Relationship Id="rId${sheets.length + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`],
+    ["xl/styles.xml", styles]].concat(sheets.map((sh, i) => [`xl/worksheets/sheet${i + 1}.xml`, sheetXml(sh)]));
+  return zipStore(files);
+}
+const repName = (D) => "تقرير التواصل مع أولياء الأمور" + (D.teacher ? " - " + D.teacher : "");
+$("mXlsx").onclick = () => {
+  const D = msgReportData(); if (!D.total) { toast("لا توجد رسائل في هذه التصفية."); return; }
+  const school = state.school || C().school || "", head = (a) => ({ s: 1, cells: a }), row = (a) => ({ s: 3, cells: a });
+  const s1 = { name: "ملخص المعلمين", widths: [28, 30, 12, 12, 12, 14], merge: ["A1:F1", "A2:F2"], rows: [{ s: 2, cells: [repName(D)] }, { cells: [`${school} · ${D.period} · صدر في ${hijriToday()}`] }, { cells: [] },
+    head(["المعلم", "المادة", "الرسائل", "متابعة", "تفوق", "عدد الطلاب"])].concat(D.sum.map((o) => row([o.t, o.sb, o.n, o.f, o.e, o.st])), [row(["المجموع", "", D.total, D.nf, D.ne, D.ns])]) };
+  const s2 = { name: "سجل الرسائل", widths: [16, 24, 20, 34, 16, 10, 50], rows: [head(["التاريخ", "المعلم", "المادة", "الطالب", "الفصل", "النوع", "الموضوع"])].concat(D.det.map((r) => row([r.d, r.t, r.sb, r.n, r.c, r.k, r.tp]))) };
+  download(repName(D) + ".xlsx", xlsx([s1, s2]), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+};
+$("mPdfR").onclick = () => {
+  const D = msgReportData(); if (!D.total) { toast("لا توجد رسائل في هذه التصفية."); return; }
+  const c = C(), school = state.school || c.school || "";
+  $("msgRep").innerHTML = `<div class="mrep">
+    <div class="rh"><div class="r">المملكة العربية السعودية<br>وزارة التعليم<br><b>${esc(school)}</b></div>${c.logo ? `<img src="${c.logo}" alt="">` : ""}<div class="r" style="text-align:left">${esc(hijriToday())}</div></div>
+    <h1>${esc(repName(D))}</h1><p class="sub">رسائل المعلمين لأولياء الأمور عبر واتساب المدرسة · ${esc(D.period)}${D.kind ? " · " + (D.kind === "excel" ? "تفوق" : "متابعة") : ""}</p>
+    <div class="kp"><div><b>${D.total}</b>رسالة</div><div><b>${D.nf}</b>متابعة</div><div><b>${D.ne}</b>تفوق</div><div><b>${D.ns}</b>طالباً</div><div><b>${D.sum.length}</b>معلماً</div></div>
+    <h2>ملخص المعلمين</h2>
+    <table><thead><tr><th>المعلم</th><th>المادة</th><th>الرسائل</th><th>متابعة</th><th>تفوق</th><th>الطلاب</th></tr></thead><tbody>${D.sum.map((o) => `<tr><td>${esc(o.t)}</td><td>${esc(o.sb)}</td><td>${o.n}</td><td>${o.f}</td><td>${o.e}</td><td>${o.st}</td></tr>`).join("")}</tbody></table>
+    <h2>سجل الرسائل</h2>
+    <table><thead><tr><th style="width:13%">التاريخ</th><th style="width:15%">المعلم</th><th style="width:13%">المادة</th><th style="width:20%">الطالب</th><th style="width:12%">الفصل</th><th style="width:8%">النوع</th><th>الموضوع</th></tr></thead><tbody>${D.det.map((r) => `<tr><td>${esc(r.d)}</td><td>${esc(r.t)}</td><td>${esc(r.sb)}</td><td>${esc(r.n)}</td><td>${esc(r.c)}</td><td class="${r.k === "تفوق" ? "ex" : "fo"}">${r.k}</td><td>${esc(r.tp)}</td></tr>`).join("")}</tbody></table>
+    <div class="sg"><div>الموجه الطلابي<span>${esc(state.counselor || "")}</span></div><div>قائد المدرسة<span>${esc(((c.signers || []).find((x) => /مدير|قائد/.test(x.t || "")) || {}).n || "")}</span></div></div>
+  </div>`;
+  document.body.dataset.print = "msgrep";
+  const done = () => { delete document.body.dataset.print; };
+  window.addEventListener("afterprint", done, { once: true });
+  fontsReady().then(() => { window.print(); setTimeout(done, 1000); });
+};
+/* وضع المعلم */
+const pinHash = async (p) => { try { const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode("tm:" + p)); return Array.from(new Uint8Array(b)).map((x) => x.toString(16).padStart(2, "0")).join(""); } catch (e) { return "p:" + p; } };
+$("tmOn").onclick = async () => {
+  if (!state.tpin) { const p = prompt("اختر رمزاً من 4 أرقام فأكثر للخروج من وضع المعلم (للإدارة فقط):"); if (!p || p.length < 4) { if (p != null) toast("الرمز قصير؛ 4 أرقام على الأقل."); return; } state.tpin = await pinHash(p); }
+  state.tmode = true; view.module = "msg"; save(); render(); window.scrollTo(0, 0);
+};
+$("tmExit").onclick = async () => {
+  const p = prompt("رمز الإدارة للخروج من وضع المعلم:"); if (p == null) return;
+  if (await pinHash(p) === state.tpin) { state.tmode = false; save(); render(); toast("تم الخروج من وضع المعلم"); } else toast("الرمز غير صحيح");
+};
+
 /* ================= التكريم الشهري ================= */
 const HCAT = [
   { k: "beh", t: "السلوك المتميز", short: "سلوك", cert: "السلوك المتميز" },
@@ -2186,6 +2466,8 @@ const ABS_ST = [null,
   { d: 3, short: "3 أيام", act: "تحويله للموجه الطلابي لدراسة حالته وتقديم الخدمات التربوية، وعند الاستمرار يُستدعى ولي الأمر ويؤخذ التعهد الخطي بالخطة" },
   { d: 5, short: "5 أيام", act: "استدعاء ولي الأمر لمناقشة الأسباب، وإحالة الطالب إلى لجنة التوجيه الطلابي ومراجعة خطته العلاجية" },
   { d: 10, short: "10 أيام", act: "مخاطبة الجهات ذات الاختصاص وفق نظامي حماية الطفل والحماية من الإيذاء، مع إشعار إدارة التعليم" }];
+const CONS_ACT = "مخاطبة الجهات ذات الاختصاص مباشرة دون انتظار بلوغ 10 أيام، وفق نظامي حماية الطفل والحماية من الإيذاء";
+const consTag = (n) => n >= 3 ? `<span class="tag st3" title="${esc(CONS_ACT)}">${n} أيام متصلة</span>` : "";
 const absStage = (n) => n == null ? 0 : n >= 10 ? 3 : n >= 5 ? 2 : n >= 3 ? 1 : 0;
 const stTag = (st) => st ? `<span class="tag st${st}" title="${esc(ABS_ST[st].act)}">${ABS_ST[st].short}</span>` : "";
 const degW = (n) => n === 1 ? "درجة واحدة" : n === 2 ? "درجتان" : n >= 3 && n <= 10 ? n + " درجات" : n + " درجة";
@@ -2231,13 +2513,53 @@ async function parseAttPdf(file) {
   const days = kind === "abs" ? Math.max(...list.map((r) => (r.present || 0) + (r.absent || 0) + (r.absExc || 0) + (r.late || 0) + (r.lateExc || 0))) : null;
   return { kind, from: dates[0] || "", to: dates[1] || "", days, rows: list };
 }
+
+/* ---- كشف Excel من برنامج البصمة الجديد (مع تواريخ الغياب) ---- */
+const WD = ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
+const isoDmy = (d) => d ? d.split("-").reverse().join("/") : "";
+function parseAttXlsx(sheets) {
+  for (const sh of sheets) {
+    const R = sh.rows; let hr = -1, C = null;
+    for (let r = 0; r < Math.min(R.length, 25) && hr < 0; r++) {
+      const row = R[r] || [], idx = (re) => row.findIndex((v) => re.test(S(v)));
+      const n = idx(/^اسم الطالب$/), a = idx(/^(غائب|الغياب|أيام الغياب|عدد أيام الغياب)$/);
+      if (n >= 0 && a >= 0) { hr = r; C = { n, a, g: idx(/^الصف$/), c: idx(/^الفصل$/), l: idx(/^(متأخر|التأخر|أيام التأخر)$/), ae: idx(/^(غائب بعذر|الغياب بعذر)$/), le: idx(/^(متأخر بعذر|التأخر بعذر)$/), d: idx(/تواريخ الغياب/), id: idx(/السجل|الهوية|رقم الطالب/) }; }
+    }
+    if (hr < 0) continue;
+    let from = "", to = "", days = null;
+    for (let r = 0; r < hr; r++) (R[r] || []).forEach((v) => { const t = S(v), m = t.match(/(\d{4}-\d{2}-\d{2})\D+(\d{4}-\d{2}-\d{2})/), d = t.match(/أيام الدراسة\s*:?\s*(\d+)/); if (m && !from) { from = m[1]; to = m[2]; } if (d) days = +d[1]; });
+    const num = (row, i) => i >= 0 ? (+S(row[i]) || 0) : 0, rows = [];
+    for (let r = hr + 1; r < R.length; r++) {
+      const row = R[r] || [], name = S(row[C.n]); if (!name || !/[\u0600-\u06FFA-Za-z]/.test(name)) continue;
+      const dates = C.d >= 0 ? (S(row[C.d]).match(/\d{4}-\d{2}-\d{2}/g) || []).sort() : null;
+      rows.push({ id: C.id >= 0 ? cleanId(row[C.id]) : "", n: name, grade: C.g >= 0 ? S(row[C.g]) : "", cls: C.c >= 0 ? S(row[C.c]) : "", absent: num(row, C.a), late: num(row, C.l), absExc: num(row, C.ae), lateExc: num(row, C.le), dates });
+    }
+    if (!rows.length) continue;
+    const hasDates = C.d >= 0, sd = hasDates ? Array.from(new Set(rows.flatMap((r) => r.dates || []))).sort() : [];
+    if (!days) days = sd.length || null;
+    const pos = new Map(sd.map((d, i) => [d, i]));
+    rows.forEach((r) => {
+      r.present = days ? Math.max(0, days - r.absent - r.absExc - r.late - r.lateExc) : 0;
+      if (!r.dates || !r.dates.length) return;
+      let best = 1, cur = 1; for (let i = 1; i < r.dates.length; i++) { if (pos.get(r.dates[i]) === pos.get(r.dates[i - 1]) + 1) { cur++; best = Math.max(best, cur); } else cur = 1; }
+      r.streak = best; r.last = r.dates[r.dates.length - 1];
+      const cnt = [0, 0, 0, 0, 0, 0, 0]; r.dates.forEach((d) => cnt[new Date(d + "T12:00:00Z").getUTCDay()]++);
+      const top = cnt.indexOf(Math.max(...cnt)); if (r.dates.length >= 4 && cnt[top] >= 3 && cnt[top] / r.dates.length >= 0.4) r.wd = WD[top];
+      if (!r.dates.length) delete r.dates;
+    });
+    return { kind: "abs", src: "xlsx", from: isoDmy(from), to: isoDmy(to), days, hasDates, sdCount: sd.length, rows };
+  }
+  return null;
+}
 const attRange = (r) => r ? (r.from && r.to ? `${r.from} – ${r.to}` : gDate(r.at)) : "";
-const attLabel = (r) => (r.kind === "abs" ? "الأكثر غياباً" : "الحضور المبكر") + " · " + attRange(r);
+const attLabel = (r) => (r.src === "xlsx" ? "كشف الغياب والتأخر" : r.kind === "abs" ? "الأكثر غياباً" : "الحضور المبكر") + " · " + attRange(r);
 const attCur = () => { const L = state.att || []; return { ab: L.find((r) => r.id === state.attAbs) || null, ea: L.find((r) => r.id === state.attEarly) || null }; };
 const absTh = () => 3, lateTh = () => state.lateTh || 5;
 function attMatchOne(rep) {
   const ids = new Set(state.students.map((s) => s.sid)), by = new Map(), rest = [];
-  rep.rows.forEach((r) => { if (r.id && ids.has(r.id)) by.set(r.id, r); else rest.push(r); });
+  const key = (n, g, c) => norm(n) + "|" + norm(g) + "|" + S(c);
+  const byKey = new Map(); state.students.forEach((s) => { const k = key(s.name, s.grade, s.cls); byKey.set(k, byKey.has(k) ? null : s.sid); });
+  rep.rows.forEach((r) => { if (r.id && ids.has(r.id)) { by.set(r.id, r); return; } const sid = r.grade ? byKey.get(key(r.n, r.grade, r.cls)) : null; if (sid && !by.has(sid)) by.set(sid, r); else rest.push(r); });
   const pm = rest.length ? platMatch({ rows: rest.filter((r) => r.n) }) : { bySid: new Map(), unmatched: [], amb: [] };
   pm.bySid.forEach((r, sid) => { if (!by.has(sid)) by.set(sid, r); });
   return { bySid: by, bad: pm.unmatched.map((u) => u.row).concat(pm.amb.map((a) => a.row)) };
@@ -2247,12 +2569,12 @@ function attOf(am, sid) {
   const a = am.a ? am.a.bySid.get(sid) : null, e = am.e ? am.e.bySid.get(sid) : null;
   if (!a && !e) return null;
   const tot = a ? (a.present || 0) + (a.absent || 0) + (a.absExc || 0) + (a.late || 0) + (a.lateExc || 0) : null;
-  return { absent: a ? a.absent : e.absent, absExc: a ? a.absExc || 0 : 0, late: a ? (a.late || 0) + (a.lateExc || 0) : null, days: tot, pct: a && tot ? 100 * ((a.present || 0) + (a.late || 0) + (a.lateExc || 0)) / tot : null, time: e ? e.time : null, src: a ? "a" : "e" };
+  return { absent: a ? a.absent : e.absent, absExc: a ? a.absExc || 0 : 0, late: a ? (a.late || 0) + (a.lateExc || 0) : null, days: tot, pct: a && tot ? 100 * ((a.present || 0) + (a.late || 0) + (a.lateExc || 0)) / tot : null, time: e ? e.time : null, src: a ? "a" : "e", streak: a ? a.streak || 0 : 0, wd: a ? a.wd || "" : "", last: a ? a.last || "" : "", dates: a ? a.dates || null : null };
 }
 const attCell = (a) => !a ? `<span class="np">—</span>` : `<span class="frac">${a.absent}</span>`;
 const attCsv = (am, s) => { const a = am ? attOf(am, s.sid) : null; return a ? [a.absent, a.late == null ? "" : a.late, a.time ? a.time + " ص" : ""] : ["", "", ""]; };
-const attClasses = (am) => buildClasses((r, s) => { const a = attOf(am, s.sid); if (!a) { inc(r, "miss"); return; } inc(r, "m"); if (a.pct != null) { inc(r, "pn"); inc(r, "psum", a.pct); } const st = absStage(a.absent); if (st) inc(r, "st" + st); if (a.absent >= absTh()) inc(r, "ab"); if (a.late != null && a.late >= lateTh()) inc(r, "lt"); inc(r, "dsum", a.absent); });
-const attDerive = (r) => ({ n: r.n, m: r.m || 0, miss: r.miss || 0, pn: r.pn || 0, pr: r.pn ? r.psum / r.pn : 0, ab: r.ab || 0, lt: r.lt || 0, s1: r.st1 || 0, s2: r.st2 || 0, s3: r.st3 || 0, avgAbs: r.m ? (r.dsum || 0) / r.m : 0 });
+const attClasses = (am) => buildClasses((r, s) => { const a = attOf(am, s.sid); if (!a) { inc(r, "miss"); return; } inc(r, "m"); if (a.pct != null) { inc(r, "pn"); inc(r, "psum", a.pct); } const st = absStage(a.absent); if (st) inc(r, "st" + st); if (a.streak >= 3) inc(r, "cons"); if (a.absent >= absTh()) inc(r, "ab"); if (a.late != null && a.late >= lateTh()) inc(r, "lt"); inc(r, "dsum", a.absent); });
+const attDerive = (r) => ({ n: r.n, m: r.m || 0, miss: r.miss || 0, pn: r.pn || 0, pr: r.pn ? r.psum / r.pn : 0, ab: r.ab || 0, lt: r.lt || 0, s1: r.st1 || 0, s2: r.st2 || 0, s3: r.st3 || 0, cons: r.cons || 0, avgAbs: r.m ? (r.dsum || 0) / r.m : 0 });
 function renderAtt() {
   const ac = attCur(), has = !!(ac.ab || ac.ea);
   $("attEmpty").hidden = has; ["aRes", "aStud"].forEach((id) => $(id).hidden = !has);
@@ -2271,14 +2593,16 @@ function renderAtt() {
     ${ac.ab ? `<div><b>${tot.lt}</b><span>تأخروا ${lateTh()} أيام فأكثر</span></div>` : ""}
     <div><b>${fmt1(tot.avgAbs)}</b><span>متوسط أيام الغياب للطالب</span></div>
     ${tot.miss ? `<div><b>${tot.miss}</b><span>غير موجودين في التقارير</span></div>` : ""}`;
+  const hasD = !!(ac.ab && ac.ab.hasDates);
   $("aStages").innerHTML = [1, 2, 3].map((k) => `<div class="stg"><span class="n">${tot["s" + k]}</span><b>${k === 1 ? "3 – 4 أيام" : k === 2 ? "5 – 9 أيام" : "10 أيام فأكثر"}</b>${esc(ABS_ST[k].act)}.</div>`).join("") +
-    `<p class="src">الإجراءات وفق قواعد السلوك والمواظبة للغياب دون عذر. والغياب 3 أيام متصلة فأكثر يستوجب مخاطبة الجهات المختصة دون انتظار 10 أيام، وهذا لا يظهر في التقرير فراجعه في سجل الطالب. والغياب بعذر له إجراءات مختلفة.</p>`;
+    (hasD ? `<div class="stg cons"><span class="n">${tot.cons}</span><b>3 أيام متصلة فأكثر</b>${esc(CONS_ACT)}.</div>` : "") +
+    `<p class="src">الإجراءات وفق قواعد السلوك والمواظبة للغياب دون عذر، والغياب بعذر له إجراءات مختلفة.${hasD ? " الغياب المتصل محسوب من تواريخ الغياب على أيام الدراسة الفعلية." : " والغياب 3 أيام متصلة فأكثر يستوجب مخاطبة الجهات المختصة دون انتظار 10 أيام، وهذا لا يظهر في التقرير فراجعه في سجل الطالب."}</p>`;
   groupedTable({ head: "aThead", body: "aRows", foot: "aFoot", scroll: "aStud" }, classes, {
     head: `<th class="n">الطلاب</th>${ac.ab ? `<th>متوسط نسبة الحضور</th>` : ""}<th class="n">متوسط أيام الغياب</th><th class="n gc">3 – 4 أيام</th><th class="n gc">5 – 9</th><th class="n gc">10 فأكثر</th>${ac.ab ? `<th class="n">تأخر فوق الحد</th>` : ""}`,
     cols: 5 + (ac.ab ? 2 : 0), derive: attDerive, sortKey: (d) => ac.ab ? d.pr : -d.avgAbs, rank: true,
     cells: (d, gd) => `<td class="n">${d.n}${d.miss ? `<span class="np"> · ${d.miss} ليسوا في التقرير</span>` : ""}</td>${ac.ab ? `<td>${d.pn ? bar(d.pr, gd && d.pr < gd.pr ? "low" : "") : `<span class="np">—</span>`}</td>` : ""}<td class="n">${fmt1(d.avgAbs)}</td><td class="n gc">${d.s1}</td><td class="n gc hot">${d.s2}</td><td class="n gc hot">${d.s3}</td>${ac.ab ? `<td class="n">${d.lt}</td>` : ""}`
   });
-  $("aNote").textContent = "الغياب والتأخر من تقرير «الأكثر غياباً»" + (ac.ea ? "، ومتوسط وقت الحضور من تقرير «الحضور المبكر»" : "") + ". المطابقة برقم السجل المدني ثم بالاسم." + (!ac.ab && ac.ea ? " أيام الغياب هنا من تقرير الحضور المبكر لأن تقرير الغياب لم يُرفع." : "");
+  $("aNote").textContent = (ac.ab && ac.ab.src === "xlsx" ? "الغياب والتأخر من كشف برنامج البصمة" : "الغياب والتأخر من تقرير «الأكثر غياباً»") + (ac.ea ? "، ومتوسط وقت الحضور من تقرير «الحضور المبكر»" : "") + (ac.ab && ac.ab.src === "xlsx" ? ". المطابقة بالاسم والصف والفصل. قف على عدد أيام الغياب لترى تواريخه." : ". المطابقة برقم السجل المدني ثم بالاسم.") + (!ac.ab && ac.ea ? " أيام الغياب هنا من تقرير الحضور المبكر لأن تقرير الغياب لم يُرفع." : "");
   const bad = [].concat(am.a ? am.a.bad : [], am.e ? am.e.bad : []).filter((r, i, A) => A.findIndex((q) => q.id === r.id) === i), iss = $("aIssues");
   iss.hidden = !bad.length;
   if (bad.length) {
@@ -2290,28 +2614,29 @@ function renderAtt() {
   const scope = state.students.filter((s) => inTab(s) && (!view.grade || (s.grade === view.grade && s.cls === view.cls)));
   const nq = norm(view.qA), qd = view.qA.replace(/\D/g, "").replace(/^0+/, ""), f = view.pfA;
   const A = new Map(scope.map((s) => [s.sid, attOf(am, s.sid)]));
-  const isAbs = (a) => !!a && a.absent >= absTh(), isLate = (a) => !!a && a.late != null && a.late >= lateTh();
-  const fit = (s) => { const a = A.get(s.sid); return f === "all" ? true : f === "none" ? !a : f === "best" ? !!a : /^s\d$/.test(f) ? !!a && absStage(a.absent) === +f[1] : f === "late" ? isLate(a) : isAbs(a) || isLate(a); };
+  const isAbs = (a) => !!a && (a.absent >= absTh() || a.streak >= 3), isLate = (a) => !!a && a.late != null && a.late >= lateTh();
+  const fit = (s) => { const a = A.get(s.sid); return f === "all" ? true : f === "none" ? !a : f === "best" ? !!a : /^s\d$/.test(f) ? !!a && absStage(a.absent) === +f[1] : f === "cons" ? !!a && a.streak >= 3 : f === "wd" ? !!a && !!a.wd : f === "late" ? isLate(a) : isAbs(a) || isLate(a); };
   const disc = (a) => a ? a.absent * 3 + (a.late || 0) + (a.time ? (+a.time.split(":")[0] * 60 + +a.time.split(":")[1]) / 1000 : 0) : 1e9;
   const list = scope.filter((s) => fit(s) && (!view.qA || norm(s.name).includes(nq) || (qd && s.sid.includes(qd))))
     .sort(f === "best" ? (a, b) => disc(A.get(a.sid)) - disc(A.get(b.sid)) || a.name.localeCompare(b.name, "ar")
       : (a, b) => order.indexOf(a.grade) - order.indexOf(b.grade) || (+a.cls - +b.cls) || (((A.get(b.sid) || {}).absent || 0) - ((A.get(a.sid) || {}).absent || 0)) || a.name.localeCompare(b.name, "ar"));
   followList = list.map((s) => s.sid);
   const F = followData(), lastAt = [F.er && F.er.at, F.pr && F.pr.at, F.jr && F.jr.at, F.gr && F.gr.at, ac.ab && ac.ab.at, ac.ea && ac.ea.at].filter(Boolean).sort().pop() || "";
-  $("aSThead").innerHTML = `<tr><th class="n">م</th><th>اسم الطالب</th><th>الفصل</th>${ac.ab ? `<th class="n">نسبة الحضور</th>` : ""}<th class="n">أيام الغياب</th>${ac.ab ? `<th class="n">أيام التأخر</th>` : ""}${ac.ea ? `<th class="n">متوسط وقت الحضور</th>` : ""}<th class="no-print">ولي الأمر</th></tr>`;
+  $("aSThead").innerHTML = `<tr><th class="n">م</th><th>اسم الطالب</th><th>الفصل</th>${ac.ab ? `<th class="n">نسبة الحضور</th>` : ""}<th class="n">أيام الغياب</th>${ac.ab ? `<th class="n">أيام التأخر</th>` : ""}${hasD ? `<th>الغياب المتصل والنمط</th>` : ""}${ac.ea ? `<th class="n">متوسط وقت الحضور</th>` : ""}<th class="no-print">ولي الأمر</th></tr>`;
   const sb = $("aSRows"); sb.textContent = ""; const frag = document.createDocumentFragment();
   list.forEach((s, i) => {
     const a = A.get(s.sid), tr = document.createElement("tr");
     tr.innerHTML = `<td class="n">${i + 1}</td><td class="name"></td><td>${chip(s)}</td>` +
       (ac.ab ? `<td class="n">${a && a.pct != null ? `<span class="frac">${fmt1(a.pct)}%</span>` : `<span class="np">—</span>`}</td>` : "") +
-      `<td class="n">${a ? `<span class="frac${isAbs(a) ? " hotv" : ""}">${a.absent}</span> ${stTag(absStage(a.absent))}${a.absExc ? `<span class="np"> (+${a.absExc} بعذر)</span>` : ""}` : `<span class="np">—</span>`}</td>` +
+      `<td class="n"${a && a.dates ? ` title="تواريخ الغياب: ${esc(a.dates.map(isoDmy).join("، "))}"` : ""}>${a ? `<span class="frac${isAbs(a) ? " hotv" : ""}">${a.absent}</span> ${stTag(absStage(a.absent))}${a.absExc ? `<span class="np"> (+${a.absExc} بعذر)</span>` : ""}` : `<span class="np">—</span>`}</td>` +
       (ac.ab ? `<td class="n">${a && a.late != null ? `<span class="frac">${a.late}</span>` : `<span class="np">—</span>`}</td>` : "") +
+      (hasD ? `<td>${a ? consTag(a.streak) + (a.wd ? ` <span class="wdp">يكثر يوم ${a.wd}</span>` : "") + (a.last ? ` <span class="wdp">آخره ${isoDmy(a.last)}</span>` : "") : ""}</td>` : "") +
       (ac.ea ? `<td class="n">${a && a.time ? `<span class="frac">${a.time}</span> ص` : `<span class="np">—</span>`}</td>` : "") +
       `<td class="no-print">${sendBtn(s, lastAt)}</td>`;
     tr.children[1].textContent = s.name; frag.append(tr);
   });
   sb.append(frag);
-  if (!list.length) sb.innerHTML = `<tr><td colspan="8"><div class="empty"><b>لا يوجد طلاب بهذه التصفية</b>غيّر البحث أو اختر «كل الطلاب».</div></td></tr>`;
+  if (!list.length) sb.innerHTML = `<tr><td colspan="9"><div class="empty"><b>لا يوجد طلاب بهذه التصفية</b>غيّر البحث أو اختر «كل الطلاب».</div></td></tr>`;
   $("aF").value = f;
   const parts = []; if (view.grade) parts.push(shortGrade(view.grade) + " / " + view.cls); if (f !== "all") parts.push($("aF").selectedOptions[0].textContent); if (view.qA) parts.push("بحث: " + view.qA);
   $("aSTitle").textContent = view.grade ? "طلاب " + shortGrade(view.grade) + " / " + view.cls : view.tab ? "طلاب " + shortGrade(view.tab) : "الطلاب";
@@ -2320,27 +2645,31 @@ function renderAtt() {
 }
 async function uploadAtt(files) {
   msg("mA", "", "");
-  const pdfs = files.filter((f) => /\.pdf$/i.test(f.name) || f.type === "application/pdf");
-  if (!pdfs.length) { msg("mA", "err", "اختر تقارير بصيغة PDF من برنامج الحضور."); return; }
-  msg("mA", "", "جارٍ قراءة التقارير…");
-  if (!(await loadPdfJs())) { msg("mA", "err", "قراءة ملفات PDF تحتاج اتصالاً بالإنترنت لتحميل أداة القراءة. اتصل بالإنترنت ثم أعد المحاولة."); return; }
+  const pdfs = files.filter((f) => /\.pdf$/i.test(f.name) || f.type === "application/pdf"), xls = files.filter((f) => /\.xlsx?$/i.test(f.name));
+  if (!pdfs.length && !xls.length) { msg("mA", "err", "اختر كشف الغياب بصيغة Excel، أو تقارير PDF من برنامج الحضور."); return; }
+  msg("mA", "", "جارٍ قراءة الملفات…");
+  if (pdfs.length && !(await loadPdfJs())) { msg("mA", "err", "قراءة ملفات PDF تحتاج اتصالاً بالإنترنت لتحميل أداة القراءة. اتصل بالإنترنت ثم أعد المحاولة."); return; }
   state.att = state.att || []; const done = [], bad = [], stats = [];
-  for (const f of pdfs) {
-    let r = null; try { r = await parseAttPdf(f); } catch (e) { r = null; }
+  for (const f of xls.concat(pdfs)) {
+    let r = null;
+    if (/\.xlsx?$/i.test(f.name)) { try { const sh = await XL.read(f); r = sh ? parseAttXlsx(sh) : null; } catch (e) { r = null; } }
+    else { try { r = await parseAttPdf(f); } catch (e) { r = null; } }
     if (!r) { bad.push(f.name); continue; }
     if (r.kind === "stats") { stats.push(f.name); continue; }
     r.id = "a" + Date.now() + Math.random().toString(36).slice(2, 6); r.at = new Date().toISOString(); r.file = f.name;
     const same = state.att.find((x) => x.kind === r.kind && x.from === r.from && x.to === r.to);
     if (same) state.att = state.att.filter((x) => x !== same);
     state.att.push(r); if (r.kind === "abs") state.attAbs = r.id; else state.attEarly = r.id;
-    done.push((r.kind === "abs" ? "الأكثر غياباً" : "الحضور المبكر") + ` (${r.rows.length} طالباً، ${attRange(r)})` + (same ? " — استبدل نسخة سابقة" : ""));
+    done.push((r.src === "xlsx" ? "كشف الغياب والتأخر" : r.kind === "abs" ? "الأكثر غياباً" : "الحضور المبكر") + ` (${r.rows.length} طالباً، ${attRange(r)}${r.days ? "، " + r.days + " يوماً دراسياً" : ""})` + (same ? " — استبدل نسخة سابقة" : ""));
   }
   view.grade = view.cls = null; view.qA = ""; $("aQ").value = ""; view.pfA = "need";
   if (done.length) save(); render();
   const parts = [];
   if (done.length) parts.push("قُرئ: " + done.join("، ") + ".");
   if (stats.length) parts.push(`«${stats.join("، ")}» تقرير إحصائي للفصول لا يحوي أسماء الطلاب، فلا يُضاف لملفاتهم.`);
-  if (bad.length) parts.push(`تعذّرت قراءة: ${bad.join("، ")}. تأكد أنه تقرير «الأكثر غياباً» أو «الحضور المبكر».`);
+  if (bad.length) parts.push(`تعذّرت قراءة: ${bad.join("، ")}. تأكد أنه كشف «الغياب والتأخر» أو تقرير «الأكثر غياباً» أو «الحضور المبكر».`);
+  const nr = state.att.find((x) => x.id === state.attAbs);
+  if (nr && nr.hasDates && nr.days && nr.sdCount && nr.sdCount < nr.days) parts.push(`تنبيه: الكشف يذكر ${nr.days} يوماً دراسياً، لكن تواريخ الغياب تغطي ${nr.sdCount} يوماً فقط، فحساب الغياب المتصل تقريبي.`);
   msg("mA", !done.length ? "err" : stats.length || bad.length ? "warn" : "ok", parts.join(" "));
 }
 
@@ -2395,16 +2724,21 @@ function resMatch(rep) {
   pm.bySid.forEach((r, sid) => { if (!by.has(sid)) by.set(sid, r); });
   return { bySid: by, unmatched: pm.unmatched, amb: pm.amb };
 }
+const BANDS = [{ k: "b1", t: "ممتاز", min: 90 }, { k: "b2", t: "جيد جداً", min: 80 }, { k: "b3", t: "جيد", min: 65 }, { k: "b4", t: "مقبول", min: 50 }, { k: "b5", t: "أقل من 50", min: -1 }];
+const bandOf = (p) => BANDS.find((b) => p >= b.min);
 function resOf(r) {
   if (!r) return null;
   let got = 0, max = 0; const weak = [], th = resTh();
-  for (const k in r.sc) { const [v, m] = r.sc[k]; if (v === "غ") { weak.push({ k, v, m }); continue; } if (typeof v !== "number") continue; got += v; max += m; if (100 * v / m < th) weak.push({ k, v, m }); }
-  return max ? { pct: 100 * got / max, weak, graded: true } : { pct: null, weak, graded: weak.length > 0 };
+  const miss = [];
+  for (const k in r.sc) { const [v, m] = r.sc[k]; if (v === "غ") { weak.push({ k, v, m }); continue; } if (typeof v !== "number") { miss.push(k); continue; } got += v; max += m; if (100 * v / m < th) weak.push({ k, v, m }); }
+  if (!max) return { pct: null, weak, graded: weak.length > 0, miss: [] };
+  const pct = 100 * got / max;
+  return { pct, weak, graded: true, miss, band: bandOf(pct) };
 }
 const resCell = (g) => !g ? `<span class="np">—</span>` : g.pct == null ? `<span class="np">لم تُرصد</span>` : `<span class="frac">${fmtP(g.pct)}%</span>`;
 const resCsv = (gm, s) => { const g = gm ? resOf(gm.bySid.get(s.sid)) : null; return g ? [g.pct == null ? "لم تُرصد" : fmt1(g.pct), g.weak.map((w) => w.k + " (" + w.v + "/" + w.m + ")").join("، ")] : ["", ""]; };
-const resClasses = (gm) => buildClasses((r, s) => { const x = gm.bySid.get(s.sid); if (!x) { inc(r, "miss"); return; } inc(r, "m"); const g = resOf(x); if (g.pct == null) return; inc(r, "g"); inc(r, "sum", g.pct); if (g.weak.length) inc(r, "w"); });
-const resDerive = (r) => ({ n: r.n, m: r.m || 0, miss: r.miss || 0, g: r.g || 0, w: r.w || 0, avg: r.g ? r.sum / r.g : 0 });
+const resClasses = (gm) => buildClasses((r, s) => { const x = gm.bySid.get(s.sid); if (!x) { inc(r, "miss"); return; } inc(r, "m"); const g = resOf(x); if (g.miss.length) inc(r, "mg"); if (g.pct == null) return; inc(r, "g"); inc(r, "sum", g.pct); if (g.weak.length) inc(r, "w"); inc(r, g.band.k); });
+const resDerive = (r) => ({ n: r.n, m: r.m || 0, miss: r.miss || 0, g: r.g || 0, w: r.w || 0, mg: r.mg || 0, avg: r.g ? r.sum / r.g : 0, b1: r.b1 || 0, b2: r.b2 || 0, b3: r.b3 || 0, b4: r.b4 || 0, b5: r.b5 || 0 });
 function resSubjects(gm, scope) {
   const mp = new Map(), th = resTh();
   scope.forEach((s) => { const x = gm.bySid.get(s.sid); if (!x) return; for (const k in x.sc) { const [v, m] = x.sc[k]; const o = mp.get(k) || mp.set(k, { name: k, max: m, n: 0, sum: 0, w: 0 }).get(k); if (v === "غ") { o.w++; continue; } if (typeof v !== "number") continue; o.n++; o.sum += 100 * v / m; if (100 * v / m < th) o.w++; } });
@@ -2429,11 +2763,13 @@ function renderGrades() {
     <div><b>${tot.g ? fmt1(tot.avg) + "%" : "—"}</b><span>متوسط النسبة العامة</span></div>
     <div><b>${tot.g}</b><span>رُصدت نتيجتهم من ${tot.n}</span></div>
     <div class="red"><b>${tot.w}</b><span>يحتاجون دعماً · ${fmt1(pct(tot.w, tot.g))}%</span></div>
+    <div><b>${tot.b1}</b><span>بتقدير ممتاز · ${fmt1(pct(tot.b1, tot.g))}%</span></div>
+    ${tot.mg ? `<div><b>${tot.mg}</b><span>لهم درجات لم تُرصد</span></div>` : ""}
     ${tot.miss ? `<div><b>${tot.miss}</b><span>لم تُرفع نتيجتهم</span></div>` : ""}`;
   groupedTable({ head: "gThead", body: "gRows", foot: "gFoot", scroll: "gSubj" }, classes, {
-    head: `<th class="n">الطلاب</th><th class="n">رُصدت</th><th>متوسط النسبة</th><th class="n">يحتاجون دعماً</th><th class="n">نسبتهم</th>`,
-    cols: 5, derive: resDerive, sortKey: (d) => d.g ? d.avg : -1, rank: anyGraded,
-    cells: (d, gd) => `<td class="n">${d.n}</td><td class="n">${d.g}${d.miss ? `<span class="np"> · ${d.miss} لم تُرفع</span>` : ""}</td><td>${d.g ? bar(d.avg, gd && d.avg < gd.avg ? "low" : "") : `<span class="np">—</span>`}</td><td class="n hot">${d.w}</td><td class="n">${d.g ? fmt1(pct(d.w, d.g)) + "%" : "—"}</td>`
+    head: `<th class="n">الطلاب</th><th class="n">رُصدت</th><th>متوسط النسبة</th>${BANDS.map((b) => `<th class="n gc">${b.t}</th>`).join("")}<th class="n">يحتاجون دعماً</th><th class="n">نسبتهم</th>`,
+    cols: 10, derive: resDerive, sortKey: (d) => d.g ? d.avg : -1, rank: anyGraded,
+    cells: (d, gd) => `<td class="n">${d.n}</td><td class="n">${d.g}${d.miss ? `<span class="np"> · ${d.miss} لم تُرفع</span>` : ""}</td><td>${d.g ? bar(d.avg, gd && d.avg < gd.avg ? "low" : "") : `<span class="np">—</span>`}</td>${BANDS.map((b) => `<td class="n gc${b.k === "b5" ? " hot" : ""}">${d[b.k]}</td>`).join("")}<td class="n hot">${d.w}</td><td class="n">${d.g ? fmt1(pct(d.w, d.g)) + "%" : "—"}</td>`
   });
   // تغطية الفصول
   const all = new Map(); state.students.forEach((s) => all.set(s.grade + "|" + s.cls, s));
@@ -2450,27 +2786,29 @@ function renderGrades() {
   // المواد
   const scope = state.students.filter((s) => inTab(s) && (!view.grade || (s.grade === view.grade && s.cls === view.cls)));
   $("gSubTitle").textContent = "النتائج حسب المادة" + (view.grade ? " · " + shortGrade(view.grade) + " / " + view.cls : view.tab ? " · " + shortGrade(view.tab) : "");
-  $("gSubRows").innerHTML = resSubjects(gm, scope).map((x) => { const a = x.n ? x.sum / x.n : null; return `<tr><td>${esc(x.name)}</td><td class="n">${x.max}</td><td class="n">${x.n}</td><td class="n hot">${x.w}</td><td>${a == null ? `<span class="np">لم تُرصد</span>` : bar(a, a < resTh() + 15 ? "red" : "")}</td></tr>`; }).join("")
+  const subRow = (x) => { const a = x.n ? x.sum / x.n : null; return `<tr><td>${esc(x.name)}</td><td class="n">${x.max}</td><td class="n">${x.n}</td><td class="n hot">${x.w}</td><td>${a == null ? `<span class="np">لم تُرصد</span>` : bar(a, a < resTh() + 15 ? "red" : "")}</td></tr>`; };
+  const gs = Array.from(new Set(scope.filter((s) => gm.bySid.has(s.sid)).map((s) => s.grade))).sort((a, b) => order.indexOf(a) - order.indexOf(b));
+  $("gSubRows").innerHTML = (gs.length > 1 ? gs.map((g) => `<tr class="grow"><td colspan="5"><b>${esc(g)}</b></td></tr>` + resSubjects(gm, scope.filter((s) => s.grade === g)).map(subRow).join("")).join("") : resSubjects(gm, scope).map(subRow).join(""))
     || `<tr><td colspan="5"><div class="empty"><b>لا توجد بيانات</b>لم تُرفع نتائج طلاب هذا النطاق.</div></td></tr>`;
   // الطلاب
   const nq = norm(view.qG), qd = view.qG.replace(/\D/g, "").replace(/^0+/, ""), f = view.pfG;
   const G = new Map(scope.map((s) => [s.sid, resOf(gm.bySid.get(s.sid))]));
-  const fit = (s) => { const g = G.get(s.sid); return f === "all" ? true : f === "none" ? !g || g.pct == null : f === "ok" ? !!g && g.pct != null && !g.weak.length : !!g && g.weak.length > 0; };
+  const fit = (s) => { const g = G.get(s.sid); return f === "all" ? true : f === "mg" ? !!g && g.miss.length > 0 : f === "b1" ? !!g && g.pct != null && g.pct >= 90 : f === "none" ? !g || g.pct == null : f === "ok" ? !!g && g.pct != null && !g.weak.length : !!g && g.weak.length > 0; };
   const list = scope.filter((s) => fit(s) && (!view.qG || norm(s.name).includes(nq) || (qd && s.sid.includes(qd))))
     .sort((a, b) => order.indexOf(a.grade) - order.indexOf(b.grade) || (+a.cls - +b.cls) || (((G.get(b.sid) || {}).weak || []).length - ((G.get(a.sid) || {}).weak || []).length) || a.name.localeCompare(b.name, "ar"));
   followList = list.map((s) => s.sid);
   const F = followData(), lastAt = [F.er && F.er.at, F.pr && F.pr.at, F.jr && F.jr.at, F.gr && F.gr.at, F.ac && F.ac.ab && F.ac.ab.at, F.ac && F.ac.ea && F.ac.ea.at].filter(Boolean).sort().pop() || "";
-  $("gSThead").innerHTML = `<tr><th class="n">م</th><th>اسم الطالب</th><th>الفصل</th><th class="n">النسبة العامة</th><th>مواد دون الحد</th><th class="no-print">ولي الأمر</th></tr>`;
+  $("gSThead").innerHTML = `<tr><th class="n">م</th><th>اسم الطالب</th><th>الفصل</th><th class="n">النسبة العامة</th><th>التقدير</th><th>مواد دون الحد</th><th class="no-print">ولي الأمر</th></tr>`;
   const sb = $("gSRows"); sb.textContent = ""; const frag = document.createDocumentFragment();
   list.forEach((s, i) => {
     const g = G.get(s.sid), tr = document.createElement("tr");
-    tr.innerHTML = `<td class="n">${i + 1}</td><td class="name"></td><td>${chip(s)}</td><td class="n">${resCell(g)}</td>` +
-      `<td>${!g ? `<span class="np">لم تُرفع نتيجته</span>` : g.weak.length ? g.weak.map((w) => `<span class="subj low">${esc(w.k)}<span class="sc">${w.v === "غ" ? "غائب" : w.v + "/" + w.m}</span></span>`).join("") : g.pct == null ? `<span class="np">لم تُرصد</span>` : `<span class="tag noexc">لا يوجد</span>`}</td>` +
+    tr.innerHTML = `<td class="n">${i + 1}</td><td class="name"></td><td>${chip(s)}</td><td class="n">${resCell(g)}</td><td>${g && g.band ? esc(g.band.t) : ""}</td>` +
+      `<td>${!g ? `<span class="np">لم تُرفع نتيجته</span>` : (g.weak.length ? g.weak.map((w) => `<span class="subj low">${esc(w.k)}<span class="sc">${w.v === "غ" ? "غائب" : w.v + "/" + w.m}</span></span>`).join("") : g.pct == null ? `<span class="np">لم تُرصد</span>` : `<span class="tag noexc">لا يوجد</span>`) + (g.miss && g.miss.length && g.pct != null ? g.miss.map((k) => `<span class="subj miss" title="الدرجة غير مرصودة في نور">${esc(k)}<span class="sc">لم تُرصد</span></span>`).join("") : "")}</td>` +
       `<td class="no-print">${sendBtn(s, lastAt)}</td>`;
     tr.children[1].textContent = s.name; frag.append(tr);
   });
   sb.append(frag);
-  if (!list.length) sb.innerHTML = `<tr><td colspan="6"><div class="empty"><b>لا يوجد طلاب بهذه التصفية</b>${anyGraded ? "غيّر البحث أو اختر «كل الطلاب»." : "الدرجات لم تُرصد بعد. اختر «كل الطلاب» لرؤية من رُفعت ملفاتهم."}</div></td></tr>`;
+  if (!list.length) sb.innerHTML = `<tr><td colspan="7"><div class="empty"><b>لا يوجد طلاب بهذه التصفية</b>${anyGraded ? "غيّر البحث أو اختر «كل الطلاب»." : "الدرجات لم تُرصد بعد. اختر «كل الطلاب» لرؤية من رُفعت ملفاتهم."}</div></td></tr>`;
   $("gF").value = f;
   const parts = []; if (view.grade) parts.push(shortGrade(view.grade) + " / " + view.cls); if (f !== "all") parts.push($("gF").selectedOptions[0].textContent); if (view.qG) parts.push("بحث: " + view.qG);
   $("gSTitle").textContent = view.grade ? "طلاب " + shortGrade(view.grade) + " / " + view.cls : view.tab ? "طلاب " + shortGrade(view.tab) : "الطلاب";
@@ -2670,32 +3008,34 @@ function reportInfo(s) {
   const proj = jx ? { done: jx.d.length, total: jx.d.length + jx.m.length, missing: jx.m.map(fullSubj) } : null;
   const grow = F.gm ? F.gm.bySid.get(s.sid) : null, gx = grow ? resOf(grow) : null;
   const beh = grow && (typeof grow.pos === "number" || typeof grow.att === "number") ? { pos: typeof grow.pos === "number" ? grow.pos : null, exc: typeof grow.exc === "number" ? grow.exc : 0, att: typeof grow.att === "number" ? grow.att : null, period: F.gr.period || "" } : null;
-  const res = gx && gx.pct != null ? { pct: gx.pct, weak: gx.weak.map((w) => w.k), period: F.gr.period || "الفترة" } : null;
+  const res = gx && gx.pct != null ? { pct: gx.pct, weak: gx.weak.map((w) => w.k), period: F.gr.period || "الفترة", miss: (gx.miss || []).length, band: gx.band ? gx.band.t : "" } : null;
   const ax = F.am ? attOf(F.am, s.sid) : null;
   const att = ax ? Object.assign({}, ax, { th: absTh(), lth: lateTh() }) : null;
   const hon = honorOf(s.sid);
+  const rm = recentMsgs(s.sid), tmsg = rm.length ? { f: rm.filter((m) => m.k !== "excel"), e: rm.filter((m) => m.k === "excel") } : null;
   const positive = !reasons.length;
-  const tips = Array.from(new Set(reasons.map((k) => k === "proj" && proj ? "تسليم مشاريع " + joinAr(proj.missing) : k === "weak" && res ? "رفع مستواه في " + joinAr(res.weak) : TIP[k]).filter(Boolean)));
+  const tips = Array.from(new Set(reasons.map((k) => k === "proj" && proj ? "تسليم مشاريع " + joinAr(proj.missing) : k === "tch" ? "متابعة ملاحظات معلميه" : k === "weak" && res ? "رفع مستواه في " + joinAr(res.weak) : TIP[k]).filter(Boolean)));
   const school = state.school || C().school || "";
   const period = F.er ? "الفترة: " + periodText(F.er) : F.pr ? "بحسب تقرير المنصة بتاريخ " + gDate(F.pr.at) : F.jr ? "المشاريع والبحوث: " + projLabel(F.jr) : F.gr ? resLabel(F.gr) : "";
   const note = positive
     ? "يسعدنا أن نطمئنكم على ابنكم، فقد أظهر خلال هذه الفترة اجتهاداً والتزاماً يستحقان الإشادة. شكراً لمتابعتكم واهتمامكم، ونتطلع لاستمراره على هذا المستوى المشرّف."
-    : `ابنكم قادر على التقدم بإذن الله، ونأمل تشجيعه على ${tips.join(" و")}. يسعدنا تواصلكم معنا في أي وقت لنتعاون معاً في دعمه.` + (F.am && absStage((attOf(F.am, s.sid) || {}).absent) >= 2 ? " ونحيطكم بأن استمرار الغياب دون عذر تترتب عليه إجراءات نظامية وفق قواعد السلوك والمواظبة." : "");
+    : `ابنكم قادر على التقدم بإذن الله، ونأمل تشجيعه على ${tips.join(" و")}. يسعدنا تواصلكم معنا في أي وقت لنتعاون معاً في دعمه.` + (F.am && (absStage((attOf(F.am, s.sid) || {}).absent) >= 2 || ((attOf(F.am, s.sid) || {}).streak || 0) >= 3) ? " ونحيطكم بأن استمرار الغياب دون عذر تترتب عليه إجراءات نظامية وفق قواعد السلوك والمواظبة." : "");
   const sign = "الموجه الطلابي" + (state.counselor ? "\n" + state.counselor : "") + (school ? "\n" + school : "");
   const L = [];
   if (att) L.push(`🕒 *الحضور:* ${att.absent ? "غاب " + dayW(att.absent) + (att.days ? " من أصل " + att.days + " يوماً دراسياً" : "") : "لم يغب أي يوم" + (att.days ? " من أصل " + att.days + " يوماً دراسياً" : "")}` + (att.late ? `، وتأخر ${dayW(att.late)}` : ""));
-  if (res) L.push(`📝 *نتيجة ${res.period}:* ${fmtP(res.pct)}%` + (res.weak.length ? `\n      يحتاج دعماً في: ${res.weak.join("، ")}` : ""));
+  if (res) L.push(`📝 *نتيجة ${res.period}:* ${fmtP(res.pct)}%` + (res.band ? ` (${res.band})` : "") + (res.miss ? " — بعض المواد لم تُرصد بعد" : "") + (res.weak.length ? `\n      يحتاج دعماً في: ${res.weak.join("، ")}` : ""));
   if (beh) L.push(`🎖️ *درجة السلوك:* ${beh.pos != null ? beh.pos : "—"}` + (beh.exc ? ` (+${degW(beh.exc)} للسلوك المتميز)` : "") + (beh.att != null ? `\n      درجة المواظبة: ${beh.att}` : ""));
   if (exc) L.push(`⭐ *السلوك المتميز:* ${exc.ok ? "مُدرج في كشف السلوك المتميز" + (exc.score ? ` (${degW(exc.score)})` : "") : "لم يُدرج بعد في هذه الفترة"}`);
   if (plat) L.push(`📊 *الإنجاز في المنصة:* ${plat.total ? `${plat.solved} من ${plat.total} (${plat.p}%)` : plat.p + "%"}`);
   if (proj) L.push(`📁 *المشاريع والبحوث:* سلّم ${proj.done} من ${proj.total}` + (proj.missing.length ? `\n      المتبقي: ${proj.missing.join("، ")}` : " ✓"));
   if (comp) L.push(`🏆 *المسابقة الشهرية:* ${comp.text}`);
+  if (tmsg) { const cut = (t) => t.length > 60 ? t.slice(0, 58) + "…" : t; L.push(`📚 *ملاحظات المعلمين (آخر ${MSG_DAYS} يوماً):*` + rm.slice(-4).map((m) => `\n      ${m.k === "excel" ? "🌟" : "📌"} ${m.subj}: ${cut(m.topic)}`).join("")); }
   if (hon) L.push(`🏅 *تكريم ${hon.label || "الشهر"}:* ${hon.text}`);
   const head = `السلام عليكم ورحمة الله وبركاته\nولي أمر الطالب *${s.name}* المحترم\nالصف: ${s.grade} / فصل ${s.cls}\n\n`;
   const msgText = head + (positive ? "يسعدنا أن نطمئنكم على ابنكم خلال هذه الفترة:" : "نشارككم ملخص متابعة ابنكم خلال هذه الفترة:") + "\n\n" + L.join("\n") + "\n\n" +
     (positive ? "شكراً لمتابعتكم واهتمامكم، ونتطلع لاستمراره على هذا المستوى المشرّف." : note) + "\n\n" + sign;
   const intro = `السلام عليكم ورحمة الله وبركاته\nولي أمر الطالب *${s.name}* المحترم\nمرفق لكم تقرير متابعة ابنكم لهذه الفترة.\n\n` + sign;
-  return { name: s.name, grade: s.grade, cls: s.cls, school, period, exc, beh, plat, proj, res, att, comp: hon ? { text: hon.text, rank: hon.rank, label: "تكريم " + (hon.label || "الشهر") } : comp, positive, note, msgText, intro, counselor: state.counselor || "", date: hijriToday() };
+  return { name: s.name, grade: s.grade, cls: s.cls, school, period, exc, beh, plat, proj, res, att, tmsg, comp: hon ? { text: hon.text, rank: hon.rank, label: "تكريم " + (hon.label || "الشهر") } : comp, positive, note, msgText, intro, counselor: state.counselor || "", date: hijriToday() };
 }
 
 /* ---- رسم التقرير على لوحة (صورة A4) ---- */
@@ -2731,25 +3071,29 @@ async function drawReport(info) {
   if (info.period) T(info.period, R, 386, fit(info.period, 400, 24, 18, RF.b, 640), MUTED);
   T(info.date, M, 386, `400 24px ${RF.b}`, MUTED, "left");
   // بطاقة الطالب
-  let y = 430; x.fillStyle = SOFT; box(x, M, y, W - 2 * M, 160, 16); x.fill();
-  T("اسم الطالب", R - 36, y + 50, `500 22px ${RF.b}`, MUTED);
-  T(info.name, R - 36, y + 112, fit(info.name, 700, 44, 26, RF.d, W - 2 * M - 420), INK);
-  x.fillStyle = LINE; x.fillRect(M + 360, y + 28, 2, 104);
+  const many = [info.att, info.exc || info.beh, info.plat, info.res && info.res.pct != null, info.proj, info.tmsg, info.comp].filter(Boolean).length >= 6, cH = many ? 128 : 160, cd = many ? 16 : 0;
+  let y = many ? 418 : 430; x.fillStyle = SOFT; box(x, M, y, W - 2 * M, cH, 16); x.fill();
+  T("اسم الطالب", R - 36, y + 50 - cd / 2, `500 22px ${RF.b}`, MUTED);
+  T(info.name, R - 36, y + 112 - cd, fit(info.name, 700, 44, 26, RF.d, W - 2 * M - 420), INK);
+  x.fillStyle = LINE; x.fillRect(M + 360, y + 24, 2, cH - 48);
   const gc = `${info.grade} / ${info.cls}`;
-  T("الصف والفصل", M + 330, y + 50, `500 22px ${RF.b}`, MUTED);
-  T(gc, M + 330, y + 112, fit(gc, 600, 32, 20, RF.b, 290), INK);
+  T("الصف والفصل", M + 330, y + 50 - cd / 2, `500 22px ${RF.b}`, MUTED);
+  T(gc, M + 330, y + 112 - cd, fit(gc, 600, 32, 20, RF.b, 290), INK);
   // المؤشرات
-  y = 668; T("ملخص المتابعة", R, y, `700 32px ${RF.d}`, INK); y += 30;
-  x.font = `400 28px ${RF.b}`; const lines = wrapLines(x, info.note, W - 2 * M - 80), bh = 92 + lines.length * 50;
-  const nRows = [info.att, info.exc || info.beh, info.plat, info.res && info.res.pct != null, info.proj, info.comp].filter(Boolean).length || 1;
-  const rowH = Math.max(76, Math.min(122, Math.floor((1505 - bh - 10 - y) / nRows) - 12)), k = rowH / 122;
+  y = many ? 606 : 668; T("ملخص المتابعة", R, y, `700 32px ${RF.d}`, INK); y += 30;
+  const nRows = [info.att, info.exc || info.beh, info.plat, info.res && info.res.pct != null, info.proj, info.tmsg, info.comp].filter(Boolean).length || 1;
+  let nf = 28, nl = 50; x.font = `400 ${nf}px ${RF.b}`; let lines = wrapLines(x, info.note, W - 2 * M - 80), bh = 92 + lines.length * nl;
+  if ((1505 - bh - 10 - y) / nRows - 12 < 80) { nf = 23; nl = 38; x.font = `400 ${nf}px ${RF.b}`; lines = wrapLines(x, info.note, W - 2 * M - 80); bh = 80 + lines.length * nl; }
+  const rowH = Math.max(64, Math.min(122, Math.floor((1505 - bh - 10 - y) / nRows) - 12)), k = rowH / 122;
   const Y = (ty, v) => ty + v * k;
   const row = (label, value, sub, ok, drawLeft) => {
     x.fillStyle = "#fff"; x.strokeStyle = LINE; x.lineWidth = 2; box(x, M, y, W - 2 * M, rowH, 14); x.fill(); x.stroke();
     x.fillStyle = ok ? GREEN : AMBER; box(x, R - 12, y + 20 * k, 6, rowH - 40 * k, 3); x.fill();
-    T(label, R - 40, Y(y, 38), `500 ${Math.round(21 * Math.max(k, .9))}px ${RF.b}`, MUTED);
-    T(value, R - 40, Y(y, 80), fit(value, 700, Math.round(31 * Math.max(k, .85)), 20, RF.d, 600), INK);
-    if (sub) T(sub, R - 40, Y(y, 108), fit(sub, 400, Math.round(20 * Math.max(k, .9)), 15, RF.b, 640), MUTED);
+    const lf = Math.round(21 * Math.max(k, .8)), vf = Math.round(31 * Math.max(k, .78)), sf = Math.round(20 * Math.max(k, .8));
+    const yl = Math.max(y + 6 + lf, Y(y, 38)), yv = Math.max(yl + vf + 4, Y(y, 80)), ys = Math.max(yv + sf + 6, Y(y, 108));
+    T(label, R - 40, yl, `500 ${lf}px ${RF.b}`, MUTED);
+    T(value, R - 40, yv, fit(value, 700, vf, 18, RF.d, 600), INK);
+    if (sub) T(sub, R - 40, ys, fit(sub, 400, sf, 14, RF.b, 640), MUTED);
     if (drawLeft) drawLeft(y);
     y += rowH + 12;
   };
@@ -2786,6 +3130,12 @@ async function drawReport(info) {
       for (let i = 0; i < n; i++) { x.fillStyle = i < J.done ? c : "#e7ecea"; box(x, M + 40 + i * (cw + gap), Y(ty, 80), cw, 12, 4); x.fill(); }
     });
   }
+  if (info.tmsg) {
+    const tf = info.tmsg.f, te = info.tmsg.e, ok = !tf.length;
+    const nW = (a) => { const n = new Set(a.map((m) => m.subj)).size; return n === 1 ? "مادة" : n === 2 ? "مادتين" : n + " مواد"; };
+    row("ملاحظات المعلمين", [tf.length ? "متابعة في " + nW(tf) : "", te.length ? "تفوق في " + nW(te) : ""].filter(Boolean).join(" · "),
+      Array.from(new Set(tf.concat(te).map((m) => m.subj))).join("، "), ok, null);
+  }
   if (info.comp) row(info.comp.label || "المسابقة الشهرية", info.comp.text, "", true, (ty) => {
     const r = Math.min(40, rowH / 2 - 10), cx = M + 100, cy = ty + rowH / 2; x.fillStyle = GOLD; x.beginPath(); x.arc(cx, cy, r, 0, Math.PI * 2); x.fill();
     x.strokeStyle = "#fff"; x.lineWidth = 3; x.beginPath(); x.arc(cx, cy, r - 7, 0, Math.PI * 2); x.stroke();
@@ -2795,7 +3145,7 @@ async function drawReport(info) {
   y += 8;
   x.fillStyle = info.positive ? SOFT : AMBERS; box(x, M, y, W - 2 * M, bh, 16); x.fill();
   T("رسالة إلى ولي الأمر", R - 40, y + 54, `700 26px ${RF.d}`, info.positive ? GREEN : AMBER);
-  lines.forEach((l, i) => T(l, R - 40, y + 104 + i * 50, `400 28px ${RF.b}`, INK));
+  lines.forEach((l, i) => T(l, R - 40, y + (nf === 28 ? 104 : 92) + i * nl, `400 ${nf}px ${RF.b}`, INK));
   // التوقيع
   const fy = H - 206;
   T("الموجه الطلابي", R - 40, fy, `600 26px ${RF.b}`, INK);
@@ -3012,17 +3362,17 @@ $("csvBtn").onclick = () => {
     const ac = attCur(); if (!ac.ab && !ac.ea) return; const am = attMaps(ac);
     L.push(line([state.school, "تقرير المواظبة" + (view.tab ? " - " + view.tab : ""), [ac.ab && "الغياب " + attRange(ac.ab), ac.ea && "الحضور المبكر " + attRange(ac.ea)].filter(Boolean).join(" / "), "إجراءات الغياب وفق قواعد السلوك والمواظبة، وحد التأخر " + lateTh()]), "", line(["الصف", "الفصل", "الطلاب", "في التقارير", "متوسط نسبة الحضور %", "غياب 3-4 أيام", "غياب 5-9 أيام", "غياب 10 فأكثر", "تأخر فوق الحد"]));
     L = L.concat(classRows(attClasses(am), attDerive, (d) => d.pr, (d) => [d.n, d.m, d.pn ? fmt1(d.pr) : "", d.s1, d.s2, d.s3, d.lt]));
-    L.push(line(["م", "رقم الطالب", "اسم الطالب", "الصف", "الفصل", "نسبة الحضور %", "أيام الغياب", "أيام التأخر", "متوسط وقت الحضور", "الإجراء المطلوب"]));
-    scope.forEach((s, i) => { const a = attOf(am, s.sid), st = a ? absStage(a.absent) : 0; L.push(line([i + 1, s.sid, s.name, s.grade, s.cls, a && a.pct != null ? fmt1(a.pct) : "", ...attCsv(am, s), st ? ABS_ST[st].act : ""])); });
+    L.push(line(["م", "رقم الطالب", "اسم الطالب", "الصف", "الفصل", "نسبة الحضور %", "أيام الغياب", "أيام التأخر", "متوسط وقت الحضور", "أطول غياب متصل", "يكثر غيابه يوم", "تواريخ الغياب", "الإجراء المطلوب"]));
+    scope.forEach((s, i) => { const a = attOf(am, s.sid), st = a ? absStage(a.absent) : 0; L.push(line([i + 1, s.sid, s.name, s.grade, s.cls, a && a.pct != null ? fmt1(a.pct) : "", ...attCsv(am, s), a && a.streak ? a.streak : "", a ? a.wd : "", a && a.dates ? a.dates.map(isoDmy).join("، ") : "", [a && a.streak >= 3 ? CONS_ACT : "", st ? ABS_ST[st].act : ""].filter(Boolean).join(" / ")])); });
     download("attendance-" + tag + ".csv", "\ufeff" + L.join("\r\n"), "text/csv;charset=utf-8");
   } else if (view.module === "grades") {
     const rep = curRes(); if (!rep) return; const gm = resMatch(rep);
-    L.push(line([state.school, "نتائج " + resLabel(rep) + (view.tab ? " - " + view.tab : ""), "حد التعثر " + resTh() + "%"]), "", line(["الصف", "الفصل", "الطلاب", "رُصدت نتيجتهم", "متوسط النسبة %", "يحتاجون دعماً", "نسبتهم %"]));
-    L = L.concat(classRows(resClasses(gm), resDerive, (d) => d.avg, (d) => [d.n, d.g, d.g ? fmt1(d.avg) : "", d.w, fmt1(pct(d.w, d.g))]));
+    L.push(line([state.school, "نتائج " + resLabel(rep) + (view.tab ? " - " + view.tab : ""), "حد التعثر " + resTh() + "%"]), "", line(["الصف", "الفصل", "الطلاب", "رُصدت نتيجتهم", "متوسط النسبة %", ...BANDS.map((b) => b.t), "يحتاجون دعماً", "نسبتهم %"]));
+    L = L.concat(classRows(resClasses(gm), resDerive, (d) => d.avg, (d) => [d.n, d.g, d.g ? fmt1(d.avg) : "", ...BANDS.map((b) => d[b.k]), d.w, fmt1(pct(d.w, d.g))]));
     L.push(line(["المادة", "الدرجة العظمى", "رُصدت", "دون الحد", "متوسط النسبة %"]));
     resSubjects(gm, scope).forEach((x) => L.push(line([x.name, x.max, x.n, x.w, fmt1(x.n ? x.sum / x.n : 0)]))); L.push("");
-    L.push(line(["م", "رقم الطالب", "اسم الطالب", "الصف", "الفصل", "النسبة العامة %", "مواد دون الحد"]));
-    scope.forEach((s, i) => L.push(line([i + 1, s.sid, s.name, s.grade, s.cls, ...resCsv(gm, s)])));
+    L.push(line(["م", "رقم الطالب", "اسم الطالب", "الصف", "الفصل", "النسبة العامة %", "مواد دون الحد", "التقدير", "درجات لم تُرصد"]));
+    scope.forEach((s, i) => { const g = resOf(gm.bySid.get(s.sid)); L.push(line([i + 1, s.sid, s.name, s.grade, s.cls, ...resCsv(gm, s), g && g.band ? g.band.t : "", g ? g.miss.join("، ") : ""])); });
     download("results-" + tag + ".csv", "\ufeff" + L.join("\r\n"), "text/csv;charset=utf-8");
   } else if (view.module === "proj") {
     const rep = curProj(); if (!rep) return; const jm = projMatch(rep);
