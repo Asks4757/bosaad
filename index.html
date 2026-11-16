@@ -155,6 +155,10 @@ body.tmode .steps,body.tmode #modnav,body.tmode #gradebar,body.tmode footer,body
 .hcats label,.hck{display:inline-flex;align-items:center;gap:6px;font-size:14px;border:1px solid var(--line);border-radius:8px;padding:6px 10px;cursor:pointer}
 .hcats label.off{opacity:.5;cursor:not-allowed}
 .hck{border:0;padding:0;color:var(--muted)}
+.hcats label.na{opacity:.55}
+.hcats label:has(input:not(:checked)){border-style:dashed;color:var(--muted)}
+.hcats label:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.sdels{margin:0}.sdels label{font-size:13px;padding:4px 9px}
 .hunits{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
 .hunit{border:1px solid var(--line);border-radius:12px;padding:12px 14px}
 .hunit h3{margin:0 0 8px;font-size:15px}
@@ -774,7 +778,11 @@ details.certset summary{cursor:pointer;font-family:var(--display);font-weight:50
 
   <!-- ============ متابعة الطلاب ============ -->
   <div class="mod" id="modFollow" hidden>
-    <section class="panel" id="followEmpty" hidden><div class="empty"><b>لا توجد بيانات للمتابعة بعد</b>ارفع كشف السلوك المتميز أو تقرير المنصة، فتظهر هنا قائمة الطلاب الذين يحتاجون متابعة وأسبابها.</div></section>
+    <section class="panel no-print" id="fSet" hidden aria-labelledby="fSetTitle">
+      <div class="phead"><h2 id="fSetTitle">عناصر المتابعة وتقرير ولي الأمر</h2><p>ألغِ تحديد أي عنصر ليُستبعد من أسباب المتابعة ومن التقرير والرسالة المرسلة لولي الأمر.</p></div>
+      <div class="hcats" id="fEls"></div>
+    </section>
+    <section class="panel" id="followEmpty" hidden><div class="empty"><b>لا توجد بيانات للمتابعة بعد</b><span id="followEmptyT">ارفع كشف السلوك المتميز أو تقرير المنصة، فتظهر هنا قائمة الطلاب الذين يحتاجون متابعة وأسبابها.</span></div></section>
     <section class="panel" id="fRes" hidden aria-labelledby="fTitle">
       <div class="phead"><h2 id="fTitle">من يحتاج متابعة</h2><p id="fMeta"></p></div>
       <div class="sum" id="fSum"></div>
@@ -855,6 +863,9 @@ details.certset summary{cursor:pointer;font-family:var(--display);font-weight:50
         <label class="col" for="sdText">نص الرسالة (يمكنك تعديله قبل الإرسال)
           <textarea id="sdText" rows="12"></textarea>
         </label>
+        <div class="col">عناصر التقرير (تُطبَّق على كل الطلاب)
+          <div class="hcats sdels" id="sdEls"></div>
+        </div>
         <div class="sdact">
           <button class="btn primary" type="button" id="sdMsg">إرسال الرسالة</button>
           <button class="btn" type="button" id="sdImg">إرسال التقرير صورةً</button>
@@ -1243,7 +1254,7 @@ function parsePlatform(sheets) {
 const KEY = "noor-excellence-tool-v1", VKEY = "noor-excellence-tool-view2";
 const DEF = () => ({ school: "", year: "", students: [], studentsAt: null, reports: [], current: null, goal: 20,
   plat: [], platCurrent: null, platIgnore: [], platLinks: {}, levels: [10, 25, 40], inits: [], initActive: null,
-  proj: [], projCurrent: null, grades: [], gradesCurrent: null, gradeTh: 50, att: [], attAbs: null, attEarly: null, absTh: 10, lateTh: 5, honor: {}, teachers: [], msgs: [], tmode: false, tpin: "", phones: {}, sent: {}, counselor: "", waApp: "web", backupAt: null, dirtyAt: null });
+  proj: [], projCurrent: null, grades: [], gradesCurrent: null, gradeTh: 50, att: [], attAbs: null, attEarly: null, absTh: 10, lateTh: 5, honor: {}, teachers: [], msgs: [], repOn: {}, tmode: false, tpin: "", phones: {}, sent: {}, counselor: "", waApp: "web", backupAt: null, dirtyAt: null });
 let state = DEF(), storageOk = true;
 let lastBody = null, storeChars = 0;
 const bodyOf = () => JSON.stringify(Object.assign({}, state, { backupAt: null, dirtyAt: null }));
@@ -1638,18 +1649,30 @@ function renderSettings() {
 
 /* ================= متابعة الطلاب ================= */
 const REASONS = { inact: "غير فعّال في المنصة", stall: "لا إنجاز جديد في المنصة", noexc: "غير مشارك في السلوك المتميز", miss: "لم يظهر في المنصة بعد", proj: "مشاريع غير مسلّمة", weak: "تعثر دراسي", tch: "متابعة من معلمَين فأكثر", abs: "غياب متكرر", late: "تأخر متكرر" };
-function followData() {
-  const er = curExc(), pr = curPlat();
+/* عناصر المتابعة وتقرير ولي الأمر: يمكن تعطيل أي عنصر */
+const REP_EL = [["att", "المواظبة والحضور"], ["res", "نتائج الفترة"], ["beh", "درجات السلوك والمواظبة (إشعار الفترة)"], ["exc", "السلوك المتميز"], ["plat", "المنصة"], ["proj", "المشاريع والبحوث"], ["tmsg", "ملاحظات المعلمين"], ["comp", "المسابقة الشهرية"], ["hon", "التكريم"]];
+const repOn = () => { const o = {}; REP_EL.forEach(([k]) => { o[k] = !(state.repOn && state.repOn[k] === false); }); return o; };
+function repAvail() {
+  const ac = attCur(), gr = curRes();
+  return { att: !!(ac.ab || ac.ea), res: !!gr, beh: !!gr && gr.rows.some((r) => typeof r.pos === "number" || typeof r.att === "number"), exc: !!curExc(), plat: !!curPlat(), proj: !!curProj(), tmsg: !!(state.msgs || []).length, comp: !!state.plat.length, hon: true };
+}
+function renderRepEls(id) {
+  const box = $(id); if (!box) return; const on = repOn(), av = repAvail();
+  box.innerHTML = REP_EL.map(([k, t]) => `<label class="${av[k] ? "" : "na"}" title="${av[k] ? "" : "لم تُرفع بيانات هذا العنصر بعد"}"><input type="checkbox" data-rep="${k}" ${on[k] ? "checked" : ""}> ${t}</label>`).join("");
+}
+function followData(raw) {
+  const on = repOn(), use = (k) => raw || on[k];
+  const er = use("exc") ? curExc() : null, pr = use("plat") ? curPlat() : null;
   const em = er ? match(er) : null, pm = pr ? platMatch(pr) : null;
   const pp = pr ? prevOf(platSorted(), pr) : null, ppm = pp ? platMatch(pp) : null;
-  const jr = curProj(), jm = jr ? projMatch(jr) : null;
-  const gr = curRes(), gm = gr ? resMatch(gr) : null;
-  const ac = attCur(), am = ac.ab || ac.ea ? attMaps(ac) : null;
+  const jr = use("proj") ? curProj() : null, jm = jr ? projMatch(jr) : null;
+  const gr = use("res") ? curRes() : null, gm = gr ? resMatch(gr) : null;
+  const ac = use("att") ? attCur() : { ab: null, ea: null }, am = ac.ab || ac.ea ? attMaps(ac) : null;
   const reasons = (s) => {
     const out = [];
     if (am) { const a = attOf(am, s.sid); if (a) { if (a.absent != null && (a.absent >= absTh() || (a.streak || 0) >= 3)) out.push("abs"); if (a.late != null && a.late >= lateTh()) out.push("late"); } }
     if (gm) { const g = resOf(gm.bySid.get(s.sid)); if (g && g.weak.length) out.push("weak"); }
-    if (tchSubs(s.sid).size >= 2) out.push("tch");
+    if (use("tmsg") && tchSubs(s.sid).size >= 2) out.push("tch");
     if (jm) { const j = jm.bySid.get(s.sid); if (j && j.m.length) out.push("proj"); }
     if (pm) {
       const x = pm.bySid.get(s.sid);
@@ -1662,11 +1685,14 @@ function followData() {
     if (em && !em.got.has(s.sid)) out.push("noexc");
     return out;
   };
-  return { er, pr, em, pm, ppm, jr, jm, gr, gm, ac, am, reasons };
+  return { er, pr, em, pm, ppm, jr, jm, gr, gm, ac, am, reasons, on };
 }
 function renderFollow() {
   const F = followData();
   const has = !!(F.er || F.pr || F.jr || F.gr || F.am);
+  $("fSet").hidden = false; renderRepEls("fEls");
+  const av = repAvail(), anyData = av.att || av.res || av.exc || av.plat || av.proj;
+  $("followEmptyT").textContent = anyData ? "كل عناصر البيانات المرفوعة معطّلة. فعّل عنصراً واحداً على الأقل من «عناصر المتابعة» أعلاه." : "ارفع كشف السلوك المتميز أو تقرير المنصة، فتظهر هنا قائمة الطلاب الذين يحتاجون متابعة وأسبابها.";
   $("followEmpty").hidden = has; $("fRes").hidden = $("fStud").hidden = !has;
   if (!has) return;
   const R = new Map(state.students.map((s) => [s.sid, F.reasons(s)]));
@@ -1692,7 +1718,7 @@ function renderFollow() {
     cells: (d) => `<td class="n">${d.n}</td><td class="n hot">${d.need}</td><td>${bar(d.np, "red")}</td><td class="n">${d.multi}</td>${F.pm ? `<td class="n gc">${d.inact}</td>` : ""}${F.ppm ? `<td class="n">${d.stall}</td>` : ""}${F.em ? `<td class="n gc">${d.noexc}</td>` : ""}${F.pm ? `<td class="n gc">${d.miss}</td>` : ""}${F.jm ? `<td class="n gc">${d.proj}</td>` : ""}${F.gm ? `<td class="n gc">${d.weak}</td>` : ""}${F.am ? `<td class="n gc">${d.abs}</td><td class="n gc">${d.late}</td>` : ""}`
   });
   const opts = [["need", "يحتاجون متابعة (أي سبب)"], ["multi", "سببان أو أكثر"]];
-  if (F.pm) opts.push(["inact", REASONS.inact]); if (F.ppm) opts.push(["stall", REASONS.stall]); if (F.em) opts.push(["noexc", REASONS.noexc]); if (F.pm) opts.push(["miss", REASONS.miss]); if (F.jm) opts.push(["proj", REASONS.proj]); if (F.gm) opts.push(["weak", REASONS.weak]); if (F.am) { opts.push(["abs", REASONS.abs]); if (F.ac.ab) opts.push(["late", REASONS.late]); } if ((state.msgs || []).length) opts.push(["tch", REASONS.tch]);
+  if (F.pm) opts.push(["inact", REASONS.inact]); if (F.ppm) opts.push(["stall", REASONS.stall]); if (F.em) opts.push(["noexc", REASONS.noexc]); if (F.pm) opts.push(["miss", REASONS.miss]); if (F.jm) opts.push(["proj", REASONS.proj]); if (F.gm) opts.push(["weak", REASONS.weak]); if (F.am) { opts.push(["abs", REASONS.abs]); if (F.ac.ab) opts.push(["late", REASONS.late]); } if ((state.msgs || []).length && F.on.tmsg) opts.push(["tch", REASONS.tch]);
   opts.push(["all", "كل الطلاب"]);
   if (!opts.some((o) => o[0] === view.pfF)) view.pfF = "need";
   $("fF").innerHTML = opts.map((o) => `<option value="${o[0]}">${o[1]}</option>`).join(""); $("fF").value = view.pfF;
@@ -2376,7 +2402,7 @@ const hijriMonth = () => { try { return new Intl.DateTimeFormat("ar-SA-u-ca-isla
 const HS = () => { const h = state.honor || (state.honor = {}); if (h.label == null) h.label = "شهر " + hijriMonth(); if (!h.scope) h.scope = "class"; if (!h.top) h.top = 5; if (!h.cats) h.cats = {}; return h; };
 let honorCache = null;
 function honorData() {
-  const F = followData(), H = HS();
+  const F = followData(true), H = HS();
   const graded = F.gm && F.gr.rows.some((r) => Object.values(r.sc).some(([v]) => typeof v === "number"));
   const avail = { beh: !!F.em, att: !!F.am, plat: !!F.pm, res: !!graded, proj: !!F.jm };
   const tm = (t) => t ? (+t.split(":")[0] * 60 + +t.split(":")[1]) : 0;
@@ -3003,16 +3029,18 @@ function reportInfo(s) {
   const g = F.em ? F.em.got.get(s.sid) : null, x = F.pm ? F.pm.bySid.get(s.sid) : null;
   const exc = F.em ? { ok: !!g, score: g ? g.score : 0 } : null;
   const plat = F.pm && x ? { solved: x.t[1], total: x.t[0], p: Math.round(x.p), lv: lvIdx(x.p) } : null;
-  const comp = F.pm ? compFor(s.sid) : null;
+  const on = F.on;
+  const comp = on.comp && curPlat() ? compFor(s.sid) : null;
   const jx = F.jm ? F.jm.bySid.get(s.sid) : null;
   const proj = jx ? { done: jx.d.length, total: jx.d.length + jx.m.length, missing: jx.m.map(fullSubj) } : null;
   const grow = F.gm ? F.gm.bySid.get(s.sid) : null, gx = grow ? resOf(grow) : null;
-  const beh = grow && (typeof grow.pos === "number" || typeof grow.att === "number") ? { pos: typeof grow.pos === "number" ? grow.pos : null, exc: typeof grow.exc === "number" ? grow.exc : 0, att: typeof grow.att === "number" ? grow.att : null, period: F.gr.period || "" } : null;
+  const gbr = on.beh ? curRes() : null, gbm = gbr ? (F.gr === gbr ? F.gm : resMatch(gbr)) : null, growB = gbm ? gbm.bySid.get(s.sid) : null;
+  const beh = growB && (typeof growB.pos === "number" || typeof growB.att === "number") ? { pos: typeof growB.pos === "number" ? growB.pos : null, exc: typeof growB.exc === "number" ? growB.exc : 0, att: typeof growB.att === "number" ? growB.att : null, period: gbr.period || "" } : null;
   const res = gx && gx.pct != null ? { pct: gx.pct, weak: gx.weak.map((w) => w.k), period: F.gr.period || "الفترة", miss: (gx.miss || []).length, band: gx.band ? gx.band.t : "" } : null;
   const ax = F.am ? attOf(F.am, s.sid) : null;
   const att = ax ? Object.assign({}, ax, { th: absTh(), lth: lateTh() }) : null;
-  const hon = honorOf(s.sid);
-  const rm = recentMsgs(s.sid), tmsg = rm.length ? { f: rm.filter((m) => m.k !== "excel"), e: rm.filter((m) => m.k === "excel") } : null;
+  const hon = on.hon ? honorOf(s.sid) : null;
+  const rm = on.tmsg ? recentMsgs(s.sid) : [], tmsg = rm.length ? { f: rm.filter((m) => m.k !== "excel"), e: rm.filter((m) => m.k === "excel") } : null;
   const positive = !reasons.length;
   const tips = Array.from(new Set(reasons.map((k) => k === "proj" && proj ? "تسليم مشاريع " + joinAr(proj.missing) : k === "tch" ? "متابعة ملاحظات معلميه" : k === "weak" && res ? "رفع مستواه في " + joinAr(res.weak) : TIP[k]).filter(Boolean)));
   const school = state.school || C().school || "";
@@ -3208,12 +3236,25 @@ function refreshSend(keepText) {
   const token = sendStu; sendReady = drawReport(sendInfo);
   sendReady.then((cv) => { if (sendStu !== token) return; $("sdImgPrev").src = cv.toDataURL("image/jpeg", 0.85); box2.setAttribute("aria-busy", "false"); });
 }
+function sendHead() {
+  const s = sendStu; if (!s) return;
+  $("sdSub").innerHTML = `${esc(s.grade)} / فصل ${esc(s.cls)}<span class="sdbadge ${sendInfo.positive ? "ok" : "enc"}">${sendInfo.positive ? "قالب الإشادة" : "قالب التشجيع"}</span>`;
+  renderRepEls("sdEls");
+}
+function onRepEl(e) {
+  const k = e.target.dataset && e.target.dataset.rep; if (!k) return;
+  state.repOn = Object.assign({}, state.repOn || {}, { [k]: e.target.checked });
+  save(); render();
+  if (sendStu && !$("sendView").hidden) { refreshSend(false); prepFiles(); sendHead(); }
+  toast(e.target.checked ? "أُضيف العنصر إلى المتابعة والتقرير" : "استُبعد العنصر من المتابعة والتقرير");
+}
+$("fEls").addEventListener("change", onRepEl);
+$("sdEls").addEventListener("change", onRepEl);
 function openSend(sid) {
   const s = state.students.find((x) => x.sid === sid); if (!s) return;
   sendStu = s; $("sdHint").hidden = true;
   $("sdTitle").textContent = s.name;
-  refreshSend(false); prepFiles();
-  $("sdSub").innerHTML = `${esc(s.grade)} / فصل ${esc(s.cls)}<span class="sdbadge ${sendInfo.positive ? "ok" : "enc"}">${sendInfo.positive ? "قالب الإشادة" : "قالب التشجيع"}</span>`;
+  refreshSend(false); prepFiles(); sendHead();
   $("sdPhone").value = showPhone(phoneOf(s)); phoneNote();
   $("sdCoun").value = state.counselor || ""; $("sdApp").value = state.waApp || "web";
   const i = followList.indexOf(sid);
