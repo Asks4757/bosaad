@@ -1159,7 +1159,7 @@ function findHeader(rows, test) {
   for (let r = 0; r < Math.min(rows.length, 60); r++) {
     const row = rows[r]; if (!row) continue;
     const cells = []; for (let c = 0; c < row.length; c++) { const t = S(row[c]); if (t) cells.push({ c, t }); }
-    const h = test(cells); if (h) return { r, ...h };
+    const h = test(cells, rows[r + 1]); if (h) return { r, ...h };
   }
   return null;
 }
@@ -1175,6 +1175,8 @@ function schoolName(sheets) {
       }
     }
   }
+  /* بعض كشوف نور تكتب اسم المدرسة وحده بلا عنوان */
+  for (const sh of sheets) for (let r = 0; r < Math.min(sh.rows.length, 30); r++) { const row = sh.rows[r]; if (!row) continue; for (const v of row) { const t = S(v); if (/^(متوسطة|ابتدائية|الابتدائية|ثانوية|مدرسة|مجمع|مدارس)\s+\S/.test(t) && t.length < 60) return t; } }
   return "";
 }
 const GRADE_CODES = { "07": "الأول المتوسط", "08": "الثاني المتوسط", "09": "الثالث المتوسط" };
@@ -1187,22 +1189,40 @@ function gradeOf(v) {
   return { label: s || "غير محدد", order: stage + (o < 0 ? 99 : o) * 10 };
 }
 
+/* قيمة من رأس الورقة مثل «الأول المتوسط : الصف» فوق جدول الطلاب */
+function sheetMeta(rows, upto, label) {
+  for (let r = 0; r < Math.min(upto, rows.length); r++) {
+    const row = rows[r]; if (!row) continue;
+    for (let c = 0; c < row.length; c++) {
+      if (S(row[c]) !== label) continue;
+      let best = null, bd = 1e9;
+      for (let k = 0; k < row.length; k++) { const v = S(row[k]); if (k === c || !v || v === ":") continue; if (Math.abs(k - c) < bd) { bd = Math.abs(k - c); best = v; } }
+      if (best) return best;
+    }
+  }
+  return "";
+}
+const SID_RE = /رقم الطالب|رقم الهوية|السجل المدني|رقم (رخصة )?ال(إ|ا)قامة|^الهوية$|^رقم السجل$/;
 function parseStudents(sheets) {
   const list = new Map(); let found = false;
   for (const sh of sheets) {
-    const h = findHeader(sh.rows, (cells) => {
+    const h = findHeader(sh.rows, (cells, next) => {
       const f = (re, not) => cells.find((x) => re.test(x.t) && !(not && not.test(x.t)));
-      const name = f(NAME_RE), sid = f(/رقم الطالب|رقم الهوية|السجل المدني|رقم الإقامة|^الهوية$/);
-      if (!name || !sid) return null;
-      return { name: name.c, sid: sid.c, grade: (f(/^رقم الصف$/) || f(/الصف/, /الفصل/) || {}).c, cls: (f(/^الفصل$|رقم الفصل|^الشعبة$/) || f(/الفصل|الشعبة/, /الصف|الدراسي/) || {}).c, phone: (f(/جوال/) || {}).c };
+      const name = f(NAME_RE); if (!name) return null;
+      let sid = f(SID_RE), two = false;
+      /* عناوين في صفين: «بيانات الهوية» وتحتها «رقمها» */
+      if (!sid && next) { const c2 = []; for (let c = 0; c < next.length; c++) { const t = S(next[c]); if (t) c2.push({ c, t }); } sid = c2.find((x) => SID_RE.test(x.t)) || c2.find((x) => /^رقمها$/.test(x.t)); two = !!sid; }
+      if (!sid) return null;
+      return { name: name.c, sid: sid.c, two, grade: (f(/^رقم الصف$/) || f(/الصف/, /الفصل/) || {}).c, cls: (f(/^الفصل$|رقم الفصل|^الشعبة$/) || f(/الفصل|الشعبة/, /الصف|الدراسي/) || {}).c, phone: (f(/جوال/) || {}).c };
     });
     if (!h) continue; found = true;
-    for (let r = h.r + 1; r < sh.rows.length; r++) {
+    const mGrade = h.grade == null ? sheetMeta(sh.rows, h.r, "الصف") : "", mCls = h.cls == null ? sheetMeta(sh.rows, h.r, "الفصل").replace(/\.0+$/, "") : "";
+    for (let r = h.r + (h.two ? 2 : 1); r < sh.rows.length; r++) {
       const row = sh.rows[r]; if (!row) continue;
       const sid = cleanId(row[h.sid]), name = S(row[h.name]);
-      if (!sid || !name || NAME_RE.test(name)) continue;
-      const g = gradeOf(h.grade != null ? row[h.grade] : "");
-      const cls = h.cls != null ? (S(row[h.cls]).replace(/\.0+$/, "") || "1") : "1";
+      if (!sid || !name || NAME_RE.test(name) || !/[\u0600-\u06FF]/.test(name)) continue;
+      const g = gradeOf(h.grade != null ? row[h.grade] : mGrade);
+      const cls = h.cls != null ? (S(row[h.cls]).replace(/\.0+$/, "") || mCls || "1") : (mCls || "1");
       list.set(sid, { sid, name, grade: g.label, go: g.order, cls, phone: h.phone != null ? cleanId(row[h.phone]) : "" });
     }
   }
@@ -2221,6 +2241,8 @@ async function uploadStudents(file) {
   const added = st.filter((s) => !old.has(s.sid)).length, removed = state.students.filter((s) => !st.some((x) => x.sid === s.sid)).length;
   const moved = st.filter((s) => old.has(s.sid) && (old.get(s.sid).grade !== s.grade || old.get(s.sid).cls !== s.cls)).length;
   const had = state.students.length > 0;
+  /* ملف بلا أرقام جوال لا يمسح الأرقام المحفوظة من ملف سابق */
+  st.forEach((s) => { const o = old.get(s.sid); if (!s.phone && o && o.phone) s.phone = o.phone; });
   state.students = st; state.studentsAt = new Date().toISOString(); schoolMeta(sheets);
   save(); render();
   msg("m1", "ok", had ? `حُدّثت القائمة: ${st.length} طالباً. أضيف ${added}، وحُذف ${removed}، وتغيّر فصل ${moved}.` : `حُفظت قائمة ${st.length} طالباً. ارفع الآن كشف السلوك المتميز أو تقرير المنصة.`);
